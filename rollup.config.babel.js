@@ -4,15 +4,6 @@ import postcss from 'rollup-plugin-postcss';
 import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
 
-const moduleProps = {
-  moduleName: 'ReactChat',
-  globals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM'
-  },
-  sourcemap: true
-};
-
 const config = {
   input: 'src/index.js',
   external: [
@@ -21,12 +12,22 @@ const config = {
   ],
   output: [
     {
-      ...moduleProps,
+      moduleName: 'ReactChat',
+      globals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM'
+      },
+      sourcemap: true,
       file: 'build/reactchat.js',
       format: 'umd'
     },
     {
-      ...moduleProps,
+      moduleName: 'ReactChat',
+      globals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM'
+      },
+      sourcemap: true,
       file: 'build/reactchat.module.js',
       format: 'es'
     },
