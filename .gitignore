@@ -1,0 +1,25 @@
+# Build Files
+public
+
+# Compiled Binaries
+build
+
+# Dependency Directories
+node_modules
+
+# Jest Clutter
+__snapshots__
+
+# Logs
+logs
+temp
+*.keep
+*.log
+
+# OS Folder Config
+.DS_Store
+
+# Runtime Data
+pids
+*.pid
+*.seed
