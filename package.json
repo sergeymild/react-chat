@@ -1,0 +1,69 @@
+{
+  "name": "react-chat",
+  "version": "0.0.1",
+  "description": "Presentational chat components for ReactJS",
+  "main": "build/reactchat.js",
+  "module": "build/reactchat.module.js",
+  "repository": "https://github.com/hliejun/react-chat.git",
+  "author": "hliejun <liejun.hlj@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/hliejun/react-chat/issues"
+  },
+  "homepage": "https://github.com/hliejun/react-chat#readme",
+  "keywords": [
+    "chat",
+    "component",
+    "library",
+    "messaging",
+    "react"
+  ],
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^9.0.0",
+    "babel-jest": "^22.4.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "classnames": "^2.2.5",
+    "eslint": "^5.5.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-react": "^7.11.1",
+    "jest": "^23.6.0",
+    "node-sass": "^4.7.2",
+    "postcss-scss": "^1.0.3",
+    "rollup": "^0.65.2",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^9.1.6",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-postcss": "^1.2.8",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-serve": "^0.4.2",
+    "rollup-watch": "^4.3.1",
+    "sass-lint": "^1.12.1"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.babel.js",
+    "examples:build": "cd \"./examples\" && \"./node_modules/.bin/webpack\"",
+    "examples:watch": "cd \"./examples\" && \"./node_modules/.bin/webpack-dev-server\"",
+    "lint": "(./node_modules/.bin/eslint . & ./node_modules/.bin/sass-lint -c .sasslintrc.json -v -q)",
+    "start": "(yarn run watch & yarn run examples:watch)",
+    "test": "jest --no-cache",
+    "watch": "rollup -c rollup.config.babel.js -w"
+  }
+}

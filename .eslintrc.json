@@ -1,0 +1,81 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "import",
+    "react"
+  ],
+  "rules": {
+    "arrow-body-style": "error",
+    "arrow-parens": "error",
+    "arrow-spacing": "error",
+    "eqeqeq": "error",
+    "generator-star-spacing": "error",
+    "import/no-unresolved": "error",
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "no-console": "warn",
+    "no-duplicate-imports": "error",
+    "no-eq-null": "error",
+    "no-undefined": "error",
+    "no-useless-computed-key": "error",
+    "no-useless-constructor": "error",
+    "no-useless-rename": "error",
+    "no-var": "error",
+    "object-shorthand": "error",
+    "prefer-arrow-callback": "error",
+    "prefer-const": "error",
+    "prefer-rest-params": "error",
+    "prefer-spread": "error",
+    "prefer-template": "error",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "react/forbid-prop-types": [
+      2,
+      {
+        "forbid": ["any"]
+      }
+    ],
+    "react/jsx-filename-extension": "warn",
+    "rest-spread-spacing": "error",
+    "semi": [
+      "error",
+      "always"
+    ],
+    "strict": 0,
+    "template-curly-spacing": "error",
+    "yield-star-spacing": "error"
+  },
+  "settings": {
+    "react": {
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "version": "16.0"
+    },
+    "propWrapperFunctions": ["forbidExtraProps"]
+  }
+}
