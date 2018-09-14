@@ -5,8 +5,8 @@ import webpack from 'webpack';
 const config = {
   entry: {
     index: './src/index.js',
-    chat_list_container: './src/ChatListContainer.jsx',
-    chat_room_container: './src/ChatRoomContainer.jsx'
+    chat_list_container: './src/containers/ChatListContainer.jsx',
+    chat_room_container: './src/containers/ChatRoomContainer.jsx'
   },
   output: {
     filename: '[name].bundle.js',

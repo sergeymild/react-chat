@@ -1,3 +1,7 @@
+# Build Files
+build
+bundle
+
 # Dependency Directories
 node_modules
 
