@@ -6,7 +6,7 @@ const config = {
   entry: {
     index: './src/index.js',
     chat_list_container: './src/ChatListContainer.jsx',
-    messaging_container: './src/MessagingContainer.jsx'
+    chat_room_container: './src/ChatRoomContainer.jsx'
   },
   output: {
     filename: '[name].bundle.js',

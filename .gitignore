@@ -1,9 +1,3 @@
-# Build Files
-public
-
-# Compiled Binaries
-build
-
 # Dependency Directories
 node_modules
 

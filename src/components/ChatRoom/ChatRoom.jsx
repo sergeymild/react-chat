@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-class MessagingView extends React.Component {
+class ChatRoom extends React.Component {
 
   /*
     Lifecycle
@@ -38,10 +38,10 @@ class MessagingView extends React.Component {
 
 }
 
-MessagingView.propTypes = {
+ChatRoom.propTypes = {
 };
 
-MessagingView.defaultProps = {
+ChatRoom.defaultProps = {
 };
 
-export default MessagingView;
+export default ChatRoom;
