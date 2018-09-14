@@ -27,7 +27,9 @@
     "arrow-spacing": "error",
     "eqeqeq": "error",
     "generator-star-spacing": "error",
-    "import/no-unresolved": "error",
+    "import/no-unresolved": ["error", {
+      "ignore": ["^react$"]
+    }],
     "indent": [
       "error",
       2
@@ -71,6 +73,11 @@
     "yield-star-spacing": "error"
   },
   "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    },
     "react": {
       "createClass": "createReactClass",
       "pragma": "React",
