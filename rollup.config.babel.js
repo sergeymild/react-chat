@@ -33,17 +33,18 @@ const config = {
     },
   ],
   plugins: [
+    postcss({
+      extensions: ['.css', '.scss'],
+      modules: false
+    }),
     babel({
       exclude: 'node_modules/**'
-    }),
-    commonjs(),
-    postcss({
-      modules: true
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
-    resolve()
+    resolve(),
+    commonjs()
   ]
 };
 

@@ -26,6 +26,10 @@
     "prop-types": "^15.6.2"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.10",
+    "@storybook/addon-links": "^3.4.10",
+    "@storybook/addons": "^3.4.10",
+    "@storybook/react": "^3.4.10",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^9.0.0",
@@ -33,19 +37,23 @@
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
+    "babel-runtime": "^6.26.0",
     "classnames": "^2.2.5",
     "eslint": "^5.5.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-react": "^7.11.1",
     "jest": "^23.6.0",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.9.3",
     "postcss-scss": "^1.0.3",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
     "rollup": "^0.65.2",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-commonjs": "^9.1.6",
+    "rollup-plugin-includepaths": "^0.2.3",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-postcss": "^1.2.8",
     "rollup-plugin-replace": "^2.0.0",
@@ -54,15 +62,18 @@
     "sass-lint": "^1.12.1"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
   },
   "scripts": {
     "build": "rollup -c rollup.config.babel.js",
     "examples:build": "cd \"./examples\" && \"./node_modules/.bin/webpack\"",
     "examples:watch": "cd \"./examples\" && \"./node_modules/.bin/webpack-dev-server\"",
     "lint": "(./node_modules/.bin/eslint . & ./node_modules/.bin/sass-lint -c .sasslintrc.json -v -q)",
-    "start": "(yarn run watch & yarn run examples:watch)",
+    "start": "(yarn run watch & yarn run examples:watch & yarn run storybook:watch)",
+    "storybook:build": "build-storybook",
+    "storybook:watch": "start-storybook -p 6006",
+    "storybook": "build-storybook -c .storybook -o docs",
     "test": "jest --no-cache",
     "watch": "rollup -c rollup.config.babel.js -w"
   }
