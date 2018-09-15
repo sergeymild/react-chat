@@ -38,6 +38,7 @@ const config = {
     }),
     commonjs(),
     postcss({
+      extensions: ['.css', '.scss'],
       modules: true
     }),
     replace({
