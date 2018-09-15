@@ -76,8 +76,7 @@
     "import/resolver": {
       "node": {
         "extensions": [
-          ".js",
-          ".jsx"
+          ".js"
         ],
         "paths": ["src"]
       }
