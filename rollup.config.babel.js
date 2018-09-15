@@ -1,6 +1,5 @@
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
-import includePaths from 'rollup-plugin-includepaths';
 import postcss from 'rollup-plugin-postcss';
 import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
@@ -35,12 +34,6 @@ const config = {
     },
   ],
   plugins: [
-    includePaths({
-      include: {},
-      paths: ['src/'],
-      external: [],
-      extensions: ['.js', '.jsx', '.css', '.scss']
-    }),
     postcss({
       extensions: ['.css', '.scss'],
       modules: true
