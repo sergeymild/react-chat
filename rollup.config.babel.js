@@ -4,7 +4,6 @@ import postcss from 'rollup-plugin-postcss';
 import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
 
-
 const config = {
   input: 'src/index.js',
   external: [
