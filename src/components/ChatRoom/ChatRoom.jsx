@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import AppProvider from '../App/Context.jsx';
-import style from './chatroom.scss';
+import './chatroom.scss';
 
 class ChatRoom extends React.Component {
 
