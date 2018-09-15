@@ -3,7 +3,6 @@ import commonjs from 'rollup-plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
-import sass from 'node-sass';
 
 const config = {
   input: 'src/index.js',
@@ -40,11 +39,7 @@ const config = {
     commonjs(),
     postcss({
       extensions: ['.css', '.scss'],
-      modules: true,
-      preprocessor: (content, id) => new Promise((resolve) => {
-        const result = sass.renderSync({ file: id });
-        resolve({ code: result.css.toString() });
-      })
+      modules: true
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify('development')
