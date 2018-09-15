@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import ChatRoomProvider from './context/ChatRoomContext';
+import AppProvider from '../App/Context';
+import style from './chatroom.scss';
 
 class ChatRoom extends React.Component {
 
@@ -30,9 +31,9 @@ class ChatRoom extends React.Component {
     const { layout, sizing, theme } = this.props;
     const stylingContext = { layout, sizing, theme };
     return (
-      <ChatRoomProvider {...stylingContext}>
+      <AppProvider {...stylingContext}>
         {/* Subviews as children */}
-      </ChatRoomProvider>
+      </AppProvider>
     );
   };
 

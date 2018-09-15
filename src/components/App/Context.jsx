@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ChatRoomContext = React.createContext();
+export const AppContext = React.createContext();
 
-const ChatRoomProvider = (props) => {
+const AppProvider = (props) => {
   const { children, ...rest } = props;
   return (
-    <ChatRoomContext.Provider value={rest}>
+    <AppContext.Provider value={rest}>
       {children}
-    </ChatRoomContext.Provider>
+    </AppContext.Provider>
   );
 };
 
-ChatRoomProvider.propTypes = {
+AppProvider.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
   layout: PropTypes.oneOf([
     'aligned',
@@ -29,11 +29,11 @@ ChatRoomProvider.propTypes = {
   ])
 };
 
-ChatRoomProvider.defaultProps = {
+AppProvider.defaultProps = {
   children: [],
   layout: 'staggered',
   sizing: 'desktop',
   theme: 'light'
 };
 
-export default ChatRoomProvider;
+export default AppProvider;

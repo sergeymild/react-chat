@@ -65,13 +65,14 @@
     "react-dom": "^16.3.0"
   },
   "scripts": {
-    "build-storybook": "build-storybook",
     "build": "rollup -c rollup.config.babel.js",
     "examples:build": "cd \"./examples\" && \"./node_modules/.bin/webpack\"",
     "examples:watch": "cd \"./examples\" && \"./node_modules/.bin/webpack-dev-server\"",
     "lint": "(./node_modules/.bin/eslint . & ./node_modules/.bin/sass-lint -c .sasslintrc.json -v -q)",
-    "start": "(yarn run watch & yarn run examples:watch)",
-    "storybook": "start-storybook -p 6006",
+    "start": "(yarn run watch & yarn run examples:watch & yarn run storybook:watch)",
+    "storybook:build": "build-storybook",
+    "storybook:watch": "start-storybook -p 6006",
+    "storybook": "build-storybook -c .storybook -o docs",
     "test": "jest --no-cache",
     "watch": "rollup -c rollup.config.babel.js -w"
   }
