@@ -1,2 +1,2 @@
-export * from './components/ChatList/ChatList.jsx';
-export * from './components/ChatRoom/ChatRoom.jsx';
+export * from './components/ChatList/ChatList';
+export * from './components/ChatRoom/ChatRoom';
