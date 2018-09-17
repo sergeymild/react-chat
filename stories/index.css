@@ -1,0 +1,102 @@
+/* Generic Storybook */
+
+* {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.storybook__container {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-family: -apple-system, ".SFNSText-Regular", "San Francisco", BlinkMacSystemFont,
+               "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+               "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+  font-size: 16px;
+  font-smoothing: subpixel-antialiased;
+  font-weight: 300;
+  line-height: 1.414;
+  margin: 5px;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+.storybook__container code {
+  background-color: #F3F2F2;
+  border-radius: 4px;
+  border: 1px solid #EAE9E9;
+  color: #3A3A3A;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 2px 4px;
+}
+
+.storybook__container hr {
+  border: 0.2pt solid rgba(#EAE9E9, 0.4);
+  margin: 20px 0;
+}
+
+.storybook__column {
+  margin: 5px;
+}
+
+.storybook__row {
+  -moz-align-items: flex-start;
+  -moz-flex-direction: row;
+  -moz-flex-wrap: wrap;
+  -ms-align-items: flex-start;
+  -ms-flex-direction: row;
+  -ms-flex-wrap: wrap;
+  -webkit-align-items: flex-start;
+  -webkit-flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  align-items: flex-start;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 5px;
+}
+
+.storybook__text {
+  display: block;
+}
+
+.storybook__title {
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 5px;
+}
+
+/* Image Story */
+
+.story-image__icon {
+  margin: 2px;
+  width: 24px !important;
+}
+
+.story-image__loader {
+  margin: 2px 10px;
+}
+
+.story-image__loader--small-square {
+  height: 30px !important;
+  width: 30px !important;
+}
+
+.story-image__loader--square {
+  height: 60px !important;
+  width: 60px !important;
+}
+
+.story-image__loader--rect {
+  height: 120px !important;
+  width: 160px !important;
+}
+
+.story-image__loader--long-rect {
+  height: 80px !important;
+  width: 240px !important;
+}

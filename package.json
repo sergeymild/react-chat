@@ -58,7 +58,8 @@
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-serve": "^0.4.2",
     "rollup-watch": "^4.3.1",
-    "sass-lint": "^1.12.1"
+    "sass-lint": "^1.12.1",
+    "sass-loader": "^7.1.0"
   },
   "peerDependencies": {
     "react": "^16.3.0",

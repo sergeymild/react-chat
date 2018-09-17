@@ -35,7 +35,7 @@ const config = {
   plugins: [
     postcss({
       extensions: ['.css', '.scss'],
-      modules: false
+      modules: true
     }),
     babel({
       exclude: 'node_modules/**'

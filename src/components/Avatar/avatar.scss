@@ -1,0 +1,46 @@
+@import '../../partials/colors';
+
+* {
+  box-sizing: border-box;
+}
+
+.chat-avatar {
+  background-color: transparent;
+  border: 0;
+  margin: 5px;
+  outline: none;
+  padding: 0;
+  position: relative;
+  text-decoration: none;
+}
+
+.chat-avatar--circle img {
+  border-radius: 50%;
+}
+
+.chat-avatar--square img {
+  border-radius: 5px;
+}
+
+.chat-avatar__image,
+.chat-avatar__initials {
+  height: 60px !important;
+  width: 60px !important;
+}
+
+.chat-avatar__link {
+  color: material-color(blue-grey, '300');
+}
+
+.chat-avatar__initials {
+  color: material-color(blue-grey, '50');
+  display: inline-block;
+  font-size: 20px;
+  left: 0;
+  margin: 18px auto;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  z-index: 1;
+}
