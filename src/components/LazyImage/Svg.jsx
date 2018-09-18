@@ -174,6 +174,22 @@ const placeholderDictionary = {
     ),
     size: defaultIconSize
   },
+  back: {
+    paths: (
+      <g>
+        <path d='M15.41 7.41l-1.41-1.41-6 6 6 6 1.41-1.41-4.58-4.59z' />
+      </g>
+    ),
+    size: defaultIconSize
+  },
+  check: {
+    paths: (
+      <g>
+        <path d='M9 16.17l-4.17-4.17-1.42 1.41 5.59 5.59 12-12-1.41-1.41z' />
+      </g>
+    ),
+    size: defaultIconSize
+  },
   circle: {
     paths: (
       <g>
@@ -187,6 +203,15 @@ const placeholderDictionary = {
       <g>
         <path d='M16 1h-12c-1.1 0-2 .9-2 2v14h2v-14h12v-2zm3 4h-11c-1.1 0-2 .9-2 2v14c0
                  1.1.9 2 2 2h11c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16h-11v-14h11v14z' />
+      </g>
+    ),
+    size: defaultIconSize
+  },
+  cross: {
+    paths: (
+      <g>
+        <path d='M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59
+                 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z' />
       </g>
     ),
     size: defaultIconSize
@@ -267,6 +292,16 @@ const placeholderDictionary = {
       <g>
         <path d='M11 17h2v-6h-2v6zm1-15c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0
                  18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-11h2v-2h-2v2z' />
+      </g>
+    ),
+    size: defaultIconSize
+  },
+  link: {
+    paths: (
+      <g>
+        <path d='M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4v-1.9h-4c-2.76 0-5 2.24-5 5s2.24 5 5
+                 5h4v-1.9h-4c-1.71 0-3.1-1.39-3.1-3.1zm4.1 1h8v-2h-8v2zm9-6h-4v1.9h4c1.71
+                 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4v1.9h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z' />
       </g>
     ),
     size: defaultIconSize

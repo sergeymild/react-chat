@@ -1,6 +1,302 @@
-// Bubble
-// Sender Name
-// Media
-// Text
-// Time Stamp
-// Read/Deliver Receipts
+import React from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
+
+import LazyImage from '../LazyImage/LazyImage.jsx';
+
+import style from './Content.scss';
+
+class Content extends React.Component {
+
+  /* Lifecycle */
+
+  componentWillUnmount = () => {
+    this.unsetHoldAction();
+    this.onHoldTimer = null;
+  };
+
+  render = () => {
+    const { isLoading, type } = this.props;
+    let content = null;
+    switch (type) {
+    case 'event':
+      content = this.getEventContent();
+      break;
+    case 'media', 'text':
+      content = this.getDynamicContent();
+      break;
+    case 'system':
+      content = this.getSystemContent();
+      break;
+    default:
+      break;
+    }
+    return (
+      <div className={cx(style['message-content-container'])}>
+        {isLoading ? this.getLoadingPlaceholder() : content}
+      </div>
+    );
+  };
+
+  /* Callbacks */
+
+  onContext = (action, messageId) => (event) => {
+    event.preventDefault();
+    action(messageId, event);
+    return false;
+  };
+
+  setHoldAction = (action, messageId) => action && (
+    () => this.onHoldTimer = setTimeout(action.bind(null, messageId), 1000)
+  );
+
+  unsetHoldAction = () => this.onHoldTimer && clearTimeout(this.onHoldTimer);
+
+  /* Layouts */
+
+  getDynamicContent = () => {
+    const { senderName, data, text, type, variant } = this.props;
+    const { isDelivered, isRead, timeStamp } = this.props;
+    const { messageId, onHold, onPress } = this.props;
+    return (
+      <div
+        className={cx(
+          style[`message-content--${type}`],
+          style[`message-content--${variant}`],
+          style['message-content']
+        )}
+        // TODO: Make this desktop only
+        onContextMenu={this.onContext(onHold, messageId)}
+        onTouchStart={this.setHoldAction(onHold, messageId)}
+        onTouchEnd={this.unsetHoldAction}
+        onClick={onPress}
+      >
+        {this.getName(senderName)}
+        {this.getMedia(data)}
+        {this.getText(text)}
+        {this.getFooter(timeStamp, isDelivered, isRead)}
+      </div>
+    );
+  };
+
+  getEventContent = () => {
+    const { eventContent, eventName, messageId, onHold, onPress, text } = this.props;
+    return (
+      <div
+        className={cx(
+          `message-content--${eventName}`,
+          style['message-content--event'],
+          style['message-content']
+        )}
+        // TODO: Make this desktop only
+        onContextMenu={this.onContext(onHold, messageId)}
+        onTouchStart={this.setHoldAction(onHold, messageId)}
+        onTouchEnd={this.unsetHoldAction}
+        onClick={onPress}
+      >
+        {eventContent}
+        {this.getText(text)}
+      </div>
+    );
+  };
+
+  getSystemContent = () => {
+    const { text, timeStamp } = this.props;
+    return (
+      <div
+        className={cx(
+          style['message-content--system'],
+          style['message-content']
+        )}
+      >
+        {this.getTimestamp(timeStamp)}
+        {this.getText(text)}
+      </div>
+    );
+  };
+
+  /* Subviews */
+
+  getFooter = (dateTime, isDelivered = false, isRead = false) => {
+    const receipts = this.getReceipts(isDelivered, isRead);
+    const timeStamp = this.getTimestamp(dateTime);
+    return (
+      <div className={cx(style['message-content__footer'])}>
+        {receipts}
+        {timeStamp}
+      </div>
+    );
+  };
+
+  getLoadingPlaceholder = () => (
+    <LazyImage
+      className={cx(style['message-content__loader'])}
+      label='loading-placeholder'
+      loader='message'
+      placeholder='square'
+      pureLoading
+    />
+  );
+
+  // TODO: Create media preview and downloader views (use sizing context)
+  getMedia = (data) => {
+    if (!data) {
+      return null;
+    }
+    const mediaView = null;
+    switch (data.type) {
+    case 'audio':
+      // Set download-prompter-wrapped lazy audio with metadata
+      break;
+    case 'file':
+      // Set download-prompter-wrapped lazy file with metadata
+      break;
+    case 'gif':
+      // Set download-prompter-wrapped lazy gif with metadata
+      break;
+    case 'image':
+      // Set download-prompter-wrapped lazy image with metadata
+      break;
+    case 'link':
+      // Set link previewer
+      break;
+    case 'location':
+      // Set svg map viewer
+      break;
+    case 'markdown':
+      // Set markdown viewer
+      break;
+    case 'pdf':
+      // Set download-prompter-wrapped lazy pdf with metadata
+      break;
+    case 'video':
+      // Set download-prompter-wrapped lazy video with metadata
+      break;
+    default:
+      // Set unsupported placeholder
+      break;
+    }
+    return mediaView;
+  };
+
+  getName = (name) => name ? (
+    <div className={cx(style['message-content__name'])}>
+      <span>{name}</span>
+    </div>
+  ) : null;
+
+  getReceipts = (isDelivered, isRead) => (
+    <div className={cx(style['message-content__receipts'])}>
+      {isRead && (
+        <LazyImage
+          className={cx(
+            style['message-content__receipt'],
+            style['message-content__receipt--read']
+          )}
+          label='receipt--read'
+          loader='icon'
+          placeholder='check'
+        />
+      )}
+      {isDelivered && (
+        <LazyImage
+          className={cx(
+            style['message-content__receipt'],
+            style['message-content__receipt--delivered']
+          )}
+          label='receipt--delivered'
+          loader='icon'
+          placeholder='check'
+        />
+      )}
+    </div>
+  );
+
+  getText = (text) => text ? (
+    <div className={cx(style['message-content__text'])}>
+      <span>{text}</span>
+    </div>
+  ) : null;
+
+  getTimestamp = (dateTime) => {
+    const date = new Date(dateTime);
+    if (!date) {
+      return null;
+    }
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'AM' : 'PM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    const timestamp = `${date.getDate()}/${date.getMonth() + 1} ${hours}:${minutes} ${ampm}`;
+    return (
+      <div className={cx(style['message-content__timestamp'])}>
+        {timestamp}
+      </div>
+    );
+  };
+
+}
+
+Content.propTypes = {
+  data: PropTypes.shape({
+    coordinates: PropTypes.shape({
+      lat: PropTypes.string,
+      lng: PropTypes.string
+    }),
+    galleryId: PropTypes.string,
+    markdown: PropTypes.string,
+    metadata: PropTypes.object,
+    source: PropTypes.string.isRequired,
+    type: PropTypes.oneOf([
+      'audio',
+      'file',
+      'gif',
+      'image',
+      'link',
+      'location',
+      'markdown',
+      'pdf',
+      'video'
+    ]).isRequired
+  }),
+  eventContent: PropTypes.element,
+  eventName: PropTypes.string,
+  isDelivered: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  isRead: PropTypes.bool,
+  messageId: PropTypes.string.isRequired,
+  onHold: PropTypes.func,
+  onPress: PropTypes.func,
+  senderName: PropTypes.string,
+  text: PropTypes.string,
+  timeStamp: PropTypes.string.isRequired,
+  type: PropTypes.oneOf([
+    'event',
+    'media',
+    'system',
+    'text'
+  ]).isRequired,
+  variant: PropTypes.oneOf([
+    'full',
+    'left',
+    'right'
+  ])
+};
+
+Content.defaultProps = {
+  data: null,
+  eventContent: null,
+  eventName: null,
+  isDelivered: false,
+  isLoading: false,
+  isRead: false,
+  onHold: null,
+  onPress: null,
+  senderName: null,
+  text: null,
+  variant: 'left'
+};
+
+export default Content;

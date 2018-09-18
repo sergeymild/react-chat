@@ -8,6 +8,8 @@ import style from './Avatar.scss';
 
 class Avatar extends React.Component {
 
+  /* Lifecycle */
+
   constructor (props) {
     super(props);
     this.state = {
@@ -48,6 +50,8 @@ class Avatar extends React.Component {
     );
   };
 
+  /* Subviews */
+
   getInitialsOverlay = (name) => {
     const { showInitialsOverlay } = this.state;
     if (!showInitialsOverlay || !name) {
@@ -56,6 +60,8 @@ class Avatar extends React.Component {
     const initials = this.getInitials(name);
     return <span className={cx(style['chat-avatar__initials'])}>{initials}</span>;
   };
+
+  /* Auxillary Functions */
 
   getInitials = (name) => {
     if (!name) {

@@ -12,12 +12,12 @@
                "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
                "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
   font-size: 16px;
-  font-smoothing: subpixel-antialiased;
   font-weight: 300;
   line-height: 1.414;
-  margin: 5px;
+  padding: 20px 5px;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
+  width: 100%;
 }
 
 .storybook__container code {
@@ -30,34 +30,26 @@
   padding: 2px 4px;
 }
 
-.storybook__container hr {
-  border: 0.2pt solid rgba(#EAE9E9, 0.4);
-  margin: 20px 0;
-}
-
 .storybook__column {
-  margin: 5px;
+  padding: 5px;
 }
 
 .storybook__row {
   -moz-align-items: flex-start;
   -moz-flex-direction: row;
   -moz-flex-wrap: wrap;
-  -ms-align-items: flex-start;
-  -ms-flex-direction: row;
-  -ms-flex-wrap: wrap;
   -webkit-align-items: flex-start;
   -webkit-flex-direction: row;
   -webkit-flex-wrap: wrap;
   align-items: flex-start;
   display: -moz-box;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 5px;
+  padding: 5px;
+  width: 100%;
 }
 
 .storybook__text {

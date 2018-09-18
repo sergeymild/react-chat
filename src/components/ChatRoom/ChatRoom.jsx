@@ -108,23 +108,34 @@ ChatRoom.propTypes = {
     'staggered'
   ]),
   messages: PropTypes.arrayOf(PropTypes.shape({
-    data: PropTypes.shapeOf({
+    data: PropTypes.shape({
+      coordinates: PropTypes.shape({
+        lat: PropTypes.string,
+        lng: PropTypes.string
+      }),
       galleryId: PropTypes.string,
+      markdown: PropTypes.string,
+      metadata: PropTypes.object,
       source: PropTypes.string.isRequired,
       type: PropTypes.oneOf([
         'audio',
         'file',
         'gif',
         'image',
+        'link',
         'location',
         'markdown',
         'pdf',
         'video'
       ]).isRequired
     }),
+    eventContent: PropTypes.element,
+    eventName: PropTypes.string,
     isDelivered: PropTypes.bool,
+    isLoading: PropTypes.bool,
     isRead: PropTypes.bool,
     messageId: PropTypes.string.isRequired,
+    senderId: PropTypes.string,
     text: PropTypes.string,
     timeStamp: PropTypes.string.isRequired,
     type: PropTypes.oneOf([
@@ -132,11 +143,11 @@ ChatRoom.propTypes = {
       'media',
       'system',
       'text'
-    ]).isRequired,
-    senderId: PropTypes.string
+    ]).isRequired
   })).isRequired,
   onInfo: PropTypes.func,
   onFilter: PropTypes.func,
+  onMessagePressed: PropTypes.func,
   onRefresh: PropTypes.func,
   onReturn: PropTypes.func,
   onSend: PropTypes.func,
@@ -169,6 +180,7 @@ ChatRoom.defaultProps = {
   layout: 'staggered',
   onFilter: null,
   onInfo: null,
+  onMessagePressed: null,
   onRefresh: null,
   onReturn: null,
   onSend: null,

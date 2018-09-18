@@ -1,6 +1,7 @@
 # Build Files
 build
 bundle
+storybook-static
 
 # Dependency Directories
 node_modules

@@ -1,43 +1,52 @@
-@import '../../partials/colors';
+// sass-lint:disable no-important
 
-* {
-  box-sizing: border-box;
-}
+@import '../App/colors';
 
 .chat-avatar {
   background-color: transparent;
   border: 0;
-  margin: 5px;
+  box-sizing: border-box;
+  margin: .2rem;
   outline: none;
   padding: 0;
   position: relative;
   text-decoration: none;
+
+  * {
+    box-sizing: inherit;
+  }
 }
 
-.chat-avatar--circle img {
-  border-radius: 50%;
+.chat-avatar--circle {
+  img {
+    border-radius: 50%;
+  }
 }
 
-.chat-avatar--square img {
-  border-radius: 5px;
+.chat-avatar--square {
+  img {
+    border-radius: .5rem;
+  }
 }
 
 .chat-avatar__image,
 .chat-avatar__initials {
-  height: 60px !important;
-  width: 60px !important;
+  height: 4rem !important;
+  width: 4rem !important;
 }
 
 .chat-avatar__link {
-  color: material-color(blue-grey, '300');
+  color: material-color('blue-grey', '300');
 }
 
 .chat-avatar__initials {
-  color: material-color(blue-grey, '50');
+  color: material-color('blue-grey', '50');
   display: inline-block;
-  font-size: 20px;
+  font-size: 1.2rem;
+  font-weight: 500;
   left: 0;
-  margin: 18px auto;
+  letter-spacing: 1.5pt;
+  margin: 1.2rem auto;
   pointer-events: none;
   position: absolute;
   text-align: center;

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import style from './LazyImage.scss';
+
 import { getInlineSvg, loaderKeys, placeholderKeys } from './Svg.jsx';
 
 class LazyImage extends React.Component {

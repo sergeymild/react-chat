@@ -7,9 +7,10 @@ import IntroductionPage from './overview/introduction.stories.jsx';
 
 import ChatListPage from './anatomy/chatlist.stories.jsx';
 import ChatRoomPage from './anatomy/chatroom.stories.jsx';
-
 import AvatarPage from './anatomy/avatar.stories.jsx';
 import ImagePage from './anatomy/image.stories.jsx';
+
+import ContentPage from './anatomy/content.stories.jsx';
 
 import LayoutPage from './examples/layout.stories.jsx';
 import SizingPage from './examples/sizing.stories.jsx';
@@ -21,9 +22,14 @@ storiesOf('Overview', module)
   .add('Introduction', () => <IntroductionPage />)
   .add('How To Use', () => <InstructionsPage />);
 
-storiesOf('Anatomy', module)
-  .add('Chat List', () => <ChatListPage />)
-  .add('Chat Room', () => <ChatRoomPage />)
+storiesOf('Anatomy/Chat List', module)
+  .add('Overview', () => <ChatListPage />);
+
+storiesOf('Anatomy/Chat Room', module)
+  .add('Overview', () => <ChatRoomPage />)
+  .add('Content', () => <ContentPage />);
+
+storiesOf('Anatomy/Shared', module)
   .add('Avatar', () => <AvatarPage />)
   .add('Image', () => <ImagePage />);
 
