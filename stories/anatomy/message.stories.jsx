@@ -198,6 +198,57 @@ class MessagePage extends React.Component {
           </AppProvider>
         </div>
       </div>
+      <div className='storybook__container'>
+        <span className='storybook__text storybook__title'>
+          Aligned Mode
+        </span>
+        <span className='storybook__text'>
+          Messages can be arranged in an flushed fashion.
+        </span>
+        <span className='storybook__text'>
+          In this style, the behaviours of the message view differs from that of the staggered style.
+        </span>
+        <div className='storybook__segment storybook__segment--column'>
+          <AppProvider
+            {...this.state}
+            layout='aligned'
+          >
+            <Message
+              {...messageProps}
+              content={messagesStub[1]}
+              messageId='1'
+              position='top'
+            />
+            <Message
+              {...messageProps}
+              content={messagesStub[2]}
+              messageId='2'
+              position='bottom'
+            />
+            <Message
+              {...messageProps}
+              content={messagesStub[3]}
+              messageId='3'
+              position='top'
+              sender={mickey}
+            />
+            <Message
+              {...messageProps}
+              content={messagesStub[4]}
+              messageId='4'
+              position='middle'
+              sender={mickey}
+            />
+            <Message
+              {...messageProps}
+              content={messagesStub[5]}
+              messageId='5'
+              position='bottom'
+              sender={mickey}
+            />
+          </AppProvider>
+        </div>
+      </div>
     </React.Fragment>
   );
 

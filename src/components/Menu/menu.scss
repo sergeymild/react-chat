@@ -25,6 +25,7 @@
 .chat-menu--dock {
   @include box-shadow(none);
   @include flex-row(center, flex-start);
+  position: relative;
   width: 100%;
 
   .chat-menu-item {

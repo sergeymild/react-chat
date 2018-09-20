@@ -17,7 +17,7 @@ class Content extends React.Component {
 
   render = () => {
     // eslint-disable-next-line react/prop-types
-    const { children, className, isLoading, type } = this.props;
+    const { children, className, isLoading, type, variant } = this.props;
     let content = null;
     switch (type) {
     case 'event':
@@ -35,7 +35,8 @@ class Content extends React.Component {
     return (
       <div className={cx(
         className,
-        style['message-content-container']
+        style['message-content-container'],
+        style[`message-content-container--${variant}`]
       )}>
         {isLoading ? this.getLoadingPlaceholder() : content}
         {children}
@@ -46,7 +47,7 @@ class Content extends React.Component {
   /* Callbacks */
 
   onContext = (action, messageId) => (event) => {
-    if (event) {
+    if (event && event.cancelable) {
       event.preventDefault();
     }
     action(messageId, event, event.target);
@@ -63,7 +64,7 @@ class Content extends React.Component {
   });
 
   unsetHoldAction = (event) => {
-    if (event) {
+    if (event && event.cancelable) {
       event.preventDefault();
     }
     this.onHoldTimer && clearTimeout(this.onHoldTimer);
