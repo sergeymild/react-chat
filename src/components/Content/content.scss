@@ -7,16 +7,19 @@
 
 .message-content-container {
   box-sizing: border-box;
+  overflow: show;
   padding: .4rem 0;
-  width: 100%;
+  position: relative;
 
   * {
+    @include unselectable;
     box-sizing: inherit;
+    position: relative;
   }
 }
 
 .message-content {
-  padding: .25rem .5rem;
+  padding: .3rem .6rem;
 }
 
 .message-content--event {
@@ -37,21 +40,8 @@
   }
 }
 
-.message-content--left {
-  @include flex-column(flex-start, flex-start);
-  background-color: material-color('grey', '100');
-  border-radius: .5rem;
-  float: left;
-  max-width: 30rem;
-}
-
-.message-content--right {
-  @include flex-column(flex-start, flex-start);
-  background-color: material-color('blue', '500');
-  border-radius: .5rem;
-  color: material-color('grey', '50');
-  float: right;
-  max-width: 30rem;
+.message-content--bottom {
+  border-radius: .4rem .4rem .8rem .8rem !important;
 }
 
 .message-content--full {
@@ -65,27 +55,63 @@
   }
 }
 
+.message-content--left {
+  @include flex-column(flex-start, flex-start);
+  background-color: material-color('grey', '100');
+  border-radius: .8rem;
+  margin-right: auto;
+  max-width: 30rem;
+  width: fit-content;
+}
+
+.message-content--middle {
+  border-radius: .4rem !important;
+}
+
+.message-content--right {
+  @include flex-column(flex-start, flex-start);
+  background-color: material-color('blue', '500');
+  border-radius: .8rem;
+  color: material-color('grey', '50');
+  margin-left: auto;
+  max-width: 30rem;
+  width: fit-content;
+}
+
+.message-content--top {
+  border-radius: .8rem .8rem .4rem .4rem !important;
+}
+
 // Subviews
 
 .message-content__name {
   font-weight: 600;
+  pointer-events: none;
+}
+
+.message-content__text {
+  pointer-events: none;
 }
 
 .message-content__footer {
   @include flex-row(flex-end, flex-end);
+  pointer-events: none;
   width: 100%;
 }
 
 .message-content__receipts {
   @include flex-row(flex-end, flex-end);
   padding-right: .2rem;
+  pointer-events: none;
 }
 
 .message-content__receipt {
-  @include square(.85rem !important);
+  @include square(.8rem !important);
+  pointer-events: none;
 }
 
 .message-content__timestamp {
-  font-size: .85rem;
+  font-size: .8rem;
   font-weight: 400;
+  pointer-events: none;
 }

@@ -7,9 +7,7 @@ import style from './ChatRoom.scss';
 
 class ChatRoom extends React.Component {
 
-  /*
-    Lifecycle
-  */
+  /* Lifecycle */
 
   constructor (props) {
     super(props);
@@ -41,9 +39,7 @@ class ChatRoom extends React.Component {
     // TODO: Remove and destroy listeners
   };
 
-  /*
-    Subviews
-  */
+  /* Subviews */
 
   getTitleBar = () => {
     const { onReturn, onInfo } = this.props;
@@ -69,6 +65,7 @@ class ChatRoom extends React.Component {
   getMessages = () => {
     const { messages, users } = this.props;
     return null;
+    // Handle border-radius-prev-post style
   };
 
   getMessage = (message, sender) => {
@@ -92,7 +89,7 @@ class ChatRoom extends React.Component {
 ChatRoom.propTypes = {
   actions: PropTypes.arrayOf(PropTypes.shape({
     action: PropTypes.func.isRequired,
-    icon: PropTypes.string.isRequired,
+    icon: PropTypes.string,
     label: PropTypes.string.isRequired,
     type: PropTypes.oneOf([
       'copy',

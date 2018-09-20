@@ -11,6 +11,8 @@ import AvatarPage from './anatomy/avatar.stories.jsx';
 import ImagePage from './anatomy/image.stories.jsx';
 
 import ContentPage from './anatomy/content.stories.jsx';
+import MenuPage from './anatomy/menu.stories.jsx';
+import MessagePage from './anatomy/message.stories.jsx';
 
 import LayoutPage from './examples/layout.stories.jsx';
 import SizingPage from './examples/sizing.stories.jsx';
@@ -23,11 +25,13 @@ storiesOf('Overview', module)
   .add('How To Use', () => <InstructionsPage />);
 
 storiesOf('Anatomy/Chat List', module)
-  .add('Overview', () => <ChatListPage />);
+  .add('General', () => <ChatListPage />);
 
 storiesOf('Anatomy/Chat Room', module)
-  .add('Overview', () => <ChatRoomPage />)
-  .add('Content', () => <ContentPage />);
+  .add('General', () => <ChatRoomPage />)
+  .add('Content', () => <ContentPage />)
+  .add('Menu', () => <MenuPage />)
+  .add('Message', () => <MessagePage />);
 
 storiesOf('Anatomy/Shared', module)
   .add('Avatar', () => <AvatarPage />)

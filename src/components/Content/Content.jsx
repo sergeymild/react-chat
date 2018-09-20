@@ -16,7 +16,8 @@ class Content extends React.Component {
   };
 
   render = () => {
-    const { isLoading, type } = this.props;
+    // eslint-disable-next-line react/prop-types
+    const { children, className, isLoading, type } = this.props;
     let content = null;
     switch (type) {
     case 'event':
@@ -32,8 +33,12 @@ class Content extends React.Component {
       break;
     }
     return (
-      <div className={cx(style['message-content-container'])}>
+      <div className={cx(
+        className,
+        style['message-content-container']
+      )}>
         {isLoading ? this.getLoadingPlaceholder() : content}
+        {children}
       </div>
     );
   };
@@ -41,32 +46,45 @@ class Content extends React.Component {
   /* Callbacks */
 
   onContext = (action, messageId) => (event) => {
-    event.preventDefault();
-    action(messageId, event);
+    if (event) {
+      event.preventDefault();
+    }
+    action(messageId, event, event.target);
     return false;
   };
 
-  setHoldAction = (action, messageId) => action && (
-    () => this.onHoldTimer = setTimeout(action.bind(null, messageId), 1000)
-  );
+  setHoldAction = (action, messageId) => action && ((event) => {
+    if (event) {
+      event.persist();
+    }
+    this.onHoldTimer = setTimeout(() => {
+      action(messageId, event, event.target);
+    }, 1000);
+  });
 
-  unsetHoldAction = () => this.onHoldTimer && clearTimeout(this.onHoldTimer);
+  unsetHoldAction = (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+    this.onHoldTimer && clearTimeout(this.onHoldTimer);
+  };
 
   /* Layouts */
 
   getDynamicContent = () => {
-    const { senderName, data, text, type, variant } = this.props;
-    const { isDelivered, isRead, timeStamp } = this.props;
+    const { senderName, data, text } = this.props;
+    const { type, variant, position } = this.props;
+    const { isDelivered, isDesktop, isRead, timeStamp } = this.props;
     const { messageId, onHold, onPress } = this.props;
     return (
       <div
         className={cx(
+          style[`message-content--${position}`],
           style[`message-content--${type}`],
-          style[`message-content--${variant}`],
+          style[position !== 'full' && `message-content--${variant}`],
           style['message-content']
         )}
-        // TODO: Make this desktop only
-        onContextMenu={this.onContext(onHold, messageId)}
+        onContextMenu={isDesktop ? this.onContext(onHold, messageId) : null}
         onTouchStart={this.setHoldAction(onHold, messageId)}
         onTouchEnd={this.unsetHoldAction}
         onClick={onPress}
@@ -80,7 +98,7 @@ class Content extends React.Component {
   };
 
   getEventContent = () => {
-    const { eventContent, eventName, messageId, onHold, onPress, text } = this.props;
+    const { eventContent, eventName, isDesktop, messageId, onHold, onPress, text } = this.props;
     return (
       <div
         className={cx(
@@ -88,8 +106,7 @@ class Content extends React.Component {
           style['message-content--event'],
           style['message-content']
         )}
-        // TODO: Make this desktop only
-        onContextMenu={this.onContext(onHold, messageId)}
+        onContextMenu={isDesktop ? this.onContext(onHold, messageId) : null}
         onTouchStart={this.setHoldAction(onHold, messageId)}
         onTouchEnd={this.unsetHoldAction}
         onClick={onPress}
@@ -240,6 +257,7 @@ class Content extends React.Component {
 }
 
 Content.propTypes = {
+  className: PropTypes.string,
   data: PropTypes.shape({
     coordinates: PropTypes.shape({
       lat: PropTypes.string,
@@ -264,11 +282,18 @@ Content.propTypes = {
   eventContent: PropTypes.element,
   eventName: PropTypes.string,
   isDelivered: PropTypes.bool,
+  isDesktop: PropTypes.bool,
   isLoading: PropTypes.bool,
   isRead: PropTypes.bool,
   messageId: PropTypes.string.isRequired,
   onHold: PropTypes.func,
   onPress: PropTypes.func,
+  position: PropTypes.oneOf([
+    'bottom',
+    'isolated',
+    'middle',
+    'top'
+  ]),
   senderName: PropTypes.string,
   text: PropTypes.string,
   timeStamp: PropTypes.string.isRequired,
@@ -286,14 +311,17 @@ Content.propTypes = {
 };
 
 Content.defaultProps = {
+  className: null,
   data: null,
   eventContent: null,
   eventName: null,
   isDelivered: false,
+  isDesktop: true,
   isLoading: false,
   isRead: false,
   onHold: null,
   onPress: null,
+  position: 'isolated',
   senderName: null,
   text: null,
   variant: 'left'

@@ -54,7 +54,7 @@ const ContentPage = () => (
       <span className='storybook__text'>
         Content will display a loading animation when <code>isLoading</code> is set.
       </span>
-      <div className='storybook__row'>
+      <div className='storybook__segment storybook__segment--row'>
         <Content {...loadingContentStub} />
       </div>
     </div>
@@ -66,7 +66,7 @@ const ContentPage = () => (
       <span className='storybook__text'>
         System content are simplified content views that are meant to appear without an associated sender.
       </span>
-      <div className='storybook__row'>
+      <div className='storybook__segment storybook__segment--row'>
         <Content {...systemContentStub} />
       </div>
     </div>
@@ -79,7 +79,7 @@ const ContentPage = () => (
         Doing so allows you to display customized banners or views along with text.
         Custom views can be assigned using <code>eventContent</code>.
       </span>
-      <div className='storybook__row'>
+      <div className='storybook__segment storybook__segment--row'>
         <Content {...eventContentStub} />
       </div>
     </div>
@@ -91,19 +91,60 @@ const ContentPage = () => (
       <span className='storybook__text'>
         Text content typically appears with timestamp and read or deliver receipts.
       </span>
-      <div className='storybook__row'>
+      <div className='storybook__segment storybook__segment--row'>
         <Content {...textContentStub} />
       </div>
-      <div className='storybook__row'>
+      <div className='storybook__segment storybook__segment--row'>
         <Content
           {...textContentStub}
           variant='right'
         />
       </div>
-      <div className='storybook__row'>
+      <div className='storybook__segment storybook__segment--row'>
         <Content
           {...textContentStub}
           variant='full'
+        />
+      </div>
+    </div>
+    <div className='storybook__container'>
+      <span className='storybook__text storybook__title'>Border Styles</span>
+      <span className='storybook__text'>
+        Borders are styled according to ownership of the message chunks.
+      </span>
+      <div className='storybook__segment storybook__segment--column'>
+        <Content
+          {...textContentStub}
+          position='isolated'
+          variant='left'
+        />
+        <Content
+          {...textContentStub}
+          position='top'
+          variant='right'
+        />
+        <Content
+          {...textContentStub}
+          senderName={null}
+          position='bottom'
+          variant='right'
+        />
+        <Content
+          {...textContentStub}
+          position='top'
+          variant='left'
+        />
+        <Content
+          {...textContentStub}
+          senderName={null}
+          position='middle'
+          variant='left'
+        />
+        <Content
+          {...textContentStub}
+          senderName={null}
+          position='bottom'
+          variant='left'
         />
       </div>
     </div>

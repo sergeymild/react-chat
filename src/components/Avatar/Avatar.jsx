@@ -18,12 +18,13 @@ class Avatar extends React.Component {
   }
 
   render = () => {
-    const { className, link, name, onClick, shape, source } = this.props;
+    const { className, hidden, isLoading, link, name, onClick, shape, source } = this.props;
     const initialsOverlay = this.getInitialsOverlay(name);
     return (
       <button
         className={cx(
           className,
+          hidden && style['chat-avatar--hidden'],
           style['chat-avatar'],
           style[`chat-avatar--${shape}`]
         )}
@@ -43,6 +44,7 @@ class Avatar extends React.Component {
             onSuccess={this.hideInitialsOverlay}
             placeholder={shape}
             source={source}
+            pureLoading={isLoading}
           />
         </a>
         {initialsOverlay}
@@ -87,6 +89,8 @@ class Avatar extends React.Component {
 
 Avatar.propTypes = {
   className: PropTypes.string,
+  hidden: PropTypes.bool,
+  isLoading: PropTypes.bool,
   link: PropTypes.string,
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func,
@@ -99,6 +103,8 @@ Avatar.propTypes = {
 
 Avatar.defaultProps = {
   className: null,
+  hidden: false,
+  isLoading: false,
   link: null,
   onClick: null,
   shape: 'circle',

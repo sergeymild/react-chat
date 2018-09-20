@@ -27,7 +27,7 @@ const ImagePage = () => {
         <span className='storybook__text'>
           They can also be used purely as icons.
         </span>
-        <div className='storybook__row'>
+        <div className='storybook__segment storybook__segment--row'>
           {icons}
         </div>
       </div>
@@ -40,7 +40,7 @@ const ImagePage = () => {
         <span className='storybook__text'>
           These animations can also be made perpetual by turning the <code>pureLoading</code> flag on.
         </span>
-        <div className='storybook__row'>
+        <div className='storybook__segment storybook__segment--row'>
           <LazyImage
             className='story-image__loader story-image__loader--small-square'
             label='loader--icon'

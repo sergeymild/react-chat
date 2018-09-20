@@ -13,7 +13,10 @@ const AppProvider = (props) => {
 };
 
 AppProvider.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element),
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element)
+  ]),
   layout: PropTypes.oneOf([
     'aligned',
     'staggered'
@@ -30,7 +33,7 @@ AppProvider.propTypes = {
 };
 
 AppProvider.defaultProps = {
-  children: [],
+  children: null,
   layout: 'staggered',
   sizing: 'desktop',
   theme: 'light'

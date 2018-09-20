@@ -39,7 +39,7 @@ const AvatarPage = () => {
       <span className='storybook__text'>
         Additionally, they can be made circular or squarish through setting the <code>shape</code>.
       </span>
-      <div className='storybook__row'>
+      <div className='storybook__segment storybook__segment--row'>
         {avatarSquare}
         {avatarRound}
       </div>

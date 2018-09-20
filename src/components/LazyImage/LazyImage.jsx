@@ -8,9 +8,7 @@ import { getInlineSvg, loaderKeys, placeholderKeys } from './Svg.jsx';
 
 class LazyImage extends React.Component {
 
-  /*
-    Lifecycle
-  */
+  /* Lifecycle */
 
   constructor (props) {
     super(props);
