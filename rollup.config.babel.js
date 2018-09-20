@@ -1,3 +1,4 @@
+import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
@@ -35,7 +36,7 @@ const config = {
   plugins: [
     postcss({
       extensions: ['.css', '.scss'],
-      modules: false
+      modules: true
     }),
     babel({
       exclude: 'node_modules/**'
@@ -44,7 +45,8 @@ const config = {
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
     resolve(),
-    commonjs()
+    commonjs(),
+    sizeSnapshot()
   ]
 };
 

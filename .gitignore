@@ -1,6 +1,7 @@
 # Build Files
 build
 bundle
+storybook-static
 
 # Dependency Directories
 node_modules
@@ -21,3 +22,7 @@ temp
 pids
 *.pid
 *.seed
+
+# Bundle Analysis
+.size-snapshot.json
+stats.html

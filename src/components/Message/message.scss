@@ -1,0 +1,19 @@
+// sass-lint:disable no-important
+
+@import '../App/colors';
+@import '../App/mixins';
+
+.chat-message {
+  @include flex-row(flex-start, flex-start);
+  overflow: visible;
+  position: relative;
+  width: 100%;
+}
+
+.chat-message--left {
+  @include justify-content(flex-start);
+}
+
+.chat-message--right {
+  @include justify-content(flex-end);
+}

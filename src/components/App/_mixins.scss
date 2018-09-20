@@ -1,0 +1,192 @@
+// sass-lint:disable no-duplicate-properties no-vendor-prefixes
+
+@mixin flexbox {
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -moz-box-flex: 		$values;
+  -ms-flex: 				$values;
+  -webkit-box-flex: $values;
+  -webkit-flex: 		$values;
+  flex: 						$values;
+}
+
+@mixin flex-direction($direction) {
+  -ms-flex-direction: 		$direction;
+  -webkit-flex-direction: $direction;
+  flex-direction: 				$direction;
+}
+
+@mixin flex-wrap($wrap) {
+  -ms-flex-wrap: 		 $wrap;
+  -webkit-flex-wrap: $wrap;
+  flex-wrap: 				 $wrap;
+}
+
+@mixin flex-flow($flow) {
+  -ms-flex-flow: 		 $flow;
+  -webkit-flex-flow: $flow;
+  flex-flow: 				 $flow;
+}
+
+@mixin order($val) {
+  -moz-box-ordinal-group: 	 $val;
+  -ms-flex-order: 					 $val;
+  -webkit-box-ordinal-group: $val;
+  -webkit-order: 						 $val;
+  order: 										 $val;
+}
+
+@mixin flex-grow($grow) {
+  -webkit-flex-grow: $grow;
+  flex-grow: 				 $grow;
+}
+
+@mixin flex-shrink($shrink) {
+  -webkit-flex-shrink: $shrink;
+  flex-shrink: 				 $shrink;
+}
+
+@mixin flex-basis($width) {
+  -webkit-flex-basis: $width;
+  flex-basis: 				$width;
+}
+
+@mixin justify-content($justify) {
+  -ms-flex-pack: 					 $justify;
+  -webkit-justify-content: $justify;
+  justify-content: 				 $justify;
+}
+
+@mixin align-content($align) {
+  -webkit-align-content: $align;
+  align-content: 				 $align;
+}
+
+@mixin align-items($align) {
+  -moz-box-align:      $align;
+  -webkit-align-items: $align;
+  align-items: 				 $align;
+}
+
+@mixin align-self($align) {
+  -webkit-align-self: $align;
+  align-self: 				$align;
+}
+
+@mixin flex-column($alignment, $justification, $content: '') {
+  @if $content {
+    @include align-content($content);
+  }
+  @include align-items($alignment);
+  @include flex-direction(column);
+  @include flexbox;
+  @include justify-content($justification);
+}
+
+@mixin flex-row($alignment, $justification, $content: '') {
+  @if $content {
+    @include align-content($content);
+  }
+  @include align-items($alignment);
+  @include flexbox;
+  @include justify-content($justification);
+  @include flex-direction(row);
+}
+
+@mixin square($length) {
+  height: $length;
+  width: $length;
+}
+
+@mixin transform($transformation...) {
+  -webkit-transform: $transformation;
+  transform: 				 $transformation;
+}
+
+@mixin box-shadow($val) {
+  -webkit-box-shadow: $val;
+  box-shadow: 				$val;
+}
+
+@mixin ellipsize {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin hidden {
+  display: none;
+  visibility: hidden;
+}
+
+@mixin invisible {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@mixin unselectable {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@mixin visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+@mixin animation($animation...) {
+  -moz-animation: 	 $animation;
+  -webkit-animation: $animation;
+  animation: 				 $animation;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin transition($transition...) {
+  -moz-transition: 		$transition;
+  -o-transition: 			$transition;
+  -webkit-transition: $transition;
+  transition: 				$transition;
+}
+
+@mixin antialias($strategy) {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: $strategy;
+}
+
+@mixin hyphenate {
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  text-align: justify;
+  word-wrap: break-word;
+}
+
+@mixin render-smooth {
+  @include antialias(subpixel-antialiased);
+  text-rendering: optimizeLegibility;
+}

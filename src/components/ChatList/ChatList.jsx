@@ -4,9 +4,7 @@ import cx from 'classnames';
 
 class ChatList extends React.Component {
 
-  /*
-    Lifecycle
-  */
+  /* Lifecycle */
 
   constructor (props) {
     super(props);
@@ -32,9 +30,7 @@ class ChatList extends React.Component {
     // TODO: Remove and destroy listeners
   };
 
-  /*
-    Functional Children
-  */
+  /* Functional Children */
 
 }
 

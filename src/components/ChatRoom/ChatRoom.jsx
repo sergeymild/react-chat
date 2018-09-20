@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import AppProvider from '../App/Context.jsx';
-import styles from './ChatRoom.scss';
+import style from './ChatRoom.scss';
 
 class ChatRoom extends React.Component {
 
-  /*
-    Lifecycle
-  */
+  /* Lifecycle */
 
   constructor (props) {
     super(props);
@@ -41,9 +39,7 @@ class ChatRoom extends React.Component {
     // TODO: Remove and destroy listeners
   };
 
-  /*
-    Subviews
-  */
+  /* Subviews */
 
   getTitleBar = () => {
     const { onReturn, onInfo } = this.props;
@@ -69,6 +65,7 @@ class ChatRoom extends React.Component {
   getMessages = () => {
     const { messages, users } = this.props;
     return null;
+    // Handle border-radius-prev-post style
   };
 
   getMessage = (message, sender) => {
@@ -92,7 +89,7 @@ class ChatRoom extends React.Component {
 ChatRoom.propTypes = {
   actions: PropTypes.arrayOf(PropTypes.shape({
     action: PropTypes.func.isRequired,
-    icon: PropTypes.string.isRequired,
+    icon: PropTypes.string,
     label: PropTypes.string.isRequired,
     type: PropTypes.oneOf([
       'copy',
@@ -108,23 +105,34 @@ ChatRoom.propTypes = {
     'staggered'
   ]),
   messages: PropTypes.arrayOf(PropTypes.shape({
-    data: PropTypes.shapeOf({
+    data: PropTypes.shape({
+      coordinates: PropTypes.shape({
+        lat: PropTypes.string,
+        lng: PropTypes.string
+      }),
       galleryId: PropTypes.string,
+      markdown: PropTypes.string,
+      metadata: PropTypes.object,
       source: PropTypes.string.isRequired,
       type: PropTypes.oneOf([
         'audio',
         'file',
         'gif',
         'image',
+        'link',
         'location',
         'markdown',
         'pdf',
         'video'
       ]).isRequired
     }),
+    eventContent: PropTypes.element,
+    eventName: PropTypes.string,
     isDelivered: PropTypes.bool,
+    isLoading: PropTypes.bool,
     isRead: PropTypes.bool,
     messageId: PropTypes.string.isRequired,
+    senderId: PropTypes.string,
     text: PropTypes.string,
     timeStamp: PropTypes.string.isRequired,
     type: PropTypes.oneOf([
@@ -132,11 +140,11 @@ ChatRoom.propTypes = {
       'media',
       'system',
       'text'
-    ]).isRequired,
-    senderId: PropTypes.string
+    ]).isRequired
   })).isRequired,
   onInfo: PropTypes.func,
   onFilter: PropTypes.func,
+  onMessagePressed: PropTypes.func,
   onRefresh: PropTypes.func,
   onReturn: PropTypes.func,
   onSend: PropTypes.func,
@@ -169,6 +177,7 @@ ChatRoom.defaultProps = {
   layout: 'staggered',
   onFilter: null,
   onInfo: null,
+  onMessagePressed: null,
   onRefresh: null,
   onReturn: null,
   onSend: null,
