@@ -22,3 +22,7 @@ temp
 pids
 *.pid
 *.seed
+
+# Bundle Analysis
+.size-snapshot.json
+stats.html
