@@ -4,7 +4,6 @@ import commonjs from 'rollup-plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
-import visualizer from 'rollup-plugin-visualizer';
 
 const config = {
   input: 'src/index.js',
@@ -47,8 +46,7 @@ const config = {
     }),
     resolve(),
     commonjs(),
-    sizeSnapshot(),
-    visualizer()
+    sizeSnapshot()
   ]
 };
 
