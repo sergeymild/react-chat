@@ -154,12 +154,16 @@
 }
 
 .chat-menu-item {
-  background-color: material-color('grey', '50');
+  background-color: white;
+  color: material-color('grey', '700');
   padding: .4rem;
 
-  &:active,
   &:hover {
-    color: material-color('blue', '500');
+    background-color: material-color('grey', '100');
+  }
+  &:active {
+    background-color: material-color('grey', '400');
+    color: material-color('grey', '50');
   }
 }
 
