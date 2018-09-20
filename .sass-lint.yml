@@ -5,12 +5,16 @@ files:
   include:
   - examples/**/*.s+(a|c)ss
   - src/**/*.s+(a|c)ss
+  - stories/**/*.s+(a|c)ss
   - test/**/*.s+(a|c)ss
   ignore:
+  - "**/.storybook/*"
   - "**/assets/*"
   - "**/build/*"
   - "**/bundle/*"
+  - "**/docs/*"
   - "**/node_modules/*"
+  - "**/storybook-static/*" 
 rules:
   attribute-quotes: 1
   bem-depth: 0

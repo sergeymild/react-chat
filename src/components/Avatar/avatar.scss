@@ -1,0 +1,60 @@
+// sass-lint:disable no-important
+
+@import '../App/colors';
+@import '../App/mixins';
+
+.chat-avatar {
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  margin: .2rem;
+  outline: none;
+  padding: 0;
+  position: relative;
+  text-decoration: none;
+
+  * {
+    box-sizing: inherit;
+  }
+}
+
+.chat-avatar--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chat-avatar--circle {
+  img {
+    border-radius: 50%;
+  }
+}
+
+.chat-avatar--square {
+  img {
+    border-radius: .5rem;
+  }
+}
+
+.chat-avatar__image {
+  height: 4rem !important;
+  width: 4rem !important;
+}
+
+.chat-avatar__link {
+  color: material-color('blue-grey', '300');
+}
+
+.chat-avatar__initials {
+  @include transform(translate(-50%, -50%));
+  color: material-color('blue-grey', '50');
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 500;
+  left: 50%;
+  letter-spacing: 1pt;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  z-index: 1;
+}

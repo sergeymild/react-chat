@@ -3,5 +3,7 @@ build
 bundle
 coverage
 dist
+docs
 node_modules
 public
+storybook-static
