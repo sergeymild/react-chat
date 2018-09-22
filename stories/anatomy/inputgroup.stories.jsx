@@ -8,47 +8,47 @@ import InputGroup from '../../src/components/InputGroup/InputGroup.jsx';
 
 const actionsStub = [
   {
-    action: action('Copy Clicked'),
+    action: action('Audio Clicked'),
     label: 'audio',
     type: 'audio'
   },
   {
-    action: action('Delete Clicked'),
+    action: action('File Clicked'),
     label: 'file',
     type: 'file'
   },
   {
-    action: action('Forward Clicked'),
+    action: action('GIF Clicked'),
     label: 'gif',
     type: 'gif'
   },
   {
-    action: action('Info Clicked'),
+    action: action('Image Clicked'),
     label: 'image',
     type: 'image'
   },
   {
-    action: action('Pin Clicked'),
+    action: action('Link Clicked'),
     label: 'link',
     type: 'link'
   },
   {
-    action: action('Reply Clicked'),
+    action: action('Location Clicked'),
     label: 'location',
     type: 'location'
   },
   {
-    action: action('Reply Clicked'),
+    action: action('Markdown Clicked'),
     label: 'markdown',
     type: 'markdown'
   },
   {
-    action: action('Reply Clicked'),
+    action: action('PDF Clicked'),
     label: 'pdf',
     type: 'pdf'
   },
   {
-    action: action('Reply Clicked'),
+    action: action('Video Clicked'),
     label: 'video',
     type: 'video'
   }
