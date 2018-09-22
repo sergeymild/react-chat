@@ -43,6 +43,9 @@ class Menu extends React.Component {
         position: 'absolute',
         top: `${relativeY}px`
       } : null;
+      if (overridePosition && isRightSided) {
+        elementStyle.transform = 'translate(-100%, 0)';
+      }
       break;
 
     case 'row':

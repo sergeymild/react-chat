@@ -157,7 +157,7 @@ class Message extends React.Component {
       <Menu
         {...menuPosition}
         actions={boundActions}
-        className={`chat-menu--${theme}`}
+        className={cx(`chat-menu--${theme}`)}
         isRightSided={layout === 'staggered' && sender.id === userId}
         messageId={messageId}
         onDismiss={this.dismissActionMenu}
