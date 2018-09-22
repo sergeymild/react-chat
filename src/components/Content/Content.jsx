@@ -156,7 +156,8 @@ class Content extends React.Component {
     />
   );
 
-  // TODO: Create media preview and downloader views (use sizing context)
+  // TODO: Create media preview and downloader views
+
   getMedia = (data) => {
     if (!data) {
       return null;
@@ -164,34 +165,34 @@ class Content extends React.Component {
     const mediaView = null;
     switch (data.type) {
     case 'audio':
-      // Set download-prompter-wrapped lazy audio with metadata
+      // KIV: Set download-prompter-wrapped lazy audio with metadata
       break;
     case 'file':
-      // Set download-prompter-wrapped lazy file with metadata
+      // KIV: Set download-prompter-wrapped lazy file with metadata
       break;
     case 'gif':
-      // Set download-prompter-wrapped lazy gif with metadata
+      // KIV: Set download-prompter-wrapped lazy gif with metadata
       break;
     case 'image':
-      // Set download-prompter-wrapped lazy image with metadata
+      // KIV: Set download-prompter-wrapped lazy image with metadata
       break;
     case 'link':
-      // Set link previewer
+      // KIV: Set link previewer
       break;
     case 'location':
-      // Set svg map viewer
+      // KIV: Set svg map viewer
       break;
     case 'markdown':
-      // Set markdown viewer
+      // KIV: Set markdown viewer
       break;
     case 'pdf':
-      // Set download-prompter-wrapped lazy pdf with metadata
+      // KIV: Set download-prompter-wrapped lazy pdf with metadata
       break;
     case 'video':
-      // Set download-prompter-wrapped lazy video with metadata
+      // KIV: Set download-prompter-wrapped lazy video with metadata
       break;
     default:
-      // Set unsupported placeholder
+      // KIV: Set unsupported placeholder
       break;
     }
     return mediaView;

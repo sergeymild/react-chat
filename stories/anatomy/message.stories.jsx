@@ -2,6 +2,7 @@ import React from 'react';
 
 import { action } from '@storybook/addon-actions';
 
+import { throttle } from '../utils/helper.js';
 import AppProvider from '../../src/components/App/Context.jsx';
 import Message from '../../src/components/Message/Message.jsx';
 
@@ -86,28 +87,7 @@ class MessagePage extends React.Component {
 
   /* Event Listener */
 
-  throttle = (limit, func) => {
-    let lastFunc;
-    let lastRan;
-    return function(...rest) {
-      const context = this;
-      const args = rest;
-      if (!lastRan) {
-        func.apply(context, args);
-        lastRan = Date.now();
-        return;
-      }
-      clearTimeout(lastFunc);
-      lastFunc = setTimeout(() => {
-        if ((Date.now() - lastRan) >= limit) {
-          func.apply(context, args);
-          lastRan = Date.now();
-        }
-      }, limit - (Date.now() - lastRan));
-    };
-  };
-
-  handleWindowResize = this.throttle(200, () => {
+  handleWindowResize = throttle(200, () => {
     if (window && navigator) {
       this.setState({
         sizing: window.innerWidth < 640 || /iPhone|iPod|Android/i.test(navigator.userAgent)
@@ -157,7 +137,7 @@ class MessagePage extends React.Component {
           as well as the layout, device and theme in context.
         </span>
         <span className='storybook__text'>
-          As such, a Message view requires a AppContext provider,
+          As such, a Message view requires an AppContext provider,
           without which it will not be able to operate.
         </span>
         <div className='storybook__segment storybook__segment--column'>
