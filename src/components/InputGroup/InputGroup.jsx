@@ -16,9 +16,29 @@ class InputGroup extends React.Component {
     this.state = {
       input: '',
       isAttachMenuOpen: false,
-      isTextFieldExpanded: false
+      isTextFieldExpanded: false,
+      touchMoved: false
     };
+    this.attachMenu = React.createRef();
   }
+
+  componentDidMount = () => {
+    if (document) {
+      document.addEventListener('mousedown', this.checkTouchOutsideMenu);
+      document.addEventListener('touchstart', this.resetTouch);
+      document.addEventListener('touchmove', this.invalidateTouch);
+      document.addEventListener('touchend', this.checkTouchOutsideMenu);
+    }
+  };
+
+  componentWillUnmount = () => {
+    if (document) {
+      document.removeEventListener('mousedown', this.checkTouchOutsideMenu);
+      document.addEventListener('touchstart', this.resetTouch);
+      document.addEventListener('touchmove', this.invalidateTouch);
+      document.removeEventListener('touchend', this.checkTouchOutsideMenu);
+    }
+  };
 
   componentDidUpdate = () => {
     if (this.textField && this.props.value !== this.textField.innerHTML.toString()) {
@@ -29,40 +49,53 @@ class InputGroup extends React.Component {
 
   render = () => {
     const { className } = this.props;
-    const { isTextFieldExpanded } = this.state;
+    const { isAttachMenuOpen, isTextFieldExpanded } = this.state;
     return (
       <AppContext.Consumer>
         {(context) => (
-          <div
-            className={cx(
-              `chat-input-group--${context.theme}`,
-              className,
-              isTextFieldExpanded && style['chat-input-group--expanded'],
-              style['chat-input-group'],
-              style[`chat-input-group--${context.layout}`],
-              style[`chat-input-group--${context.sizing}`]
-            )}
-            ref={(element) => this.self = element}
-          >
-            <div className={cx(
-              style['chat-input-group__row'],
-              style['chat-input-group__row--textarea']
-            )}>
-              {context.layout === 'staggered' && this.getAttachButton(context)}
-              {this.getTextField(context)}
-              {context.layout === 'staggered' || context.sizing === 'desktop'
-                ? this.getSendButton(context)
-                : this.getExpandCollapseButton(context)
-              }
+          <React.Fragment>
+            <div
+              className={cx(
+                `chat-input-group--${context.theme}`,
+                className,
+                isTextFieldExpanded && style['chat-input-group--expanded'],
+                style['chat-input-group'],
+                style[`chat-input-group--${context.layout}`],
+                style[`chat-input-group--${context.sizing}`]
+              )}
+              ref={(element) => this.self = element}
+            >
+              <div className={cx(
+                style['chat-input-group__row'],
+                style['chat-input-group__row--textarea']
+              )}>
+                {context.layout === 'staggered' && this.getAttachButton(context)}
+                {this.getTextField(context)}
+                {context.layout === 'staggered' || context.sizing === 'desktop'
+                  ? this.getSendButton(context)
+                  : this.getExpandCollapseButton(context)
+                }
+              </div>
+              <div className={cx(
+                style['chat-input-group__row'],
+                style['chat-input-group__row--action']
+              )}>
+                {context.layout === 'aligned' && this.getActionRow(context)}
+                {context.layout === 'aligned' && context.sizing !== 'desktop' && this.getSendButton(context)}
+              </div>
             </div>
-            <div className={cx(
-              style['chat-input-group__row'],
-              style['chat-input-group__row--action']
-            )}>
-              {context.layout === 'aligned' && this.getActionRow(context)}
-              {context.layout === 'aligned' && context.sizing !== 'desktop' && this.getSendButton(context)}
+            <div>
+              {isAttachMenuOpen && (
+                <div
+                  className={cx(style['chat-input-group__modal'])}
+                  ref={this.attachMenu}
+                >
+                  <span className={cx(style['chat-input-group__modal-title'])}>Choose an attachment type:</span>
+                  {this.getAttachMenu(context)}
+                </div>
+              )}
             </div>
-          </div>
+          </React.Fragment>
         )}
       </AppContext.Consumer>
     );
@@ -161,13 +194,14 @@ class InputGroup extends React.Component {
 
   getAttachButton = (context) => {
     const { attachOptions, onAttach } = this.props;
+    const { isAttachMenuOpen } = this.state;
     if (!onAttach && (!attachOptions || !attachOptions.length)) {
       return null;
     }
     const iconName = 'attach';
     const onClick = (event) => {
       this.setState({
-        isAttachMenuOpen: true
+        isAttachMenuOpen: !isAttachMenuOpen
       });
       onAttach(event);
     };
@@ -191,8 +225,41 @@ class InputGroup extends React.Component {
     );
   };
 
-  getAttachMenu = () => {
-    // TODO: Grid of attachment options (use context param)
+  getAttachMenu = (context) => {
+    const { attachOptions } = this.props;
+    if (!attachOptions || !attachOptions.length) {
+      return null;
+    }
+    const actions = attachOptions.map((option) => {
+      const { action, icon, label, type } = option;
+      const onClick = (event) => {
+        action(type, event);
+        this.setState({
+          isAttachMenuOpen: false
+        });
+      };
+      return (
+        <div
+          className={cx(
+            style['chat-input-group__attach-menu-item'],
+            style[`chat-input-group__attach-menu-item--${context.sizing}`]
+          )}
+          key={label}
+        >
+          {this.getIcon(context, label, onClick, type, false, icon)}
+          <span>{label}</span>
+        </div>
+      );
+
+    });
+    return (
+      <div className={cx(
+        `chat-input-group__attach-menu--${context.theme}`,
+        style['chat-input-group__attach-menu']
+      )}>
+        {actions}
+      </div>
+    );
   };
 
   getMediaPreview = () => {
@@ -259,6 +326,30 @@ class InputGroup extends React.Component {
   getHeight = () => this.self && this.self.getBoundingClientRect
     ? this.self.getBoundingClientRect().height
     : 0;
+
+  /* Event */
+
+  resetTouch = () => this.setState({
+    touchMoved: false
+  });
+
+  invalidateTouch = () => this.setState({
+    touchMoved: true
+  });
+
+  checkTouchOutsideMenu = (event) => {
+    const { touchMoved } = this.state;
+    if (!touchMoved
+        && this.attachMenu
+        && this.attachMenu.current
+        && !this.attachMenu.current.contains(event.target)) {
+      this.setState({
+        isAttachMenuOpen: false
+      });
+      return true;
+    }
+    return false;
+  };
 
 }
 

@@ -68,6 +68,26 @@
   border-top: 1px solid material-color('grey', '300');
 }
 
+.chat-input-group__modal {
+  @include box-shadow(0 4px 8px 0 rgba(0, 0, 0, .2));
+  @include transform(translate(-50%, -50%));
+  background-color: #fff;
+  border-radius: .5rem;
+  box-sizing: block;
+  left: 50%;
+  margin: 0 auto;
+  max-width: 30rem;
+  padding: 1rem;
+  position: fixed;
+  top: 50%;
+  width: calc(100% - 2rem);
+  z-index: 1;
+
+  * {
+    z-index: 1;
+  }
+}
+
 .chat-input-group__row {
   @include flex-row(center, space-around);
   height: 100%;
@@ -118,6 +138,35 @@
 
 .chat-input-group__action-set {
   @include align-self(center);
+}
+
+.chat-input-group__attach-menu {
+  @include flex-row(space-around, flex-start, space-around);
+  @include flex-wrap(wrap);
+  margin: .5rem auto;
+  min-width: 10rem;
+  width: 100%;
+}
+
+.chat-input-group__attach-menu-item {
+  @include flex-basis(calc(25% - 1rem));
+  @include flex-column(center, center);
+  color: material-color('grey', '400');
+  font-size: .8rem;
+  font-weight: 500;
+  margin: .5rem;
+
+  &:hover {
+    color: material-color('grey', '700');
+  }
+
+  .chat-input-group__button-image {
+    @include square(2.5rem !important);
+  }
+}
+
+.chat-input-group__attach-menu-item--mobile {
+  @include flex-basis(calc(33.3% - 1rem));
 }
 
 .chat-input-group__button {
@@ -178,6 +227,12 @@
 
 .chat-input-group__button-image {
   @include square(1.5rem !important);
+}
+
+.chat-input-group__modal-title {
+  color: material-color('grey', '600');
+  font-size: 1.2rem;
+  font-weight: 400;
 }
 
 .chat-input-group__textarea {
