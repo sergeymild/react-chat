@@ -198,6 +198,15 @@ const placeholderDictionary = {
     ),
     size: defaultIconSize
   },
+  collapse: {
+    paths: (
+      <g>
+        <path d='M7.41 18.59l1.42 1.41 3.17-3.17 3.17 3.17 1.41-1.41-4.58-4.59-4.59
+                 4.59zm9.18-13.18l-1.42-1.41-3.17 3.17-3.17-3.17-1.42 1.41 4.59 4.59 4.59-4.59z' />
+      </g>
+    ),
+    size: defaultIconSize
+  },
   copy: {
     paths: (
       <g>
@@ -248,6 +257,15 @@ const placeholderDictionary = {
       <g>
         <path d='M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48
                  10-10-4.48-10-10-10zm1 15h-2v-2h2v2zm0-4h-2v-6h2v6z' />
+      </g>
+    ),
+    size: defaultIconSize
+  },
+  expand: {
+    paths: (
+      <g>
+        <path d='M12 5.83l3.17 3.17 1.41-1.41-4.58-4.59-4.59 4.59 1.42 1.41 3.17-3.17zm0
+                 12.34l-3.17-3.17-1.41 1.41 4.58 4.59 4.59-4.59-1.42-1.41-3.17 3.17z' />
       </g>
     ),
     size: defaultIconSize
