@@ -80,7 +80,7 @@
   padding: 1rem;
   position: fixed;
   top: 50%;
-  width: calc(100% - 1rem);
+  width: calc(100% - 2rem);
   z-index: 1;
 
   * {
@@ -149,12 +149,12 @@
 }
 
 .chat-input-group__attach-menu-item {
+  @include flex-basis(calc(25% - 1rem));
   @include flex-column(center, center);
   color: material-color('grey', '400');
   font-size: .8rem;
   font-weight: 500;
   margin: .5rem;
-  width: 4rem;
 
   &:hover {
     color: material-color('grey', '700');
@@ -163,6 +163,10 @@
   .chat-input-group__button-image {
     @include square(2.5rem !important);
   }
+}
+
+.chat-input-group__attach-menu-item--mobile {
+  @include flex-basis(calc(33.3% - 1rem));
 }
 
 .chat-input-group__button {

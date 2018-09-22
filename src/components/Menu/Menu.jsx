@@ -15,19 +15,27 @@ class Menu extends React.Component {
   constructor (props) {
     super(props);
     this.actionMenu = React.createRef();
+    this.state = {
+      touchInitiated: false,
+      touchMoved: false
+    };
   }
 
   componentDidMount = () => {
     if (document) {
       document.addEventListener('mousedown', this.checkTouchOutsideMenu);
-      document.addEventListener('touchstart', this.checkTouchOutsideMenu);
+      document.addEventListener('touchstart', this.resetTouch);
+      document.addEventListener('touchmove', this.invalidateTouch);
+      document.addEventListener('touchend', this.checkTouchOutsideMenu);
     }
   };
 
   componentWillUnmount = () => {
     if (document) {
       document.removeEventListener('mousedown', this.checkTouchOutsideMenu);
-      document.removeEventListener('touchstart', this.checkTouchOutsideMenu);
+      document.addEventListener('touchstart', this.resetTouch);
+      document.addEventListener('touchmove', this.invalidateTouch);
+      document.removeEventListener('touchend', this.checkTouchOutsideMenu);
     }
   };
 
@@ -81,9 +89,26 @@ class Menu extends React.Component {
 
   /* Event Callback */
 
+  resetTouch = () => this.setState({
+    touchInitiated: true,
+    touchMoved: false
+  });
+
+  invalidateTouch = () => this.setState({
+    touchMoved: true
+  });
+
   checkTouchOutsideMenu = (event) => {
     const { onDismiss } = this.props;
-    if (this.actionMenu && this.actionMenu.current && !this.actionMenu.current.contains(event.target)) {
+    const { touchInitiated, touchMoved } = this.state;
+    if (touchInitiated
+        && !touchMoved
+        && this.actionMenu
+        && this.actionMenu.current
+        && !this.actionMenu.current.contains(event.target)) {
+      this.setState({
+        touchInitiated: false
+      });
       onDismiss && onDismiss();
       return true;
     }

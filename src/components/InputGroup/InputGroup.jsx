@@ -16,7 +16,8 @@ class InputGroup extends React.Component {
     this.state = {
       input: '',
       isAttachMenuOpen: false,
-      isTextFieldExpanded: false
+      isTextFieldExpanded: false,
+      touchMoved: false
     };
     this.attachMenu = React.createRef();
   }
@@ -24,14 +25,18 @@ class InputGroup extends React.Component {
   componentDidMount = () => {
     if (document) {
       document.addEventListener('mousedown', this.checkTouchOutsideMenu);
-      document.addEventListener('touchstart', this.checkTouchOutsideMenu);
+      document.addEventListener('touchstart', this.resetTouch);
+      document.addEventListener('touchmove', this.invalidateTouch);
+      document.addEventListener('touchend', this.checkTouchOutsideMenu);
     }
   };
 
   componentWillUnmount = () => {
     if (document) {
       document.removeEventListener('mousedown', this.checkTouchOutsideMenu);
-      document.removeEventListener('touchstart', this.checkTouchOutsideMenu);
+      document.addEventListener('touchstart', this.resetTouch);
+      document.addEventListener('touchmove', this.invalidateTouch);
+      document.removeEventListener('touchend', this.checkTouchOutsideMenu);
     }
   };
 
@@ -235,7 +240,10 @@ class InputGroup extends React.Component {
       };
       return (
         <div
-          className={cx(style['chat-input-group__attach-menu-item'])}
+          className={cx(
+            style['chat-input-group__attach-menu-item'],
+            style[`chat-input-group__attach-menu-item--${context.sizing}`]
+          )}
           key={label}
         >
           {this.getIcon(context, label, onClick, type, false, icon)}
@@ -321,8 +329,20 @@ class InputGroup extends React.Component {
 
   /* Event */
 
+  resetTouch = () => this.setState({
+    touchMoved: false
+  });
+
+  invalidateTouch = () => this.setState({
+    touchMoved: true
+  });
+
   checkTouchOutsideMenu = (event) => {
-    if (this.attachMenu && this.attachMenu.current && !this.attachMenu.current.contains(event.target)) {
+    const { touchMoved } = this.state;
+    if (!touchMoved
+        && this.attachMenu
+        && this.attachMenu.current
+        && !this.attachMenu.current.contains(event.target)) {
       this.setState({
         isAttachMenuOpen: false
       });
