@@ -191,25 +191,25 @@ class InputGroup extends React.Component {
     );
   };
 
-  getAttachMenu = (context) => {
-    // TODO: Grid of attachment options
+  getAttachMenu = () => {
+    // TODO: Grid of attachment options (use context param)
   };
 
-  getMediaPreview = (context) => {
-    // TODO: Add support for rich media attachment/preview
+  getMediaPreview = () => {
+    // TODO: Add support for rich media attachment/preview (use context param)
   };
 
   /* Input Handling */
 
   convertHTMLtoString = (input) => {
-    let htmlString = input.toString();
+    const htmlString = input.toString();
     // TODO: Safely sanitize HTML input to string and ensure all disallowed symbols are removed (e.g. html tags)
     return htmlString;
   };
 
   convertStringToHTML = () => {
     const { value } = this.props;
-    let htmlObject = new DOMParser().parseFromString(value, 'text/html');
+    const htmlObject = new DOMParser().parseFromString(value, 'text/html');
     // TODO: Safely revert string into HTML
     return htmlObject.body.innerHTML;
   };
