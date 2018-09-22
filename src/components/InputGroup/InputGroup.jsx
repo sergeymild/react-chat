@@ -44,7 +44,9 @@ class InputGroup extends React.Component {
     if (this.textField && this.props.value !== this.textField.innerHTML.toString()) {
       this.textField.innerHTML = this.convertStringToHTML();
     }
-    this.replaceCaret(this.textField);
+    if (navigator && !navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i)) {
+      this.replaceCaret(this.textField);
+    }
   };
 
   render = () => {
