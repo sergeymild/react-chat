@@ -75,10 +75,11 @@ class InputGroupPage extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      input: '',
       layout: 'staggered',
+      offset: 0,
       sizing: 'desktop',
-      theme: 'light',
-      input: ''
+      theme: 'light'
     };
   }
 
@@ -86,6 +87,17 @@ class InputGroupPage extends React.Component {
     if (window) {
       window.addEventListener('resize', this.handleWindowResize);
       this.handleWindowResize();
+    }
+    this.setState({
+      offset: this.inputGroup ? this.inputGroup.getHeight() : 0
+    });
+  };
+
+  componentDidUpdate = () => {
+    if (this.inputGroup && this.inputGroup.getHeight() !== this.state.offset) {
+      this.setState({
+        offset: this.inputGroup.getHeight()
+      });
     }
   };
 
@@ -96,23 +108,87 @@ class InputGroupPage extends React.Component {
   };
 
   render = () => {
-    const { input, ...context } = this.state;
+    const { input, offset, ...context } = this.state;
     return (
       <React.Fragment>
-        <div className='storybook__container'>
-          <span className='storybook__text storybook__title'>
-            Textarea Auto Resize
-          </span>
-          <span className='storybook__text'>
-            An InputGroup will feature multiple input actions, with text as the main input.
-          </span>
-          <span className='storybook__text'>
-            The textarea will resize according to the text length, as well as the state of expansion of the text view.
-          </span>
-          <span className='storybook__text'>
-            Similar to the Message view, the InputGroup view also requires an AppContext provider,
-            without which it will not be able to operate.
-          </span>
+        <div
+          className='storybook__scroll-column'
+          style={{ paddingBottom: `${Math.max(0, offset - 30)}px` }}
+        >
+          <div className='storybook__container'>
+            <span className='storybook__text storybook__title'>
+              Textarea Auto Resize
+            </span>
+            <span className='storybook__text'>
+              An InputGroup will feature multiple input actions, with text as the main input.
+            </span>
+            <span className='storybook__text'>
+              The textarea will resize according to the text length, as well as the state of expansion of the text view.
+            </span>
+            <span className='storybook__text'>
+              Similar to the Message view, the InputGroup view also requires an AppContext provider,
+              without which it will not be able to operate.
+            </span>
+          </div>
+          <div className='storybook__container'>
+            <span className='storybook__text storybook__title'>
+              Style Dependent Layout
+            </span>
+            <span className='storybook__text'>
+              The InputGroup layout will also depend on the overall chat layout specified.
+            </span>
+            <span className='storybook__text'>
+              Media and attachments are not fully supported yet.
+            </span>
+            <div className='storybook__segment storybook__segment--column'>
+              <br/>
+              <span>
+                {'Current layout: '}
+                <code>{context.layout}</code>
+              </span>
+              <br/>
+              <button
+                className='storybook__button'
+                onClick={() => this.setState({
+                  layout: context.layout === 'staggered' ? 'aligned' : 'staggered'
+                })}
+              >
+                <span>Toggle Layout</span>
+              </button>
+            </div>
+          </div>
+          <div className='storybook__container'>
+            <span className='storybook__text storybook__title'>
+              Controlled Input
+            </span>
+            <span className='storybook__text'>
+              Input value can be affected through the key <code>value</code> and is intercepted using <code>onChange</code>.
+            </span>
+            <span className='storybook__text'>
+              The value will be a stringified representation of innerHTML. Since the value will be set into innerHTML,
+              it is critical to sanitize the value before updating the <code>value</code> props.
+            </span>
+            <span className='storybook__text'>
+              Native sanitization will be supported in the near future.
+            </span>
+            <div className='storybook__segment storybook__segment--column'>
+              <br/>
+              <span>
+                {'Input Intercepted: '}
+              </span>
+              <br/>
+              <div className='storybook__code-preview'>
+                <span className='storybook__code-preview-text'>
+                  {input}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className='storybook__container'
+          style={{ padding: '0' }}
+        >
           <div className='storybook__segment storybook__segment--full'>
             <AppProvider {...context}>
               <InputGroup
@@ -123,6 +199,7 @@ class InputGroupPage extends React.Component {
                 onExpand={action('Input Expanded')}
                 onSend={this.sendMessage}
                 placeholder='Type here...'
+                ref={(element) => this.inputGroup = element}
                 value={input}
               />
             </AppProvider>

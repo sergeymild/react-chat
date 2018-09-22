@@ -33,14 +33,17 @@ class InputGroup extends React.Component {
     return (
       <AppContext.Consumer>
         {(context) => (
-          <div className={cx(
-            `chat-input-group--${context.theme}`,
-            className,
-            isTextFieldExpanded && style['chat-input-group--expanded'],
-            style['chat-input-group'],
-            style[`chat-input-group--${context.layout}`],
-            style[`chat-input-group--${context.sizing}`]
-          )}>
+          <div
+            className={cx(
+              `chat-input-group--${context.theme}`,
+              className,
+              isTextFieldExpanded && style['chat-input-group--expanded'],
+              style['chat-input-group'],
+              style[`chat-input-group--${context.layout}`],
+              style[`chat-input-group--${context.sizing}`]
+            )}
+            ref={(element) => this.self = element}
+          >
             <div className={cx(
               style['chat-input-group__row'],
               style['chat-input-group__row--textarea']
@@ -252,6 +255,10 @@ class InputGroup extends React.Component {
     }
     return null;
   };
+
+  getHeight = () => this.self && this.self.getBoundingClientRect
+    ? this.self.getBoundingClientRect().height
+    : 0;
 
 }
 
