@@ -189,7 +189,7 @@ class InputGroupPage extends React.Component {
           className='storybook__container'
           style={{ padding: '0' }}
         >
-          <div className='storybook__segment storybook__segment--full'>
+          <div className='storybook__segment storybook__segment--row'>
             <AppProvider {...context}>
               <InputGroup
                 attachOptions={actionsStub}
