@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import DOMPurify from 'dompurify';
 
 import { AppContext } from '../App/Context.jsx';
 import LazyImage from '../LazyImage/LazyImage.jsx';
@@ -16,7 +17,7 @@ class InputGroup extends React.Component {
     this.state = {
       input: '',
       isAttachMenuOpen: false,
-      isTextFieldExpanded: false,
+      isInputGroupExpanded: false,
       touchMoved: false
     };
     this.attachMenu = React.createRef();
@@ -42,16 +43,17 @@ class InputGroup extends React.Component {
 
   componentDidUpdate = () => {
     if (this.textField && this.props.value !== this.textField.innerHTML.toString()) {
-      this.textField.innerHTML = this.convertStringToHTML();
+      const { value } = this.props;
+      this.textField.innerHTML = this.convertStringToHTML(value);
     }
-    if (navigator && !navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i)) {
+    if (navigator && !navigator.userAgent.match(/(iP(hone|[ao]d))|(android)|(webOS)/i)) {
       this.replaceCaret(this.textField);
     }
   };
 
   render = () => {
     const { className } = this.props;
-    const { isAttachMenuOpen, isTextFieldExpanded } = this.state;
+    const { isInputGroupExpanded } = this.state;
     return (
       <AppContext.Consumer>
         {(context) => (
@@ -60,81 +62,152 @@ class InputGroup extends React.Component {
               className={cx(
                 `chat-input-group--${context.theme}`,
                 className,
-                isTextFieldExpanded && style['chat-input-group--expanded'],
+                isInputGroupExpanded && style['chat-input-group--expanded'],
                 style['chat-input-group'],
                 style[`chat-input-group--${context.layout}`],
                 style[`chat-input-group--${context.sizing}`]
               )}
               ref={(element) => this.self = element}
             >
-              <div className={cx(
-                style['chat-input-group__row'],
-                style['chat-input-group__row--textarea']
-              )}>
-                {context.layout === 'staggered' && this.getAttachButton(context)}
-                {this.getTextField(context)}
-                {context.layout === 'staggered' || context.sizing === 'desktop'
-                  ? this.getSendButton(context)
-                  : this.getExpandCollapseButton(context)
-                }
-              </div>
-              <div className={cx(
-                style['chat-input-group__row'],
-                style['chat-input-group__row--action']
-              )}>
-                {context.layout === 'aligned' && this.getActionRow(context)}
-                {context.layout === 'aligned' && context.sizing !== 'desktop' && this.getSendButton(context)}
-              </div>
+              {this.getInputRow(context)}
+              {this.getActionRow(context)}
             </div>
-            <div>
-              {isAttachMenuOpen && (
-                <div
-                  className={cx(style['chat-input-group__modal'])}
-                  ref={this.attachMenu}
-                >
-                  <span className={cx(style['chat-input-group__modal-title'])}>Choose an attachment type:</span>
-                  {this.getAttachMenu(context)}
-                </div>
-              )}
-            </div>
+            {this.getAttachModal(context)}
           </React.Fragment>
         )}
       </AppContext.Consumer>
     );
   };
 
-  /* Subviews */
+  /* Main Fragments */
 
-  getTextField = (context) => {
-    const { layout, sizing, theme } = context;
-    const { onChange, placeholder } = this.props;
+  getActionRow = (context) => {
+    const { layout, sizing } = context;
+    const isAlignedLayout = layout === 'aligned';
+    const hasSendButton = isAlignedLayout && sizing !== 'desktop';
     return (
       <div className={cx(
-        `chat-input-group__textarea-container--${theme}`,
-        style['chat-input-group__textarea-container'],
-        style[`chat-input-group__textarea-container--${layout}`],
-        style[`chat-input-group__textarea-container--${sizing}`]
+        style['chat-input-group__row'],
+        style['chat-input-group__row--action']
       )}>
-
-        {/* Add and render attached media previews here... */}
-
-        <div
-          className={cx(style['chat-input-group__textarea'])}
-          contentEditable
-          onInput={(event) => {
-            let input = event.target.innerHTML;
-            input = this.convertHTMLtoString(input);
-            onChange(input);
-            this.setState({ input });
-          }}
-          placeholder={placeholder}
-          ref={(e) => this.textField = e}
-        />
+        {isAlignedLayout && this.getActionSet(context)}
+        {hasSendButton && this.getSendButton(context)}
       </div>
     );
   };
 
-  getIcon = (context, label, onClick, placeholder = null, isDisabled = false, source = null) => (
+  getAttachModal = (context) => {
+    const { isAttachMenuOpen } = this.state;
+    if (!isAttachMenuOpen) {
+      return null;
+    }
+    return (
+      <div
+        className={cx(style['chat-input-group__modal'])}
+        ref={this.attachMenu}
+      >
+        <span className={cx(style['chat-input-group__modal-title'])}>
+          Choose an attachment type:
+        </span>
+        {this.getAttachMenu(context)}
+      </div>
+    );
+  };
+
+  getInputRow = (context) => {
+    const { layout, sizing } = context;
+    const isStaggeredLayout = layout === 'staggered';
+    const hasSendButton = isStaggeredLayout || sizing === 'desktop';
+    return (
+      <div className={cx(
+        style['chat-input-group__row'],
+        style['chat-input-group__row--textarea']
+      )}>
+        {isStaggeredLayout && this.getAttachButton(context)}
+        {this.getInputField(context)}
+        {hasSendButton ? this.getSendButton(context) : this.getExpandCollapseButton(context)}
+      </div>
+    );
+  };
+
+  /* Subviews */
+
+  getAttachButton = (context) => {
+    const { attachOptions, onAttach } = this.props;
+    if (!onAttach && (!attachOptions || !attachOptions.length)) {
+      return null;
+    }
+    const iconName = 'attach';
+    return this.getGenericButton(context, iconName, this.toggleAttachment, iconName);
+  };
+
+  getAttachMenu = (context) => {
+    const { attachOptions } = this.props;
+    if (!attachOptions || !attachOptions.length) {
+      return null;
+    }
+    const actions = attachOptions.map((option) => {
+      const { action, icon, label, type } = option;
+      return (
+        <div
+          className={cx(
+            style['chat-input-group__attach-menu-item'],
+            style[`chat-input-group__attach-menu-item--${context.sizing}`]
+          )}
+          key={label}
+        >
+          {this.getGenericButton(
+            context,
+            label,
+            this.executeAction(action, type, true),
+            type,
+            false,
+            icon
+          )}
+          <span>{label}</span>
+        </div>
+      );
+    });
+    return (
+      <div className={cx(
+        `chat-input-group__attach-menu--${context.theme}`,
+        style['chat-input-group__attach-menu']
+      )}>
+        {actions}
+      </div>
+    );
+  };
+
+  getActionSet = (context) => {
+    const { attachOptions } = this.props;
+    if (!attachOptions || !attachOptions.length) {
+      return null;
+    }
+    const actions = attachOptions.map((option) => {
+      const { action, icon, label, type } = option;
+      return this.getGenericButton(
+        context,
+        label,
+        this.executeAction(action, type, false),
+        type,
+        false,
+        icon
+      );
+    });
+    return (
+      <div className={cx(style['chat-input-group__action-set'])}>
+        {actions}
+      </div>
+    );
+  };
+
+  getExpandCollapseButton = (context) => {
+    const { isInputGroupExpanded } = this.state;
+    const iconName = isInputGroupExpanded ? 'collapse' : 'expand';
+    return this.getGenericButton(context, iconName, this.toggleExpansion, iconName);
+  };
+
+  getGenericButton = (context, label, onClick, placeholder = null, isDisabled = false, source = null) => (
     <button
       className={cx(
         !placeholder && style['chat-input-group__button--text'],
@@ -164,151 +237,48 @@ class InputGroup extends React.Component {
     </button>
   );
 
-  getExpandCollapseButton = (context) => {
-    const { onExpand, onCollapse } = this.props;
-    const { isTextFieldExpanded } = this.state;
-    const iconName = isTextFieldExpanded ? 'collapse' : 'expand';
-    const onClick = (event) => {
-      this.setState({
-        isTextFieldExpanded: !isTextFieldExpanded
-      });
-      return isTextFieldExpanded ? onCollapse(event) : onExpand(event);
-    };
-    return this.getIcon(context, iconName, onClick, iconName);
+  getInputField = (context) => {
+    const { layout, sizing, theme } = context;
+    const { placeholder } = this.props;
+    return (
+      <div className={cx(
+        `chat-input-group__textarea-container--${theme}`,
+        style['chat-input-group__textarea-container'],
+        style[`chat-input-group__textarea-container--${layout}`],
+        style[`chat-input-group__textarea-container--${sizing}`]
+      )}>
+        <div
+          className={cx(style['chat-input-group__textarea'])}
+          contentEditable
+          onInput={this.updateInputChanges}
+          placeholder={placeholder}
+          ref={(element) => this.textField = element}
+        />
+      </div>
+    );
   };
 
   getSendButton = (context) => {
-    const { onSend } = this.props;
+    const { layout, sizing } = context;
     const { input } = this.state;
     const iconName = 'send';
-    const onClick = (event) => {
-      onSend(input, event);
-      this.setState({
-        input: ''
-      });
-    };
-    const placeholder = context.layout === 'aligned' || context.sizing === 'desktop'
-      ? null
-      : iconName;
-    const isDisabled = !input || input === '';
-    return this.getIcon(context, iconName, onClick, placeholder, isDisabled);
-  };
-
-  getAttachButton = (context) => {
-    const { attachOptions, onAttach } = this.props;
-    const { isAttachMenuOpen } = this.state;
-    if (!onAttach && (!attachOptions || !attachOptions.length)) {
-      return null;
-    }
-    const iconName = 'attach';
-    const onClick = (event) => {
-      this.setState({
-        isAttachMenuOpen: !isAttachMenuOpen
-      });
-      onAttach(event);
-    };
-    return this.getIcon(context, iconName, onClick, iconName);
-  };
-
-  getActionRow = (context) => {
-    const { attachOptions } = this.props;
-    if (!attachOptions || !attachOptions.length) {
-      return null;
-    }
-    const actions = attachOptions.map((option) => {
-      const { action, icon, label, type } = option;
-      const onClick = (event) => action(type, event);
-      return this.getIcon(context, label, onClick, type, false, icon);
-    });
-    return (
-      <div className={cx(style['chat-input-group__action-set'])}>
-        {actions}
-      </div>
-    );
-  };
-
-  getAttachMenu = (context) => {
-    const { attachOptions } = this.props;
-    if (!attachOptions || !attachOptions.length) {
-      return null;
-    }
-    const actions = attachOptions.map((option) => {
-      const { action, icon, label, type } = option;
-      const onClick = (event) => {
-        action(type, event);
-        this.setState({
-          isAttachMenuOpen: false
-        });
-      };
-      return (
-        <div
-          className={cx(
-            style['chat-input-group__attach-menu-item'],
-            style[`chat-input-group__attach-menu-item--${context.sizing}`]
-          )}
-          key={label}
-        >
-          {this.getIcon(context, label, onClick, type, false, icon)}
-          <span>{label}</span>
-        </div>
-      );
-
-    });
-    return (
-      <div className={cx(
-        `chat-input-group__attach-menu--${context.theme}`,
-        style['chat-input-group__attach-menu']
-      )}>
-        {actions}
-      </div>
-    );
-  };
-
-  getMediaPreview = () => {
-    // TODO: Add support for rich media attachment/preview (use context param)
+    const placeholder = layout === 'staggered' && sizing !== 'desktop' ? iconName : null;
+    const isDisabled = !this.isSubmittableAsText(input);
+    return this.getGenericButton(context, iconName, this.submitInput, placeholder, isDisabled);
   };
 
   /* Input Handling */
 
-  convertHTMLtoString = (input) => {
-    const htmlString = input.toString();
-    // TODO: Safely sanitize HTML input to string and ensure all disallowed symbols are removed (e.g. html tags)
+  convertHTMLtoString = (rawHtml) => {
+    let htmlString = rawHtml.toString();
+    htmlString = DOMPurify.sanitize(htmlString);
     return htmlString;
   };
 
-  convertStringToHTML = () => {
-    const { value } = this.props;
-    const htmlObject = new DOMParser().parseFromString(value, 'text/html');
-    // TODO: Safely revert string into HTML
+  convertStringToHTML = (rawString) => {
+    const htmlString = DOMPurify.sanitize(rawString);
+    const htmlObject = new DOMParser().parseFromString(htmlString, 'text/html');
     return htmlObject.body.innerHTML;
-  };
-
-  replaceCaret = (element) => {
-    const target = this.findLastNode(element);
-    if (target && target.nodeValue) {
-      const previousRange = document.createRange();
-      const reference = window.getSelection().getRangeAt(0);
-      previousRange.selectNodeContents(element);
-      previousRange.setStart(reference.endContainer, reference.endOffset);
-      const textAfterPreviousCaret = previousRange.cloneContents();
-
-      const range = document.createRange();
-      const selection= window.getSelection();
-      range.setStart(target, target.nodeValue.length);
-      range.collapse(true);
-      selection.removeAllRanges();
-
-      if (textAfterPreviousCaret && textAfterPreviousCaret.textContent.length > 0) {
-        previousRange.setEnd(reference.endContainer, reference.endOffset);
-        selection.addRange(previousRange);
-      } else {
-        range.setEnd(range.endContainer, target.nodeValue.length);
-        selection.addRange(range);
-      }
-      if (element instanceof HTMLElement) {
-        element.focus();
-      }
-    }
   };
 
   findLastNode = (node) => {
@@ -316,8 +286,8 @@ class InputGroup extends React.Component {
     if (!children || !children.length) {
       return node;
     }
-    for (let i = children.length - 1; i >= 0; i--) {
-      const lastNode = this.findLastNode(children[i]);
+    for (let index = children.length - 1; index >= 0; index--) {
+      const lastNode = this.findLastNode(children[index]);
       if (lastNode) {
         return lastNode;
       }
@@ -325,19 +295,48 @@ class InputGroup extends React.Component {
     return null;
   };
 
-  getHeight = () => this.self && this.self.getBoundingClientRect
-    ? this.self.getBoundingClientRect().height
-    : 0;
+  getHeight = () => this.self && this.self.getBoundingClientRect ? this.self.getBoundingClientRect().height : 0;
 
-  /* Event */
+  isSubmittableAsText = (input) => {
+    if (!input || typeof input !== 'string' || input.trim() === '') {
+      return false;
+    }
+    const tempHtml = new DOMParser().parseFromString(input, 'text/html');
+    if (!tempHtml || !tempHtml.body || !tempHtml.body.textContent) {
+      return false;
+    }
+    const body = tempHtml.body;
+    return body.textContent.trim() !== '';
+  };
 
-  resetTouch = () => this.setState({
-    touchMoved: false
-  });
+  replaceCaret = (element) => {
+    const target = this.findLastNode(element);
+    if (!target || !target.nodeValue) {
+      return;
+    }
+    const previousRange = document.createRange();
+    const reference = window.getSelection().getRangeAt(0);
+    previousRange.selectNodeContents(element);
+    previousRange.setStart(reference.endContainer, reference.endOffset);
+    const previousContent = previousRange.cloneContents();
+    const range = document.createRange();
+    const selection= window.getSelection();
+    range.setStart(target, target.nodeValue.length);
+    range.collapse(true);
+    selection.removeAllRanges();
+    if (previousContent && previousContent.textContent.length > 0) {
+      previousRange.setEnd(reference.endContainer, reference.endOffset);
+      selection.addRange(previousRange);
+    } else {
+      range.setEnd(range.endContainer, target.nodeValue.length);
+      selection.addRange(range);
+    }
+    if (element instanceof HTMLElement) {
+      element.focus();
+    }
+  };
 
-  invalidateTouch = () => this.setState({
-    touchMoved: true
-  });
+  /* Event Handlers */
 
   checkTouchOutsideMenu = (event) => {
     const { touchMoved } = this.state;
@@ -351,6 +350,58 @@ class InputGroup extends React.Component {
       return true;
     }
     return false;
+  };
+
+  executeAction = (action, type, isAttachAction) => (event) => {
+    if (isAttachAction) {
+      this.setState({
+        isAttachMenuOpen: false
+      });
+    }
+    return action(type, event);
+  };
+
+  invalidateTouch = () => this.setState({
+    touchMoved: true
+  });
+
+  resetTouch = () => this.setState({
+    touchMoved: false
+  });
+
+  submitInput = (event) => {
+    const { onSend } = this.props;
+    const { input } = this.state;
+    this.setState({
+      input: ''
+    });
+    return onSend(input, event);
+  };
+
+  toggleAttachment = (event) => {
+    const { onAttach } = this.props;
+    const { isAttachMenuOpen } = this.state;
+    this.setState({
+      isAttachMenuOpen: !isAttachMenuOpen
+    });
+    return onAttach(event);
+  };
+
+  toggleExpansion = (event) => {
+    const { onExpand, onCollapse } = this.props;
+    const { isInputGroupExpanded } = this.state;
+    this.setState({
+      isInputGroupExpanded: !isInputGroupExpanded
+    });
+    return isInputGroupExpanded ? onCollapse(event) : onExpand(event);
+  };
+
+  updateInputChanges = (event) => {
+    const { onChange } = this.props;
+    let input = event.target.innerHTML;
+    input = this.convertHTMLtoString(input);
+    this.setState({ input });
+    return onChange(input);
   };
 
 }

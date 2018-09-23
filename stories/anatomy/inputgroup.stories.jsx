@@ -169,7 +169,7 @@ class InputGroupPage extends React.Component {
               it is critical to sanitize the value before updating the <code>value</code> props.
             </span>
             <span className='storybook__text'>
-              Native sanitization will be supported in the near future.
+              Sanitization is performed using DOMPurify.
             </span>
             <div className='storybook__segment storybook__segment--column'>
               <br/>
