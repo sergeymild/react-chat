@@ -57,7 +57,7 @@ class TitleBarPage extends React.Component {
         Return and Info
       </span>
       <span className='storybook__text'>
-        A TitleBar can have actions such as returning to a previous page,
+        A title bar can have actions such as returning to a previous page,
         or opening an info panel that describes the chat room.
       </span>
       <span className='storybook__text'>
@@ -66,7 +66,7 @@ class TitleBarPage extends React.Component {
         and the <code>info</code> or <code>avatar</code> button.
       </span>
       <span className='storybook__text'>
-        Again, note that the TitleBar also requires the explicit declaration of <code>AppContext</code>.
+        Again, note that title bar also requires the explicit declaration of <code>AppContext</code>.
       </span>
       <br/>
       <div className='storybook__segment storybook__segment--row'>
