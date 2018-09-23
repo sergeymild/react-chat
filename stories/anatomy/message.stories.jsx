@@ -130,14 +130,14 @@ class MessagePage extends React.Component {
           Message
         </span>
         <span className='storybook__text'>
-          A Message view is a combination of avatar, content and menu.
+          A message view is a combination of avatar, content and menu.
         </span>
         <span className='storybook__text'>
           It implicitly styles its subviews based on the ownership of the content,
           as well as the layout, device and theme in context.
         </span>
         <span className='storybook__text'>
-          As such, a Message view requires an AppContext provider,
+          As such, a message requires an <code>AppContext</code> provider,
           without which it will not be able to operate.
         </span>
         <div className='storybook__segment storybook__segment--column'>
