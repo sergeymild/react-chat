@@ -3,6 +3,8 @@
 @import '../App/colors';
 @import '../App/mixins';
 
+// Generics
+
 .chat-input-group {
   @include flex-column(center, center);
   bottom: 0;
@@ -19,6 +21,8 @@
     box-sizing: inherit;
   }
 }
+
+// Context Specific
 
 .chat-input-group--desktop {
   border-top: 1px solid material-color('grey', '300');
@@ -68,77 +72,13 @@
   border-top: 1px solid material-color('grey', '300');
 }
 
-.chat-input-group__modal {
-  @include box-shadow(0 4px 8px 0 rgba(0, 0, 0, .2));
-  @include transform(translate(-50%, -50%));
-  background-color: #fff;
-  border-radius: .5rem;
-  box-sizing: block;
-  left: 50%;
-  margin: 0 auto;
-  max-width: 30rem;
-  padding: 1rem;
-  position: fixed;
-  top: 50%;
-  width: calc(100% - 2rem);
-  z-index: 1;
-
-  * {
-    z-index: 1;
-  }
-}
-
-.chat-input-group__row {
-  @include flex-row(center, space-around);
-  height: 100%;
-  max-width: 100%;
-  position: relative;
-  width: 100%;
-}
-
-.chat-input-group__row--action {
-  @include flex-row(flex-start, space-between);
-  @include flex-grow(0 !important);
-  @include flex-shrink(0 !important);
-  bottom: 0;
-  left: 0;
-}
-
-.chat-input-group__textarea-container--desktop {
-  background-color: transparent;
-  border-radius: 0;
-  max-height: 20rem !important;
-}
-
-.chat-input-group__textarea-container {
-  @include flex-grow(1);
-  -ms-overflow-style: none;
-  max-height: 10rem;
-  max-width: 100%;
-  outline: none;
-  overflow: -moz-scrollbars-none;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  padding: .5rem 1rem;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-[contenteditable='true'] {
-  &:empty {
-    &::before {
-      color: material-color('grey', '400');
-      content: attr(placeholder);
-      display: block;
-    }
-  }
-}
+// Actions
 
 .chat-input-group__action-set {
   @include align-self(center);
 }
+
+// Attachment Menu
 
 .chat-input-group__attach-menu {
   @include flex-row(space-around, flex-start, space-around);
@@ -151,13 +91,15 @@
 .chat-input-group__attach-menu-item {
   @include flex-basis(calc(25% - 1rem));
   @include flex-column(center, center);
-  color: material-color('grey', '400');
+  color: material-color('grey', '500');
   font-size: .8rem;
-  font-weight: 500;
+  font-weight: 400;
   margin: .5rem;
 
   &:hover {
-    color: material-color('grey', '700');
+    > * {
+      color: material-color('grey', '700') !important;
+    }
   }
 
   .chat-input-group__button-image {
@@ -168,6 +110,8 @@
 .chat-input-group__attach-menu-item--mobile {
   @include flex-basis(calc(33.3% - 1rem));
 }
+
+// Buttons
 
 .chat-input-group__button {
   background-color: transparent;
@@ -229,10 +173,84 @@
   @include square(1.5rem !important);
 }
 
+// Modal
+
+.chat-input-group__modal {
+  @include box-shadow(0 4px 8px 0 rgba(0, 0, 0, .2));
+  @include transform(translate(-50%, -50%));
+  background-color: #fff;
+  border-radius: .5rem;
+  box-sizing: block;
+  left: 50%;
+  margin: 0 auto;
+  max-width: 30rem;
+  padding: 1rem;
+  position: fixed;
+  top: 50%;
+  width: calc(100% - 2rem);
+  z-index: 1;
+
+  * {
+    z-index: 1;
+  }
+}
+
 .chat-input-group__modal-title {
-  color: material-color('grey', '600');
-  font-size: 1.2rem;
+  color: material-color('grey', '700');
+  font-size: 1.1rem;
   font-weight: 400;
+}
+
+// Row Generics
+
+.chat-input-group__row {
+  @include flex-row(center, space-around);
+  height: 100%;
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.chat-input-group__row--action {
+  @include flex-row(flex-start, space-between);
+  @include flex-grow(0 !important);
+  @include flex-shrink(0 !important);
+  bottom: 0;
+  left: 0;
+}
+
+// Text Input
+
+.chat-input-group__textarea-container {
+  @include flex-grow(1);
+  -ms-overflow-style: none;
+  max-height: 10rem;
+  max-width: 100%;
+  outline: none;
+  overflow: -moz-scrollbars-none;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: .5rem 1rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  [contenteditable='true'] {
+    &:empty {
+      &::before {
+        color: material-color('grey', '400');
+        content: attr(placeholder);
+        display: block;
+      }
+    }
+  }
+}
+
+.chat-input-group__textarea-container--desktop {
+  background-color: transparent;
+  border-radius: 0;
+  max-height: 20rem !important;
 }
 
 .chat-input-group__textarea {

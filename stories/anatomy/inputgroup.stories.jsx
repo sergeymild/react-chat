@@ -120,13 +120,13 @@ class InputGroupPage extends React.Component {
               Textarea Auto Resize
             </span>
             <span className='storybook__text'>
-              An InputGroup will feature multiple input actions, with text as the main input.
+              An input group will feature multiple input actions, with text as the main input.
             </span>
             <span className='storybook__text'>
-              The textarea will resize according to the text length, as well as the state of expansion of the text view.
+              The text area will resize according to the text length, as well as the state of expansion of the text view.
             </span>
             <span className='storybook__text'>
-              Similar to the Message view, the InputGroup view also requires an AppContext provider,
+              Similar to the message view, the input group also requires an <code>AppContext</code> provider,
               without which it will not be able to operate.
             </span>
           </div>
@@ -135,7 +135,7 @@ class InputGroupPage extends React.Component {
               Style Dependent Layout
             </span>
             <span className='storybook__text'>
-              The InputGroup layout will also depend on the overall chat layout specified.
+              The input group layout will also depend on the overall chat layout specified.
             </span>
             <span className='storybook__text'>
               Media and attachments are not fully supported yet.
@@ -165,11 +165,11 @@ class InputGroupPage extends React.Component {
               Input value can be affected through the key <code>value</code> and is intercepted using <code>onChange</code>.
             </span>
             <span className='storybook__text'>
-              The value will be a stringified representation of innerHTML. Since the value will be set into innerHTML,
+              The value will be a stringified representation of inner HTML. Since the value will be set into inner HTML,
               it is critical to sanitize the value before updating the <code>value</code> props.
             </span>
             <span className='storybook__text'>
-              Native sanitization will be supported in the near future.
+              Sanitization is performed using <code>DOMPurify</code>.
             </span>
             <div className='storybook__segment storybook__segment--column'>
               <br/>
@@ -189,7 +189,7 @@ class InputGroupPage extends React.Component {
           className='storybook__container'
           style={{ padding: '0' }}
         >
-          <div className='storybook__segment storybook__segment--full'>
+          <div className='storybook__segment storybook__segment--row'>
             <AppProvider {...context}>
               <InputGroup
                 attachOptions={actionsStub}

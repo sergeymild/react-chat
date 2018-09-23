@@ -17,7 +17,7 @@ const ImagePage = () => {
       <div className='storybook__container'>
         <span className='storybook__text storybook__title'>Icons as Placeholder</span>
         <span className='storybook__text'>
-          Polymer SVG icons are populated using the <code>placeholder</code> key,
+          Polymer SVG icons from the <code>Polymer Project</code> are populated using the <code>placeholder</code> key,
           and they can be scaled and styled using custom CSS classes.
         </span>
         <span className='storybook__text'>
