@@ -62,7 +62,7 @@
   }
 
   &:not(.chat-input-group--desktop) {
-    background-color: material-color('grey', '100');
+    background-color: material-color('blue-grey', '50');
 
     .chat-input-group__textarea-container {
       background-color: material-color('grey', '50');
@@ -196,7 +196,7 @@
 }
 
 .chat-input-group__modal-title {
-  color: material-color('grey', '700');
+  color: material-color('grey', '500');
   font-size: 1.1rem;
   font-weight: 400;
 }

@@ -27,3 +27,15 @@
 .chat-message--right {
   @include justify-content(flex-end);
 }
+
+.chat-message__avatar {
+  img,
+  svg {
+    @include square(3.5rem !important);
+  }
+
+  span {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+}
