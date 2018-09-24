@@ -47,12 +47,7 @@ class TitleBarPage extends React.Component {
   };
 
   render = () => (
-    <div
-      className='storybook__container'
-      style={{
-        paddingTop: '4rem'
-      }}
-    >
+    <div className='storybook__container'>
       <span className='storybook__text storybook__title'>
         Return and Info
       </span>

@@ -77,7 +77,6 @@ class InputGroupPage extends React.Component {
     this.state = {
       input: '',
       layout: 'staggered',
-      offset: 0,
       sizing: 'desktop',
       theme: 'light'
     };
@@ -88,17 +87,6 @@ class InputGroupPage extends React.Component {
       window.addEventListener('resize', this.handleWindowResize);
       this.handleWindowResize();
     }
-    this.setState({
-      offset: this.inputGroup ? this.inputGroup.getHeight() : 0
-    });
-  };
-
-  componentDidUpdate = () => {
-    if (this.inputGroup && this.inputGroup.getHeight() !== this.state.offset) {
-      this.setState({
-        offset: this.inputGroup.getHeight()
-      });
-    }
   };
 
   componentWillUnmount = () => {
@@ -108,13 +96,10 @@ class InputGroupPage extends React.Component {
   };
 
   render = () => {
-    const { input, offset, ...context } = this.state;
+    const { input, ...context } = this.state;
     return (
       <React.Fragment>
-        <div
-          className='storybook__scroll-column'
-          style={{ paddingBottom: `${Math.max(0, offset - 30)}px` }}
-        >
+        <div className='storybook__scroll-column'>
           <div className='storybook__container'>
             <span className='storybook__text storybook__title'>
               Textarea Auto Resize
@@ -185,25 +170,20 @@ class InputGroupPage extends React.Component {
             </div>
           </div>
         </div>
-        <div
-          className='storybook__container'
-          style={{ padding: '0' }}
-        >
-          <div className='storybook__segment storybook__segment--row'>
-            <AppProvider {...context}>
-              <InputGroup
-                attachOptions={actionsStub}
-                onAttach={action('Attach Pressed')}
-                onChange={this.updateInput}
-                onCollapse={action('Input Collapsed')}
-                onExpand={action('Input Expanded')}
-                onSend={this.sendMessage}
-                placeholder='Type here...'
-                ref={(element) => this.inputGroup = element}
-                value={input}
-              />
-            </AppProvider>
-          </div>
+        <div className='storybook__container storybook__container--input-group'>
+          <AppProvider {...context}>
+            <InputGroup
+              attachOptions={actionsStub}
+              onAttach={action('Attach Pressed')}
+              onChange={this.updateInput}
+              onCollapse={action('Input Collapsed')}
+              onExpand={action('Input Expanded')}
+              onSend={this.sendMessage}
+              placeholder='Type here...'
+              ref={(element) => this.inputGroup = element}
+              value={input}
+            />
+          </AppProvider>
         </div>
       </React.Fragment>
     );
@@ -223,7 +203,7 @@ class InputGroupPage extends React.Component {
     this.setState({
       input: ''
     });
-  }
+  };
 
 }
 

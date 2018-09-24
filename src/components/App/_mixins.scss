@@ -189,3 +189,12 @@
   @include antialias(subpixel-antialiased);
   text-rendering: optimizeLegibility;
 }
+
+@mixin smooth-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+@mixin sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}

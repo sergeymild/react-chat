@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import LazyImage from '../LazyImage/LazyImage.jsx';
 
-import style from './Content.scss';
+import style from './content.scss';
 
 class Content extends React.Component {
 
@@ -36,7 +36,8 @@ class Content extends React.Component {
       <div className={cx(
         className,
         style['message-content-container'],
-        style[`message-content-container--${variant}`]
+        style[`message-content-container--${variant}`],
+        type.match(/^(event|system)$/) && style['message-content-container--full']
       )}>
         {isLoading ? this.getLoadingPlaceholder() : content}
         {children}
@@ -87,6 +88,7 @@ class Content extends React.Component {
         )}
         onContextMenu={isDesktop ? this.onContext(onHold, messageId) : null}
         onTouchStart={this.setHoldAction(onHold, messageId)}
+        onTouchMove={this.unsetHoldAction}
         onTouchEnd={this.unsetHoldAction}
         onClick={onPress}
       >
@@ -109,6 +111,7 @@ class Content extends React.Component {
         )}
         onContextMenu={isDesktop ? this.onContext(onHold, messageId) : null}
         onTouchStart={this.setHoldAction(onHold, messageId)}
+        onTouchMove={this.unsetHoldAction}
         onTouchEnd={this.unsetHoldAction}
         onClick={onPress}
       >

@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import LazyImage from '../LazyImage/LazyImage.jsx';
 
-import style from './Avatar.scss';
+import style from './avatar.scss';
 
 class Avatar extends React.Component {
 

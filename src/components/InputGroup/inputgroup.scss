@@ -7,15 +7,19 @@
 
 .chat-input-group {
   @include flex-column(center, center);
+  @include sticky;
   bottom: 0;
   box-sizing: border-box;
+  font-size: 1rem;
+  height: fit-content;
   left: 0;
   margin-top: 1rem;
   max-height: 100%;
   overflow-x: hidden;
   padding: .5rem;
-  position: fixed;
+  pointer-events: auto;
   width: 100%;
+  z-index: 5;
 
   * {
     box-sizing: inherit;
@@ -95,6 +99,7 @@
   font-size: .8rem;
   font-weight: 400;
   margin: .5rem;
+  pointer-events: auto;
 
   &:hover {
     > * {
@@ -177,22 +182,17 @@
 
 .chat-input-group__modal {
   @include box-shadow(0 4px 8px 0 rgba(0, 0, 0, .2));
-  @include transform(translate(-50%, -50%));
   background-color: #fff;
   border-radius: .5rem;
+  bottom: 4.5rem;
   box-sizing: block;
-  left: 50%;
+  left: 1rem;
   margin: 0 auto;
   max-width: 30rem;
   padding: 1rem;
   position: fixed;
-  top: 50%;
   width: calc(100% - 2rem);
-  z-index: 1;
-
-  * {
-    z-index: 1;
-  }
+  z-index: 5;
 }
 
 .chat-input-group__modal-title {
@@ -224,6 +224,7 @@
 .chat-input-group__textarea-container {
   @include flex-grow(1);
   -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
   max-height: 10rem;
   max-width: 100%;
   outline: none;
@@ -254,6 +255,7 @@
 }
 
 .chat-input-group__textarea {
+  min-height: 1.5rem;
   outline: none;
   overflow-y: hidden;
   width: 100%;
