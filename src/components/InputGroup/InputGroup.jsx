@@ -20,6 +20,7 @@ class InputGroup extends React.Component {
       isInputGroupExpanded: false,
       touchMoved: false
     };
+    this.attachButton = React.createRef();
     this.attachMenu = React.createRef();
   }
 
@@ -219,6 +220,7 @@ class InputGroup extends React.Component {
       disabled={isDisabled}
       key={placeholder}
       onClick={onClick}
+      ref={label === 'attach' ? this.attachButton : null}
       type='button'
     >
       {placeholder ? (
@@ -340,6 +342,11 @@ class InputGroup extends React.Component {
 
   checkTouchOutsideMenu = (event) => {
     const { touchMoved } = this.state;
+    if (this.attachButton
+        && this.attachButton.current
+        && this.attachButton.current.contains(event.target)) {
+      return false;
+    }
     if (!touchMoved
         && this.attachMenu
         && this.attachMenu.current
@@ -393,7 +400,7 @@ class InputGroup extends React.Component {
     this.setState({
       isInputGroupExpanded: !isInputGroupExpanded
     });
-    return isInputGroupExpanded ? onCollapse(event) : onExpand(event);
+    return isInputGroupExpanded ? onCollapse && onCollapse(event) : onExpand && onExpand(event);
   };
 
   updateInputChanges = (event) => {

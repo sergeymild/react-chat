@@ -36,9 +36,13 @@ class Message extends React.Component {
             className,
             style['chat-message'],
             style[`chat-message--${context.theme}`],
-            context.layout === 'staggered' && (userId === sender.id
-              ? style['chat-message--right']
-              : style['chat-message--left'])
+            !sender
+              ? style['chat-message--center']
+              : context.layout === 'aligned'
+                ? style['chat-message--full']
+                : userId === sender.id
+                  ? style['chat-message--right']
+                  : style['chat-message--left']
           )}>
             {haveOwnership && sender && !hideAvatar && this.getAvatar(context)}
             {this.getContent(
@@ -78,12 +82,15 @@ class Message extends React.Component {
   getAvatar = (context) => {
     const { layout, sizing, theme } = context;
     const { isLoading, onTouchAvatar, position, sender, userId } = this.props;
-    if (layout === 'staggered' && (sizing === 'mobile' || sender.id === userId)) {
+    if (!sender) {
+      return null;
+    }
+    if (!sender || layout === 'staggered' && (sizing === 'mobile' || sender.id === userId)) {
       return null;
     }
     let source = null;
     let action = null;
-    const shouldShowAvatar = position.match(/^(top|isolated)$/);
+    const shouldShowAvatar = position && position.match(/^(top|isolated)$/);
     if (shouldShowAvatar) {
       source = sender.avatar;
       action = onTouchAvatar ? onTouchAvatar.bind(null, sender.id) : null;
@@ -105,10 +112,11 @@ class Message extends React.Component {
     const { layout, sizing, theme } = context;
     const { content, isLoading, menuActions, messageId, position, sender, type, userId } = this.props;
     const { onTouchContent, onHoldContent } = this.props;
-    const { id, name } = sender;
+    const id = sender ? sender.id : null;
+    const name = sender ? sender.name : null;
     const isSender = id === userId;
     const isReady = !isLoading  && content && Object.keys(content).length > 0;
-    const shouldHideName = (layout === 'staggered' && isSender) || position.match(/^(middle|bottom)$/);
+    const shouldHideName = (layout === 'staggered' && isSender) || !position || position.match(/^(middle|bottom)$/);
     const senderName = !shouldHideName ? name : null;
     const touchAction = onTouchContent ? onTouchContent.bind(null, messageId) : null;
     return (
@@ -145,7 +153,7 @@ class Message extends React.Component {
       return {
         action: () => {
           this.dismissActionMenu();
-          action(messageId, sender.id);
+          action(messageId, sender ? sender.id : null);
         },
         ...rest
       };
@@ -158,7 +166,7 @@ class Message extends React.Component {
         {...menuPosition}
         actions={boundActions}
         className={cx(`chat-menu--${theme}`)}
-        isRightSided={layout === 'staggered' && sender.id === userId}
+        isRightSided={layout === 'staggered' && sender && sender.id === userId}
         messageId={messageId}
         onDismiss={this.dismissActionMenu}
         type={menuType}

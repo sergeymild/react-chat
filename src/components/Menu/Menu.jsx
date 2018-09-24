@@ -101,8 +101,7 @@ class Menu extends React.Component {
   checkTouchOutsideMenu = (event) => {
     const { onDismiss } = this.props;
     const { touchInitiated, touchMoved } = this.state;
-    if (touchInitiated
-        && !touchMoved
+    if ((event.type === 'mousedown' || (touchInitiated && !touchMoved))
         && this.actionMenu
         && this.actionMenu.current
         && !this.actionMenu.current.contains(event.target)) {

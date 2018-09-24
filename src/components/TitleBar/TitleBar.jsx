@@ -8,60 +8,75 @@ import LazyImage from '../LazyImage/LazyImage.jsx';
 
 import style from './TitleBar.scss';
 
-const TitleBar = (props) => {
-  const { avatar, className, roomId, subtitle, title } = props;
-  const { onInfo, onReturn } = props;
-  return (
-    <AppContext.Consumer>
-      {(context) => (
-        <div className={cx(
-          `chat-title-bar--${context.theme}`,
-          className,
-          style['chat-title-bar']
-        )}>
-          {getBackButton(onReturn, roomId)}
-          {getHeading(title, subtitle)}
-          {getInfoButton(avatar, title, onInfo, roomId)}
-        </div>
-      )}
-    </AppContext.Consumer>
-  );
-};
+class TitleBar extends React.Component {
 
-const getBackButton = (onReturn, roomId) => onReturn ? (
-  <button
-    className={cx(style['chat-title-bar__back-button'])}
-    onClick={onReturn.bind(null, roomId)}
-  >
-    <LazyImage
-      label='back'
-      loader='icon'
-      placeholder='back'
-    />
-  </button>
-) : null;
+  /* Lifecycle */
 
-const getHeading = (title, subtitle) => (
-  <div className={cx(style['chat-title-bar__heading'])}>
-    <span className={cx(style['chat-title-bar__title'])}>
-      {title}
-    </span>
-    {subtitle && (
-      <span className={cx(style['chat-title-bar__subtitle'])}>
-        {subtitle}
+  render = () => {
+    const { avatar, className, roomId, subtitle, title } = this.props;
+    const { onInfo, onReturn } = this.props;
+    return (
+      <AppContext.Consumer>
+        {(context) => (
+          <div
+            className={cx(
+              `chat-title-bar--${context.theme}`,
+              className,
+              style['chat-title-bar']
+            )}
+            ref={(element) => this.self = element}
+          >
+            {this.getBackButton(onReturn, roomId)}
+            {this.getHeading(title, subtitle)}
+            {this.getInfoButton(avatar, title, onInfo, roomId)}
+          </div>
+        )}
+      </AppContext.Consumer>
+    );
+  };
+
+  /* Subviews */
+
+  getBackButton = (onReturn, roomId) => onReturn ? (
+    <button
+      className={cx(style['chat-title-bar__back-button'])}
+      onClick={onReturn.bind(null, roomId)}
+    >
+      <LazyImage
+        label='back'
+        loader='icon'
+        placeholder='back'
+      />
+    </button>
+  ) : null;
+
+  getHeading = (title, subtitle) => (
+    <div className={cx(style['chat-title-bar__heading'])}>
+      <span className={cx(style['chat-title-bar__title'])}>
+        {title}
       </span>
-    )}
-  </div>
-);
+      {subtitle && (
+        <span className={cx(style['chat-title-bar__subtitle'])}>
+          {subtitle}
+        </span>
+      )}
+    </div>
+  );
 
-const getInfoButton = (avatar, title, onInfo, roomId) => onInfo ? (
-  <Avatar
-    className={cx(style['chat-title-bar__avatar-button'])}
-    name={title}
-    onClick={onInfo.bind(null, roomId)}
-    source={avatar}
-  />
-) : null;
+  getInfoButton = (avatar, title, onInfo, roomId) => onInfo ? (
+    <Avatar
+      className={cx(style['chat-title-bar__avatar-button'])}
+      name={title}
+      onClick={onInfo.bind(null, roomId)}
+      source={avatar}
+    />
+  ) : null;
+
+  /* Accessors */
+
+  getHeight = () => this.self && this.self.getBoundingClientRect ? this.self.getBoundingClientRect().height : 0;
+
+}
 
 TitleBar.propTypes = {
   avatar: PropTypes.string,

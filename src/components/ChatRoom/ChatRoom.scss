@@ -1,0 +1,31 @@
+// sass-lint:disable no-important
+
+@import '../App/colors';
+@import '../App/mixins';
+
+// Generics
+
+.chat-room {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+
+  * {
+    box-sizing: inherit;
+  }
+}
+
+.chat-room__body {
+  @include smooth-scroll-y;
+  margin: 0 .5rem;
+  min-height: 100%;
+}
+
+.chat-room__input-group-container {
+  @include sticky;
+  bottom: 0;
+  height: fit-content;
+  left: 0;
+  pointer-events: none;
+  z-index: 5;
+}
