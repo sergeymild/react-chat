@@ -228,28 +228,28 @@ class ChatRoomPage extends React.Component {
         <div className='storybook__segment storybook__segment--column'>
           <div className='storybook__container'>
             <span className='storybook__text storybook__title'>
-              Chat Room
+              Embedding
             </span>
             <span className='storybook__text'>
-              An input group will feature multiple input actions, with text as the main input.
+              Chat room can be embedded into DOM elements by handling overflow with scroll
+              and setting it to fill the height and width of the DOM element.
             </span>
             <span className='storybook__text'>
-              The text area will resize according to the text length, as well as the state of expansion of the text view.
-            </span>
-            <span className='storybook__text'>
-              Similar to the message view, the input group also requires an <code>AppContext</code> provider,
-              without which it will not be able to operate.
+              It is important to ensure that the width and height are fixed to give chat room the context for sizing.
+              Chat room is styled using <code>rem</code> unit, hence it will comply and scale with your root font size.
             </span>
           </div>
           <div className='storybook__container'>
             <span className='storybook__text storybook__title'>
-              Style Dependent Layout
+              Supplying Context
             </span>
             <span className='storybook__text'>
-              The input group layout will also depend on the overall chat layout specified.
+              Since chat room is a HOC, it will not be consuming any context.
+              Instead, you can supply it with the settings for themes, layout and sizing using props.
+              These values will be provided as context to render the subviews that it comprises.
             </span>
             <span className='storybook__text'>
-              Media and attachments are not fully supported yet.
+              Media and attachments are not supported yet but will be in the future.
             </span>
             <div className='storybook__segment storybook__segment--column'>
               <br/>
@@ -266,6 +266,20 @@ class ChatRoomPage extends React.Component {
               >
                 <span>Toggle Layout</span>
               </button>
+              <br/>
+              <span>
+                {'Current theme: '}
+                <code>{context.theme}</code>
+              </span>
+              <br/>
+              <button
+                className='storybook__button'
+                onClick={() => this.setState({
+                  theme: context.theme === 'light' ? 'dark' : 'light'
+                })}
+              >
+                <span>Toggle Theme</span>
+              </button>
             </div>
           </div>
           <div className='storybook__container'>
@@ -273,14 +287,14 @@ class ChatRoomPage extends React.Component {
               Controlled Input
             </span>
             <span className='storybook__text'>
-              Input value can be affected through the key <code>value</code> and is intercepted using <code>onChange</code>.
+              Input value can be affected through the key <code>inputValue</code> and is intercepted using <code>onInput</code>.
             </span>
             <span className='storybook__text'>
               The value will be a stringified representation of inner HTML. Since the value will be set into inner HTML,
               it is critical to sanitize the value before updating the <code>value</code> props.
             </span>
             <span className='storybook__text'>
-              Sanitization is performed using <code>DOMPurify</code>.
+              Sanitization is performed using <code>DOMPurify</code> within the InputGroup component.
             </span>
             <div className='storybook__segment storybook__segment--column'>
               <br/>
@@ -294,6 +308,16 @@ class ChatRoomPage extends React.Component {
                 </span>
               </div>
             </div>
+          </div>
+          <div className='storybook__container'>
+            <span className='storybook__text storybook__title'>
+              Example
+            </span>
+            <span className='storybook__text'>
+              The following frame is an example of the chat room within a container that has been set to
+              <code>width: 100%;</code> and <code>height: 85vh;</code>. Do try to resize your browser to
+              test the responses to changes in height and width.
+            </span>
           </div>
         </div>
         <div className='storybook__segment storybook__segment--column storybook__scroll-column story-chat-room__preview'>
