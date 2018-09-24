@@ -8,6 +8,8 @@
 html,
 body,
 #root {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
   font-size: 15px;
 
   * {
@@ -62,7 +64,7 @@ body {
   font-size: 16px;
   font-weight: 300;
   line-height: 1.414;
-  overflow: show;
+  overflow: visible;
   padding: 20px 5px;
   position: relative;
   text-rendering: optimizeLegibility;
@@ -230,7 +232,7 @@ body {
 
 .story-chat-room__preview {
   -webkit-overflow-scrolling: touch;
-  height: 85vh;
+  height: 30rem;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 0;

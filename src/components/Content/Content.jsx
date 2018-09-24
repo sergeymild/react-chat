@@ -48,7 +48,7 @@ class Content extends React.Component {
   /* Callbacks */
 
   onContext = (action, messageId) => (event) => {
-    if (event && event.cancelable) {
+    if (event && event.cancelable && !event.type.match(/^(touchmove|scroll)$/)) {
       event.preventDefault();
     }
     action(messageId, event, event.target);
@@ -61,11 +61,11 @@ class Content extends React.Component {
     }
     this.onHoldTimer = setTimeout(() => {
       action(messageId, event, event.target);
-    }, 1000);
+    }, 700);
   });
 
   unsetHoldAction = (event) => {
-    if (event && event.cancelable) {
+    if (event && event.cancelable && !event.type.match(/^(touchmove|scroll)$/)) {
       event.preventDefault();
     }
     this.onHoldTimer && clearTimeout(this.onHoldTimer);

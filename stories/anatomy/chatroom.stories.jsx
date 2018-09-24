@@ -154,27 +154,33 @@ const messagesStub = [
 const usersStub = {
   '1': {
     id: '1',
-    name: 'Tony Stark'
+    name: 'Tony Stark',
+    avatar: 'https://vignette.wikia.nocookie.net/marvelmovies/images/8/87/AoU_Tony_Stark_portal.png/revision/latest?cb=20150427084736'
   },
   '2': {
     id: '2',
-    name: 'Steve Rogers'
+    name: 'Steve Rogers',
+    avatar: 'https://pbs.twimg.com/profile_images/653610207675875329/RawYE4cD_400x400.jpg'
   },
   '3': {
     id: '3',
-    name: 'Thor'
+    name: 'Thor',
+    avatar: 'https://66.media.tumblr.com/4574a8f843cb0061bfbb3d875a0abfb5/tumblr_oyakwsJopd1tctq75o1_r2_540.png'
   },
   '4': {
     id: '4',
-    name: 'Natasha Romanoff'
+    name: 'Natasha Romanoff',
+    avatar: 'https://i.pinimg.com/originals/73/c8/89/73c88918d25f25c93e2f856e6a805eb7.jpg'
   },
   '5': {
     id: '5',
-    name: 'Bruce Banner'
+    name: 'Bruce Banner',
+    avatar: 'https://i.redd.it/n4d28b6xggi11.png'
   },
   '6': {
     id: '6',
-    name: 'Nick Fury'
+    name: 'Nick Fury',
+    avatar: 'https://images.indianexpress.com/2018/07/samuel-l-jackson-759.jpg'
   }
 };
 
@@ -315,7 +321,7 @@ class ChatRoomPage extends React.Component {
             </span>
             <span className='storybook__text'>
               The following frame is an example of the chat room within a container that has been set to
-              <code>width: 100%;</code> and <code>height: 85vh;</code>. Do try to resize your browser to
+              <code>width: 100%;</code> and <code>height: 30rem;</code>. Do try to resize your browser to
               test the responses to changes in height and width.
             </span>
           </div>

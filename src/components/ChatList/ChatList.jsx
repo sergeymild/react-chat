@@ -32,6 +32,30 @@ class ChatList extends React.Component {
 
   /* Functional Children */
 
+  getTitleBar = () => {
+
+  };
+
+  getSearchBar= () => {
+
+  };
+
+  getBody = () => {
+
+  };
+
+  getRooms = () => {
+
+  };
+
+  getRoom = () => {
+
+  };
+
+  getRefresh = () => {
+
+  };
+
 }
 
 ChatList.propTypes = {

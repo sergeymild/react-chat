@@ -20,14 +20,18 @@ class Avatar extends React.Component {
   render = () => {
     const { className, hidden, isLoading, link, name, onClick, shape, source } = this.props;
     const initialsOverlay = this.getInitialsOverlay(name);
+    const classNames = cx(
+      className,
+      hidden && style['chat-avatar--hidden'],
+      style['chat-avatar'],
+      style[`chat-avatar--${shape}`]
+    );
+    if (hidden) {
+      return <div className={classNames} />;
+    }
     return (
       <button
-        className={cx(
-          className,
-          hidden && style['chat-avatar--hidden'],
-          style['chat-avatar'],
-          style[`chat-avatar--${shape}`]
-        )}
+        className={classNames}
         onClick={onClick}
         type='button'
       >
