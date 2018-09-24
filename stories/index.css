@@ -230,7 +230,7 @@ body {
 
 .story-chat-room__preview {
   -webkit-overflow-scrolling: touch;
-  height: 568px;
+  height: 85vh;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 0;
