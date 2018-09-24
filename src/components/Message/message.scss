@@ -20,6 +20,31 @@
   @include justify-content(center);
 }
 
+.chat-message--bottom {
+  margin-bottom: .4rem;
+}
+
+.chat-message--full {
+  .chat-message__avatar {
+    min-width: 3.2rem;
+
+    img,
+    svg {
+      @include square(3rem !important);
+    }
+
+    span {
+      font-size: .9rem;
+      font-weight: bold;
+    }
+  }
+}
+
+.chat-message--isolated {
+  margin-bottom: .4rem;
+  margin-top: .4rem;
+}
+
 .chat-message--left {
   @include justify-content(flex-start);
 }
@@ -28,7 +53,14 @@
   @include justify-content(flex-end);
 }
 
+.chat-message--top {
+  margin-top: .4rem;
+}
+
 .chat-message__avatar {
+  margin-bottom: 0;
+  margin-top: 0;
+  min-width: 3.5rem;
   pointer-events: auto;
 
   img,

@@ -26,7 +26,7 @@ class Message extends React.Component {
 
   render = () => {
     const { shouldDisplayMenu } = this.state;
-    const { className, hideAvatar, menuActions, sender, type, userId } = this.props;
+    const { className, hideAvatar, menuActions, position, sender, type, userId } = this.props;
     const haveContext = type.match(/^(event|media|text)$/);
     const haveOwnership = type.match(/^(media|text)$/);
     return (
@@ -34,6 +34,7 @@ class Message extends React.Component {
         {(context) => (
           <div className={cx(
             className,
+            position && style[`chat-message--${position}`],
             style['chat-message'],
             style[`chat-message--${context.theme}`],
             !sender
