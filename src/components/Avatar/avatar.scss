@@ -43,6 +43,14 @@
 
 .chat-avatar__link {
   color: material-color('blue-grey', '300');
+
+  &:hover {
+    color: material-color('blue-grey', '500');
+  }
+
+  &:active {
+    color: material-color('blue-grey', '600');
+  }
 }
 
 .chat-avatar__initials {

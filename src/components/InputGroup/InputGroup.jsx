@@ -36,8 +36,8 @@ class InputGroup extends React.Component {
   componentWillUnmount = () => {
     if (document) {
       document.removeEventListener('mousedown', this.checkTouchOutsideMenu);
-      document.addEventListener('touchstart', this.resetTouch);
-      document.addEventListener('touchmove', this.invalidateTouch);
+      document.removeEventListener('touchstart', this.resetTouch);
+      document.removeEventListener('touchmove', this.invalidateTouch);
       document.removeEventListener('touchend', this.checkTouchOutsideMenu);
     }
   };

@@ -29,6 +29,8 @@
 }
 
 .chat-message__avatar {
+  pointer-events: auto;
+
   img,
   svg {
     @include square(3.5rem !important);

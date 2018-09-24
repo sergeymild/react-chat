@@ -315,7 +315,7 @@ class ChatRoomPage extends React.Component {
             </span>
             <span className='storybook__text'>
               The following frame is an example of the chat room within a container that has been set to
-              <code>width: 100%;</code> and <code>height: 85vh;</code>. Do try to resize your browser to
+              <code>width: 100%;</code> and <code>height: 30rem;</code>. Do try to resize your browser to
               test the responses to changes in height and width.
             </span>
           </div>
