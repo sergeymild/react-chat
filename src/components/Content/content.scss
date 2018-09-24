@@ -1,4 +1,4 @@
-// sass-lint:disable no-important
+// sass-lint:disable no-important no-color-literals
 
 @import '../App/colors';
 @import '../App/mixins';
@@ -6,11 +6,13 @@
 // Layout
 
 .message-content-container {
+  @include silent-touch;
   box-sizing: border-box;
   font-size: 1rem;
   max-width: 75%;
-  overflow: show;
-  padding: .4rem 0;
+  overflow: visible;
+  padding: .1rem 0;
+  pointer-events: auto;
   position: relative;
 
   * {
@@ -18,11 +20,15 @@
     box-sizing: inherit;
     position: relative;
   }
+
+  span {
+    width: 100%;
+  }
 }
 
 .message-content-container--full {
   max-width: 100%;
-  overflow: hide;
+  overflow: hidden;
   width: 100%;
 }
 
@@ -47,6 +53,26 @@
   .message-content__timestamp {
     font-size: .9rem;
     font-weight: 500;
+    width: 100%;
+  }
+}
+
+.message-content--media,
+.message-content--text {
+  &:hover {
+    &.message-content--right {
+      background: linear-gradient(
+        rgba(material-color('blue', '500'), .8),
+        rgba(material-color('blue', '500'), .8)
+      );
+    }
+
+    &:not(.message-content--right) {
+      background: linear-gradient(
+        rgba(material-color('grey', '300'), .5),
+        rgba(material-color('grey', '300'), .5)
+      );
+    }
   }
 }
 
@@ -56,10 +82,12 @@
 
 .message-content--full {
   @include flex-column(flex-start, flex-start);
+  padding: .1rem .3rem;
   width: 100%;
 
   .message-content__footer {
     @include flex-row(flex-end, flex-start);
+    height: 1.1rem;
     width: 100%;
   }
 }
@@ -104,6 +132,7 @@
 
 .message-content__footer {
   @include flex-row(flex-end, flex-end);
+  height: 1.3rem;
   pointer-events: none;
   width: 100%;
 }

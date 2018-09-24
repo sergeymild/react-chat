@@ -205,7 +205,6 @@
 
 .chat-input-group__row {
   @include flex-row(center, space-around);
-  height: 100%;
   max-width: 100%;
   position: relative;
   width: 100%;

@@ -71,7 +71,7 @@ class ChatRoom extends React.Component {
   getSearchBar = () => {
     const { onFilter } = this.props;
 
-    // TODO: Implement search bar
+    // TODO: Implement search bar with results pane
 
     return null;
   };

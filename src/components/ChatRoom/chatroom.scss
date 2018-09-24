@@ -6,6 +6,7 @@
 // Generics
 
 .chat-room {
+  @include silent-touch;
   box-sizing: border-box;
   position: relative;
   width: 100%;
@@ -19,7 +20,7 @@
   @include smooth-scroll;
   margin: 0 0 -1rem;
   min-height: 100%;
-  padding: 1rem .5rem;
+  padding: 0 .5rem 1rem;
 }
 
 .chat-room__input-group-container {
