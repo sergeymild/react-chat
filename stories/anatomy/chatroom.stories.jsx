@@ -249,7 +249,7 @@ class ChatRoomPage extends React.Component {
               These values will be provided as context to render the subviews that it comprises.
             </span>
             <span className='storybook__text'>
-              Media and attachments are not supported yet but will be in the future.
+              Media, attachments and themes are not supported yet but will be in the near future.
             </span>
             <div className='storybook__segment storybook__segment--column'>
               <br/>

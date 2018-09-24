@@ -97,7 +97,10 @@ class Message extends React.Component {
     }
     return (
       <Avatar
-        className={cx(`chat-avatar--${theme}`)}
+        className={cx(
+          `chat-avatar--${theme}`,
+          style['chat-message__avatar']
+        )}
         isLoading={isLoading}
         name={sender.name || ''}
         onClick={action}
