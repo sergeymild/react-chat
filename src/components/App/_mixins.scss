@@ -192,7 +192,6 @@
 
 @mixin smooth-scroll-y {
   -webkit-overflow-scrolling: touch;
-  overflow-y: scroll;
 }
 
 @mixin sticky {
