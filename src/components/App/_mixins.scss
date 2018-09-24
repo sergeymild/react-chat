@@ -1,4 +1,4 @@
-// sass-lint:disable no-duplicate-properties no-vendor-prefixes
+// sass-lint:disable no-duplicate-properties no-vendor-prefixes no-color-literals
 
 @mixin flexbox {
   display: -moz-box;
@@ -188,6 +188,11 @@
 @mixin render-smooth {
   @include antialias(subpixel-antialiased);
   text-rendering: optimizeLegibility;
+}
+
+@mixin silent-touch {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
 }
 
 @mixin smooth-scroll {

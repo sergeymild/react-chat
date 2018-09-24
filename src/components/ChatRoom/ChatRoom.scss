@@ -6,6 +6,7 @@
 // Generics
 
 .chat-room {
+  @include silent-touch;
   box-sizing: border-box;
   position: relative;
   width: 100%;

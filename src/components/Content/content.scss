@@ -6,6 +6,7 @@
 // Layout
 
 .message-content-container {
+  @include silent-touch;
   box-sizing: border-box;
   font-size: 1rem;
   max-width: 75%;
