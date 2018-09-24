@@ -17,8 +17,9 @@
 
 .chat-room__body {
   @include smooth-scroll;
-  margin: 0 .5rem;
+  margin: 0 0 -1rem;
   min-height: 100%;
+  padding: 1rem .5rem;
 }
 
 .chat-room__input-group-container {

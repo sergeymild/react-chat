@@ -191,7 +191,14 @@
 }
 
 @mixin smooth-scroll {
+  -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+  overflow-y: -moz-scrollbars-none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @mixin sticky {

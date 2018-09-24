@@ -33,8 +33,8 @@ class Menu extends React.Component {
   componentWillUnmount = () => {
     if (document) {
       document.removeEventListener('mousedown', this.checkTouchOutsideMenu);
-      document.addEventListener('touchstart', this.resetTouch);
-      document.addEventListener('touchmove', this.invalidateTouch);
+      document.removeEventListener('touchstart', this.resetTouch);
+      document.removeEventListener('touchmove', this.invalidateTouch);
       document.removeEventListener('touchend', this.checkTouchOutsideMenu);
     }
   };
@@ -58,8 +58,8 @@ class Menu extends React.Component {
 
     case 'row':
       elementStyle = overridePosition ? {
-        bottom: '0',
-        transform: 'translate(0, 100%)',
+        top: '0',
+        transform: 'translate(0, -100%)',
         position: 'absolute'
       } : null;
       if (overridePosition && isRightSided) {
