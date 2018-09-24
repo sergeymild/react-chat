@@ -6,7 +6,7 @@ import cx from 'classnames';
 
 import LazyImage from '../LazyImage/LazyImage.jsx';
 
-import style from './Menu.scss';
+import style from './menu.scss';
 
 class Menu extends React.Component {
 

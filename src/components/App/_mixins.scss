@@ -190,7 +190,7 @@
   text-rendering: optimizeLegibility;
 }
 
-@mixin smooth-scroll-y {
+@mixin smooth-scroll {
   -webkit-overflow-scrolling: touch;
 }
 

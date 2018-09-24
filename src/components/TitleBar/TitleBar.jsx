@@ -6,7 +6,7 @@ import { AppContext } from '../App/Context.jsx';
 import Avatar from '../Avatar/Avatar.jsx';
 import LazyImage from '../LazyImage/LazyImage.jsx';
 
-import style from './TitleBar.scss';
+import style from './titlebar.scss';
 
 class TitleBar extends React.Component {
 

@@ -7,7 +7,7 @@ import Avatar from '../Avatar/Avatar.jsx';
 import Content from '../Content/Content.jsx';
 import Menu from '../Menu/Menu.jsx';
 
-import style from './Message.scss';
+import style from './message.scss';
 
 class Message extends React.Component {
 

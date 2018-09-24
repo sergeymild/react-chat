@@ -6,7 +6,7 @@ import DOMPurify from 'dompurify';
 import { AppContext } from '../App/Context.jsx';
 import LazyImage from '../LazyImage/LazyImage.jsx';
 
-import style from './InputGroup.scss';
+import style from './inputgroup.scss';
 
 class InputGroup extends React.Component {
 

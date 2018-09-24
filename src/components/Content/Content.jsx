@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import LazyImage from '../LazyImage/LazyImage.jsx';
 
-import style from './Content.scss';
+import style from './content.scss';
 
 class Content extends React.Component {
 

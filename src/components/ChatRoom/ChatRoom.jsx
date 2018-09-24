@@ -7,7 +7,7 @@ import InputGroup from '../InputGroup/InputGroup.jsx';
 import Message from '../Message/Message.jsx';
 import TitleBar from '../TitleBar/TitleBar.jsx';
 
-import style from './ChatRoom.scss';
+import style from './chatroom.scss';
 
 class ChatRoom extends React.Component {
 
