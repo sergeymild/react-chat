@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import style from './LazyImage.scss';
+import style from './lazyimage.scss';
 
 import { getInlineSvg, loaderKeys, placeholderKeys } from './Svg.jsx';
 

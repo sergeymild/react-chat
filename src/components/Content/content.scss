@@ -7,6 +7,8 @@
 
 .message-content-container {
   box-sizing: border-box;
+  font-size: 1rem;
+  max-width: 75%;
   overflow: show;
   padding: .4rem 0;
   position: relative;
@@ -19,6 +21,7 @@
 }
 
 .message-content-container--full {
+  max-width: 100%;
   overflow: hide;
   width: 100%;
 }
@@ -37,6 +40,8 @@
   @include flex-column(center, center, center);
   color: material-color('grey', '500');
   font-size: .9rem;
+  text-align: center;
+  white-space: pre-wrap;
   width: 100%;
 
   .message-content__timestamp {

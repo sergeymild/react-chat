@@ -36,7 +36,7 @@ const actionsStub = [
     action: action('Reply Clicked'),
     label: 'Reply',
     type: 'reply'
-  },
+  }
 ];
 
 const messagesStub = [
