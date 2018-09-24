@@ -115,6 +115,7 @@ class Message extends React.Component {
     const { layout, sizing, theme } = context;
     const { content, isLoading, menuActions, messageId, position, sender, type, userId } = this.props;
     const { onTouchContent, onHoldContent } = this.props;
+    const { shouldDisplayMenu } = this.state;
     const id = sender ? sender.id : null;
     const name = sender ? sender.name : null;
     const isSender = id === userId;
@@ -125,7 +126,10 @@ class Message extends React.Component {
     return (
       <Content
         {...content}
-        className={cx(`chat-content--${theme}`)}
+        className={cx(
+          `message-content--${theme}`,
+          shouldDisplayMenu && layout === 'staggered' && style['chat-message__content--float']
+        )}
         isDesktop={sizing === 'desktop'}
         isLoading={!isReady}
         messageId={messageId}
