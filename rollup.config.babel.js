@@ -5,16 +5,24 @@ import postcss from 'rollup-plugin-postcss';
 import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
 
+const env = process.env.NODE_ENV;
+
 const config = {
   input: 'src/index.js',
   external: [
-    'react',
-    'react-dom'
+    'classnames',
+    'dompurify',
+    'prop-types',
+    'react-dom',
+    'react'
   ],
   output: [
     {
       moduleName: 'ReactChat',
       globals: {
+        'classnames': 'cx',
+        'dompurify': 'DOMPurify',
+        'prop-types': 'PropTypes',
         'react': 'React',
         'react-dom': 'ReactDOM'
       },
@@ -25,6 +33,9 @@ const config = {
     {
       moduleName: 'ReactChat',
       globals: {
+        'classnames': 'cx',
+        'dompurify': 'DOMPurify',
+        'prop-types': 'PropTypes',
         'react': 'React',
         'react-dom': 'ReactDOM'
       },
@@ -38,14 +49,14 @@ const config = {
       extensions: ['.css', '.scss'],
       modules: true
     }),
+    resolve(),
+    replace({
+      'process.env.NODE_ENV': JSON.stringify(env)
+    }),
+    commonjs(),
     babel({
       exclude: 'node_modules/**'
     }),
-    replace({
-      'process.env.NODE_ENV': JSON.stringify('development')
-    }),
-    resolve(),
-    commonjs(),
     sizeSnapshot()
   ]
 };
