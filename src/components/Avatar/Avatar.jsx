@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
+import cx from 'classnames/dedupe';
 
 import LazyImage from '../LazyImage/LazyImage.jsx';
 
@@ -21,6 +21,7 @@ class Avatar extends React.Component {
     const { className, hidden, isLoading, link, name, onClick, shape, source } = this.props;
     const initialsOverlay = this.getInitialsOverlay(name);
     const classNames = cx(
+      'react-chat__avatar',
       className,
       hidden && style['chat-avatar--hidden'],
       style['chat-avatar'],
@@ -36,11 +37,17 @@ class Avatar extends React.Component {
         type='button'
       >
         <a
-          className={cx(style['chat-avatar__link'])}
+          className={cx(
+            'react-chat__avatar-link',
+            style['chat-avatar__link']
+          )}
           href={link}
         >
           <LazyImage
-            className={cx(style['chat-avatar__image'])}
+            className={cx(
+              'react-chat__avatar-image',
+              style['chat-avatar__image']
+            )}
             label={name}
             loader={shape === 'square' ? 'avatarSquare' : 'avatarRound'}
             onError={this.showInitialsOverlay}
@@ -64,7 +71,12 @@ class Avatar extends React.Component {
       return null;
     }
     const initials = this.getInitials(name);
-    return <span className={cx(style['chat-avatar__initials'])}>{initials}</span>;
+    return <span className={cx(
+      'react-chat__avatar-initials',
+      style['chat-avatar__initials']
+    )}>
+      {initials}
+    </span>;
   };
 
   /* Auxillary Functions */
