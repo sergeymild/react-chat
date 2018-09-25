@@ -71,6 +71,11 @@ body {
   width: 100%;
 }
 
+.storybook__container--unselectable {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .storybook__container--input-group {
   align-items: flex-end;
   bottom: 0;

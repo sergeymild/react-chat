@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
+import cx from 'classnames/dedupe';
 
 import LazyImage from '../LazyImage/LazyImage.jsx';
 
@@ -23,7 +23,7 @@ class Menu extends React.Component {
 
   componentDidMount = () => {
     if (document) {
-      document.addEventListener('mousedown', this.checkTouchOutsideMenu);
+      document.addEventListener('click', this.checkTouchOutsideMenu);
       document.addEventListener('touchstart', this.resetTouch);
       document.addEventListener('touchmove', this.invalidateTouch);
       document.addEventListener('touchend', this.checkTouchOutsideMenu);
@@ -32,7 +32,7 @@ class Menu extends React.Component {
 
   componentWillUnmount = () => {
     if (document) {
-      document.removeEventListener('mousedown', this.checkTouchOutsideMenu);
+      document.removeEventListener('click', this.checkTouchOutsideMenu);
       document.removeEventListener('touchstart', this.resetTouch);
       document.removeEventListener('touchmove', this.invalidateTouch);
       document.removeEventListener('touchend', this.checkTouchOutsideMenu);
@@ -75,6 +75,7 @@ class Menu extends React.Component {
     return (
       <div
         className={cx(
+          'react-chat__menu',
           className,
           style['chat-menu'],
           style[`chat-menu--${type}`]
@@ -101,10 +102,13 @@ class Menu extends React.Component {
   checkTouchOutsideMenu = (event) => {
     const { onDismiss } = this.props;
     const { touchInitiated, touchMoved } = this.state;
-    if ((event.type === 'mousedown' || (touchInitiated && !touchMoved))
+    if ((event.type === 'click' || (touchInitiated && !touchMoved))
         && this.actionMenu
         && this.actionMenu.current
         && !this.actionMenu.current.contains(event.target)) {
+      if (event.type === 'touchend' && event.cancelable) {
+        event.preventDefault();
+      }
       this.setState({
         touchInitiated: false
       });
@@ -122,18 +126,29 @@ class Menu extends React.Component {
     }
     return actions.map((item) => (
       <div
-        className={cx(style['chat-menu-item'])}
+        className={cx(
+          'react-chat__menu-item',
+          style['chat-menu-item']
+        )}
         key={item.type}
         onClick={item.action}
       >
         <LazyImage
-          className={cx(style['chat-menu-item__icon'])}
+          className={cx(
+            'react-chat__menu-icon',
+            style['chat-menu-item__icon']
+          )}
           label='menu-icon'
           loader='icon'
           placeholder={item.type}
           source={item.icon}
         />
-        <label className={cx(style['chat-menu-item__label'])}>{item.label}</label>
+        <label className={cx(
+          'react-chat__menu-label',
+          style['chat-menu-item__label']
+        )}>
+          {item.label}
+        </label>
       </div>
     ));
   };

@@ -1,0 +1,191 @@
+// sass-lint:disable no-important
+
+@import '../App/colors';
+@import '../App/mixins';
+
+// Containers
+
+.chat-list-item {
+  @include flex-column(flex-start, flex-start);
+  box-sizing: border-box;
+  font-size: 1rem;
+  max-width: 30rem;
+  width: 100%;
+
+  * {
+    box-sizing: inherit;
+  }
+
+  &:hover {
+    background-color: material-color('grey', '100');
+  }
+}
+
+.chat-list-item__content {
+  @include flex-grow(1);
+  @include flex-row(center, space-between);
+  max-width: 100%;
+  min-width: 10rem;
+  padding: .3rem;
+
+  .chat-list-item__column {
+    width: calc(100% - 1.6rem);
+  }
+}
+
+.chat-list-item__column {
+  @include flex-column(flex-start, flex-start);
+  width: 100%;
+}
+
+.chat-list-item__row {
+  @include flex-row(center, space-between);
+  width: 100%;
+}
+
+// Avatar
+
+.chat-list-item__avatar {
+  span {
+    font-size: .9rem;
+    font-weight: bold;
+  }
+}
+
+.chat-list-item__avatar--staggered {
+  min-width: 3.5rem;
+
+  img,
+  svg {
+    @include square(3.5rem !important);
+  }
+}
+
+.chat-list-item__avatar--aligned {
+  min-width: 3.2rem;
+
+  img,
+  svg {
+    @include square(3rem !important);
+  }
+}
+
+// Text Content
+
+.chat-list-item__title {
+  @include ellipsize;
+  @include unselectable;
+  font-weight: 600;
+  pointer-events: none;
+  width: 100%;
+}
+
+.chat-list-item__subtitle {
+  @include ellipsize;
+  @include unselectable;
+  font-size: .9rem;
+  pointer-events: none;
+  width: 100%;
+}
+
+.chat-list-item__description {
+  @include ellipsize;
+  @include unselectable;
+  color: material-color('grey', '500');
+  font-size: .9rem;
+  pointer-events: none;
+  width: 100%;
+}
+
+.chat-list-item__timestamp {
+  @include align-self(center);
+  @include unselectable;
+  color: material-color('grey', '500');
+  font-size: .9rem;
+  pointer-events: none;
+}
+
+.chat-list-item__chevron {
+  @include align-self(center);
+  @include unselectable;
+  color: material-color('grey', '600');
+  margin: .3rem;
+  min-width: 1.6rem;
+  padding-top: .3rem;
+  pointer-events: none;
+
+  svg {
+    @include square(1.6rem !important);
+  }
+}
+
+// Menu and Actions
+
+.chat-list-item__menu {
+  @include flex-row(center, space-evenly);
+  padding: .5rem;
+  width: 100%;
+}
+
+.chat-list-item__action {
+  @include flex-grow(1);
+  color: material-color('grey', '500');
+  text-align: center;
+
+  &:hover {
+    color: material-color('grey', '600');
+  }
+
+  img,
+  svg {
+    @include square(1.4rem !important);
+  }
+}
+
+.chat-list-item__action--archive {
+
+}
+
+.chat-list-item__action--delete {
+
+}
+
+.chat-list-item__action--info {
+
+}
+
+.chat-list-item__action--pin {
+
+}
+
+.chat-list-item__action--star {
+
+}
+
+.chat-list-item__action--unread {
+
+}
+
+// Status
+
+.chat-list-item__status {
+  svg {
+    @include square(.8rem !important);
+  }
+}
+
+.chat-list-item__status--new {
+  color: material-color('blue', '500');
+}
+
+.chat-list-item__status--archive {
+
+}
+
+.chat-list-item__status--pin {
+
+}
+
+.chat-list-item__status--star {
+
+}

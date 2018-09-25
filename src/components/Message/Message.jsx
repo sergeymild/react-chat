@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
+import cx from 'classnames/dedupe';
 
 import { AppContext } from '../App/Context.jsx';
 import Avatar from '../Avatar/Avatar.jsx';
@@ -33,6 +33,8 @@ class Message extends React.Component {
       <AppContext.Consumer>
         {(context) => (
           <div className={cx(
+            'react-chat__message',
+            `react-chat__message--${context.theme}`,
             className,
             position && style[`chat-message--${position}`],
             style['chat-message'],
@@ -99,7 +101,8 @@ class Message extends React.Component {
     return (
       <Avatar
         className={cx(
-          `chat-avatar--${theme}`,
+          'react-chat__message-avatar',
+          `react-chat__message-avatar--${theme}`,
           style['chat-message__avatar']
         )}
         isLoading={isLoading}
@@ -123,12 +126,13 @@ class Message extends React.Component {
     const isReady = !isLoading  && content && Object.keys(content).length > 0;
     const shouldHideName = (layout === 'staggered' && isSender) || !position || position.match(/^(middle|bottom)$/);
     const senderName = !shouldHideName ? name : null;
-    const touchAction = onTouchContent ? onTouchContent.bind(null, messageId) : null;
+    const touchAction = onTouchContent ? (event) => !shouldDisplayMenu && onTouchContent(messageId, event) : null;
     return (
       <Content
         {...content}
         className={cx(
-          `message-content--${theme}`,
+          'react-chat__message-content',
+          `react-chat__message-content--${theme}`,
           shouldDisplayMenu && layout === 'staggered' && style['chat-message__content--float']
         )}
         isDesktop={sizing === 'desktop'}
@@ -173,7 +177,10 @@ class Message extends React.Component {
       <Menu
         {...menuPosition}
         actions={boundActions}
-        className={cx(`chat-menu--${theme}`)}
+        className={cx(
+          'react-chat__message-menu',
+          `react-chat__message-menu--${theme}`
+        )}
         isRightSided={layout === 'staggered' && sender && sender.id === userId}
         messageId={messageId}
         onDismiss={this.dismissActionMenu}

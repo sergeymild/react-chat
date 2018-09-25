@@ -5,16 +5,18 @@ import { storiesOf } from '@storybook/react';
 import InstructionsPage from './overview/instructions.stories.jsx';
 import IntroductionPage from './overview/introduction.stories.jsx';
 
-import ChatListPage from './anatomy/chatlist.stories.jsx';
-import ChatRoomPage from './anatomy/chatroom.stories.jsx';
 import AvatarPage from './anatomy/avatar.stories.jsx';
 import ImagePage from './anatomy/image.stories.jsx';
+import ListItemPage from './anatomy/listitem.stories.jsx';
+import TitleBarPage from './anatomy/titlebar.stories.jsx';
 
+import ChatListPage from './anatomy/chatlist.stories.jsx';
+
+import ChatRoomPage from './anatomy/chatroom.stories.jsx';
 import ContentPage from './anatomy/content.stories.jsx';
 import InputGroupPage from './anatomy/inputgroup.stories.jsx';
 import MenuPage from './anatomy/menu.stories.jsx';
 import MessagePage from './anatomy/message.stories.jsx';
-import TitleBarPage from './anatomy/titlebar.stories.jsx';
 
 import LayoutPage from './examples/layout.stories.jsx';
 import SizingPage from './examples/sizing.stories.jsx';
@@ -34,12 +36,13 @@ storiesOf('Anatomy/Chat Room', module)
   .add('Content', () => <ContentPage />)
   .add('Menu', () => <MenuPage />)
   .add('Message', () => <MessagePage />)
-  .add('Input Group', () => <InputGroupPage />)
-  .add('Title Bar', () => <TitleBarPage />);
+  .add('Input Group', () => <InputGroupPage />);
 
 storiesOf('Anatomy/Shared', module)
   .add('Avatar', () => <AvatarPage />)
-  .add('Image', () => <ImagePage />);
+  .add('Image', () => <ImagePage />)
+  .add('Title Bar', () => <TitleBarPage />)
+  .add('List Item', () => <ListItemPage />);
 
 storiesOf('Examples', module)
   .add('Sizing', () => <SizingPage />)

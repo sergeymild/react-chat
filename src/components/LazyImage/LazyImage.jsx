@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
+import cx from 'classnames/dedupe';
 
 import style from './lazyimage.scss';
 
@@ -62,6 +62,7 @@ class LazyImage extends React.Component {
     }
     return (
       <div className={cx(
+        'react-chat__image-container',
         style['image__container'],
         style[`image__container--${label}`]
       )}>
@@ -78,6 +79,7 @@ class LazyImage extends React.Component {
       <img
         alt={label}
         className={cx(
+          'react-chat__image',
           className,
           style['image__content'],
           style[`image__content--${label}`]
@@ -90,6 +92,7 @@ class LazyImage extends React.Component {
   getStaticPlaceholder = () => {
     const { className, label, placeholder } = this.props;
     const classNames = cx(
+      'react-chat__image-placeholder',
       className,
       style['image__placeholder'],
       style[`image__placeholder--${label}`]
@@ -100,6 +103,7 @@ class LazyImage extends React.Component {
   getLoadingPlaceholder = () => {
     const { className, label, loader } = this.props;
     const classNames = cx(
+      'react-chat__image-loader',
       className,
       style['image__loader'],
       style[`image__loader--${label}`]

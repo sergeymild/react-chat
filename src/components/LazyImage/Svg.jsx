@@ -154,6 +154,17 @@ const loaderDictionary = {
 };
 
 const placeholderDictionary = {
+  archive: {
+    paths: (
+      <g>
+        <path d='M20.54 5.23l-1.39-1.68c-.27-.34-.68-.55-1.15-.55h-12c-.47
+                 0-.88.21-1.16.55l-1.38 1.68c-.29.34-.46.79-.46 1.27v12.5c0
+                 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-12.5c0-.48-.17-.93-.46-1.27zm-8.54
+                 12.27l-5.5-5.5h3.5v-2h4v2h3.5l-5.5 5.5zm-6.88-12.5l.81-1h12l.94 1h-13.75z' />
+      </g>
+    ),
+    size: defaultIconSize
+  },
   attach: {
     paths: (
       <g>
@@ -352,6 +363,20 @@ const placeholderDictionary = {
     ),
     size: defaultIconSize
   },
+  new: {
+    paths: (
+      <circle cx='12' cy='12' r='10' />
+    ),
+    size: defaultIconSize
+  },
+  next: {
+    paths: (
+      <g>
+        <path d='M10 6l-1.41 1.41 4.58 4.59-4.58 4.59 1.41 1.41 6-6z' />
+      </g>
+    ),
+    size: defaultIconSize
+  },
   pdf: {
     paths: (
       <g>
@@ -441,6 +466,25 @@ const placeholderDictionary = {
     paths: (
       <g>
         <rect x='2' y='2' rx='5' ry='5' width='20' height='20' />
+      </g>
+    ),
+    size: defaultIconSize
+  },
+  star: {
+    paths: (
+      <g>
+        <path d='M12 17.27l6.18 3.73-1.64-7.03 5.46-4.73-7.19-.61-2.81-6.63-2.81
+                 6.63-7.19.61 5.46 4.73-1.64 7.03z' />
+      </g>
+    ),
+    size: defaultIconSize
+  },
+  unread: {
+    paths: (
+      <g>
+        <path d='M14 12c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm-2-9c-4.97 0-9 4.03-9 9h-3l4
+                 4 4-4h-3c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.51 0-2.91-.49-4.06-1.3l-1.42
+                 1.44c1.52 1.16 3.42 1.86 5.48 1.86 4.97 0 9-4.03 9-9s-4.03-9-9-9z'></path>
       </g>
     ),
     size: defaultIconSize
