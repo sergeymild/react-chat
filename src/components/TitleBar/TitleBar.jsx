@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
+import cx from 'classnames/dedupe';
 
 import { AppContext } from '../App/Context.jsx';
 import Avatar from '../Avatar/Avatar.jsx';
@@ -13,22 +13,23 @@ class TitleBar extends React.Component {
   /* Lifecycle */
 
   render = () => {
-    const { avatar, className, roomId, subtitle, title } = this.props;
+    const { avatar, className, id, subtitle, title } = this.props;
     const { onInfo, onReturn } = this.props;
     return (
       <AppContext.Consumer>
         {(context) => (
           <div
             className={cx(
-              `chat-title-bar--${context.theme}`,
+              'react-chat__title-bar',
+              `react-chat__title-bar--${context.theme}`,
               className,
               style['chat-title-bar']
             )}
             ref={(element) => this.self = element}
           >
-            {this.getBackButton(onReturn, roomId)}
+            {this.getBackButton(onReturn, id)}
             {this.getHeading(title, subtitle)}
-            {this.getInfoButton(avatar, title, onInfo, roomId)}
+            {this.getInfoButton(avatar, title, onInfo, id)}
           </div>
         )}
       </AppContext.Consumer>
@@ -37,10 +38,13 @@ class TitleBar extends React.Component {
 
   /* Subviews */
 
-  getBackButton = (onReturn, roomId) => onReturn ? (
+  getBackButton = (onReturn, id) => onReturn ? (
     <button
-      className={cx(style['chat-title-bar__back-button'])}
-      onClick={onReturn.bind(null, roomId)}
+      className={cx(
+        'react-chat__title-bar-button',
+        style['chat-title-bar__back-button']
+      )}
+      onClick={onReturn.bind(null, id)}
     >
       <LazyImage
         label='back'
@@ -51,23 +55,35 @@ class TitleBar extends React.Component {
   ) : null;
 
   getHeading = (title, subtitle) => (
-    <div className={cx(style['chat-title-bar__heading'])}>
-      <span className={cx(style['chat-title-bar__title'])}>
+    <div className={cx(
+      'react-chat__title-bar-heading',
+      style['chat-title-bar__heading']
+    )}>
+      <span className={cx(
+        'react-chat__title-bar-title',
+        style['chat-title-bar__title']
+      )}>
         {title}
       </span>
       {subtitle && (
-        <span className={cx(style['chat-title-bar__subtitle'])}>
+        <span className={cx(
+          'react-chat__title-bar-subtitle',
+          style['chat-title-bar__subtitle']
+        )}>
           {subtitle}
         </span>
       )}
     </div>
   );
 
-  getInfoButton = (avatar, title, onInfo, roomId) => onInfo ? (
+  getInfoButton = (avatar, title, onInfo, id) => onInfo ? (
     <Avatar
-      className={cx(style['chat-title-bar__avatar-button'])}
+      className={cx(
+        'react-chat__title-bar-avatar',
+        style['chat-title-bar__avatar-button']
+      )}
       name={title}
-      onClick={onInfo.bind(null, roomId)}
+      onClick={onInfo.bind(null, id)}
       source={avatar}
     />
   ) : null;
@@ -81,9 +97,9 @@ class TitleBar extends React.Component {
 TitleBar.propTypes = {
   avatar: PropTypes.string,
   className: PropTypes.string,
+  id: PropTypes.string.isRequired,
   onInfo: PropTypes.func,
   onReturn: PropTypes.func,
-  roomId: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
   title: PropTypes.string
 };

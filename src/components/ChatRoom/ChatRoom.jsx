@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
+import cx from 'classnames/dedupe';
 
 import AppProvider from '../App/Context.jsx';
 import InputGroup from '../InputGroup/InputGroup.jsx';
@@ -32,14 +32,19 @@ class ChatRoom extends React.Component {
       <AppProvider {...stylingContext}>
         <div
           className={cx(
-            `chat-room--${theme}`,
+            'react-chat__room',
+            `react-chat__room--${theme}`,
             className,
             style['chat-room']
           )}
         >
           {this.getTitleBar()}
           {this.getSearchBar()}
-          <div className={cx(style['chat-room__body'])}>
+          <div className={cx(
+            'react-chat__room-body',
+            `react-chat__room-body--${theme}`,
+            style['chat-room__body']
+          )}>
             {elements}
           </div>
           {this.getInputGroup()}
@@ -58,10 +63,10 @@ class ChatRoom extends React.Component {
     return (
       <TitleBar
         avatar={roomAvatar}
+        id={roomId}
         onInfo={onInfo}
         onReturn={onReturn}
         ref={(element) => this.titleBar = element}
-        roomId={roomId}
         subtitle={usersCount > 2 ? `${usersCount} members` : null}
         title={roomName}
       />

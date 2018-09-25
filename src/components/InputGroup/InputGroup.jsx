@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
+import cx from 'classnames/dedupe';
 import DOMPurify from 'dompurify';
 
 import { AppContext } from '../App/Context.jsx';
@@ -61,7 +61,8 @@ class InputGroup extends React.Component {
           <React.Fragment>
             <div
               className={cx(
-                `chat-input-group--${context.theme}`,
+                'react-chat__input-group',
+                `react-chat__input-group--${context.theme}`,
                 className,
                 isInputGroupExpanded && style['chat-input-group--expanded'],
                 style['chat-input-group'],
@@ -88,6 +89,8 @@ class InputGroup extends React.Component {
     const hasSendButton = isAlignedLayout && sizing !== 'desktop';
     return (
       <div className={cx(
+        'react-chat__input-group-row',
+        'react-chat__input-group-row--action',
         style['chat-input-group__row'],
         style['chat-input-group__row--action']
       )}>
@@ -104,10 +107,16 @@ class InputGroup extends React.Component {
     }
     return (
       <div
-        className={cx(style['chat-input-group__modal'])}
+        className={cx(
+          'react-chat__input-group-modal',
+          style['chat-input-group__modal']
+        )}
         ref={this.attachMenu}
       >
-        <span className={cx(style['chat-input-group__modal-title'])}>
+        <span className={cx(
+          'react-chat__input-group-modal-title',
+          style['chat-input-group__modal-title']
+        )}>
           Choose an attachment type:
         </span>
         {this.getAttachMenu(context)}
@@ -121,6 +130,8 @@ class InputGroup extends React.Component {
     const hasSendButton = isStaggeredLayout || sizing === 'desktop';
     return (
       <div className={cx(
+        'react-chat__input-group-row',
+        'react-chat__input-group-row--textarea',
         style['chat-input-group__row'],
         style['chat-input-group__row--textarea']
       )}>
@@ -152,6 +163,7 @@ class InputGroup extends React.Component {
       return (
         <div
           className={cx(
+            'react-chat__input-group-menu-item',
             style['chat-input-group__attach-menu-item'],
             style[`chat-input-group__attach-menu-item--${context.sizing}`]
           )}
@@ -171,7 +183,8 @@ class InputGroup extends React.Component {
     });
     return (
       <div className={cx(
-        `chat-input-group__attach-menu--${context.theme}`,
+        'react-chat__input-group-menu',
+        `react-chat__input-group-menu--${context.theme}`,
         style['chat-input-group__attach-menu']
       )}>
         {actions}
@@ -196,7 +209,10 @@ class InputGroup extends React.Component {
       );
     });
     return (
-      <div className={cx(style['chat-input-group__action-set'])}>
+      <div className={cx(
+        'react-chat__input-group-actions',
+        style['chat-input-group__action-set']
+      )}>
         {actions}
       </div>
     );
@@ -212,7 +228,8 @@ class InputGroup extends React.Component {
     <button
       className={cx(
         !placeholder && style['chat-input-group__button--text'],
-        `chat-input-group__button--${context.theme}`,
+        'react-chat__input-group-button',
+        `react-chat__input-group-button--${context.theme}`,
         style['chat-input-group__button'],
         style[`chat-input-group__button--${context.layout}`],
         style[`chat-input-group__button--${label}`]
@@ -225,14 +242,20 @@ class InputGroup extends React.Component {
     >
       {placeholder ? (
         <LazyImage
-          className={cx(style['chat-input-group__button-image'])}
+          className={cx(
+            'react-chat__input-group-button-image',
+            style['chat-input-group__button-image']
+          )}
           label={label}
           loader={'icon'}
           placeholder={placeholder}
           source={source}
         />
       ) : (
-        <span className={cx(style['chat-input-group__button-label'])}>
+        <span className={cx(
+          'react-chat__input-group-button-label',
+          style['chat-input-group__button-label']
+        )}>
           {label}
         </span>
       )}
@@ -244,7 +267,8 @@ class InputGroup extends React.Component {
     const { placeholder } = this.props;
     return (
       <div className={cx(
-        `chat-input-group__textarea-container--${theme}`,
+        'react-chat__input-group-textarea-container',
+        `react-chat__input-group-textarea-container--${theme}`,
         style['chat-input-group__textarea-container'],
         style[`chat-input-group__textarea-container--${layout}`],
         style[`chat-input-group__textarea-container--${sizing}`]

@@ -341,7 +341,7 @@ class ChatRoomPage extends React.Component {
               onFilter={this.updateFilter}
               onInfo={action('Info Clicked')}
               onInput={this.updateInput}
-              onMenu={action('Menu Clicked')}
+              onMenu={action('Context Triggered')}
               onRefresh={this.updateMessages}
               onReturn={action('Return Clicked')}
               onSend={this.sendMessage}

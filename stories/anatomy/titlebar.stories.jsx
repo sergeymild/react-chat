@@ -67,9 +67,9 @@ class TitleBarPage extends React.Component {
       <div className='storybook__segment storybook__segment--row'>
         <AppProvider {...this.state}>
           <TitleBar
+            id='1'
             onInfo={action('Info Pressed')}
             onReturn={action('Back Pressed')}
-            roomId='1'
             subtitle='9 members available'
             title='Friday Standup Group And Along With 4 Other Random Strangers'
           />

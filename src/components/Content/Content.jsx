@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
+import cx from 'classnames/dedupe';
 
 import LazyImage from '../LazyImage/LazyImage.jsx';
 
@@ -9,6 +9,13 @@ import style from './content.scss';
 class Content extends React.Component {
 
   /* Lifecycle */
+
+  constructor (props) {
+    super(props);
+    this.state = {
+      didLongPress: false
+    };
+  }
 
   componentWillUnmount = () => {
     this.unsetHoldAction();
@@ -34,6 +41,7 @@ class Content extends React.Component {
     }
     return (
       <div className={cx(
+        'react-chat__message-content-container',
         className,
         style['message-content-container'],
         style[`message-content-container--${variant}`],
@@ -60,14 +68,21 @@ class Content extends React.Component {
       event.persist();
     }
     this.onHoldTimer = setTimeout(() => {
+      this.setState({
+        didLongPress: true
+      });
       action(messageId, event, event.target);
     }, 700);
   });
 
   unsetHoldAction = (event) => {
-    if (event && event.cancelable && !event.type.match(/^(touchmove|scroll)$/)) {
+    const { didLongPress } = this.state;
+    if (didLongPress && event && event.cancelable && !event.type.match(/^(touchmove|scroll)$/)) {
       event.preventDefault();
     }
+    this.setState({
+      didLongPress: false
+    });
     this.onHoldTimer && clearTimeout(this.onHoldTimer);
   };
 
@@ -81,6 +96,7 @@ class Content extends React.Component {
     return (
       <div
         className={cx(
+          'react-chat__message-content--dynamic',
           style[`message-content--${position}`],
           style[`message-content--${type}`],
           style[position !== 'full' && `message-content--${variant}`],
@@ -105,7 +121,8 @@ class Content extends React.Component {
     return (
       <div
         className={cx(
-          `message-content--${eventName}`,
+          'react-chat__message-content--event',
+          `react-chat__message-content--${eventName}`,
           style['message-content--event'],
           style['message-content']
         )}
@@ -126,6 +143,7 @@ class Content extends React.Component {
     return (
       <div
         className={cx(
+          'react-chat__message-content--system',
           style['message-content--system'],
           style['message-content']
         )}
@@ -142,7 +160,10 @@ class Content extends React.Component {
     const receipts = this.getReceipts(isDelivered, isRead);
     const timeStamp = this.getTimestamp(dateTime);
     return (
-      <div className={cx(style['message-content__footer'])}>
+      <div className={cx(
+        'react-chat__message-content-footer',
+        style['message-content__footer'])
+      }>
         {receipts}
         {timeStamp}
       </div>
@@ -151,7 +172,10 @@ class Content extends React.Component {
 
   getLoadingPlaceholder = () => (
     <LazyImage
-      className={cx(style['message-content__loader'])}
+      className={cx(
+        'react-chat__message-content-loader',
+        style['message-content__loader']
+      )}
       label='loading-placeholder'
       loader='message'
       placeholder='square'
@@ -202,13 +226,19 @@ class Content extends React.Component {
   };
 
   getName = (name) => name ? (
-    <div className={cx(style['message-content__name'])}>
+    <div className={cx(
+      'react-chat__message-content-name',
+      style['message-content__name']
+    )}>
       <span>{name}</span>
     </div>
   ) : null;
 
   getReceipts = (isDelivered, isRead) => (
-    <div className={cx(style['message-content__receipts'])}>
+    <div className={cx(
+      'react-chat__message-content-receipts',
+      style['message-content__receipts'])
+    }>
       {isRead && (
         <LazyImage
           className={cx(
@@ -235,7 +265,10 @@ class Content extends React.Component {
   );
 
   getText = (text) => text ? (
-    <div className={cx(style['message-content__text'])}>
+    <div className={cx(
+      'react-chat__message-content-text',
+      style['message-content__text']
+    )}>
       <span>{text}</span>
     </div>
   ) : null;
@@ -253,7 +286,10 @@ class Content extends React.Component {
     minutes = minutes < 10 ? `0${minutes}` : minutes;
     const timestamp = `${date.getDate()}/${date.getMonth() + 1} ${hours}:${minutes} ${ampm}`;
     return (
-      <div className={cx(style['message-content__timestamp'])}>
+      <div className={cx(
+        'react-chat__message-content-timestamp',
+        style['message-content__timestamp']
+      )}>
         {timestamp}
       </div>
     );
