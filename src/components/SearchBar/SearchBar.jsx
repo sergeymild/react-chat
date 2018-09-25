@@ -1,5 +1,6 @@
 // Text Input
 // Filter Button
+// Preview Pane
 // Filter and Clear Logic
 
 // (onclick dismiss search and scroll to message + highlight)

@@ -51,7 +51,7 @@ class Menu extends React.Component {
         position: 'absolute',
         top: `${relativeY}px`
       } : null;
-      if (overridePosition && isRightSided) {
+      if (elementStyle && overridePosition && isRightSided) {
         elementStyle.transform = 'translate(-100%, 0)';
       }
       break;
@@ -62,9 +62,9 @@ class Menu extends React.Component {
         transform: 'translate(0, -100%)',
         position: 'absolute'
       } : null;
-      if (overridePosition && isRightSided) {
+      if (elementStyle && overridePosition && isRightSided) {
         elementStyle.right = '0';
-      } else if (overridePosition) {
+      } else if (elementStyle && overridePosition) {
         elementStyle.left = '0';
       }
       break;
