@@ -23,6 +23,7 @@
 }
 
 .chat-title-bar__avatar-button {
+  float: right;
   margin: 0 0 0 .1rem;
   min-width: 3rem;
   position: relative;
@@ -42,6 +43,7 @@
   background-color: transparent;
   border: 0;
   border-radius: 50%;
+  float: left;
   margin: 0 1rem 0 0;
   min-width: 2rem;
   outline: none;
@@ -52,20 +54,31 @@
     color: material-color('grey', '50');
   }
 
-  &:hover {
-    background-color: material-color('blue-grey', '500');
-  }
+  &:not(:disabled) {
+    &:hover {
+      background-color: material-color('blue-grey', '500');
+    }
 
-  &:active {
-    background-color: material-color('blue-grey', '600');
+    &:active {
+      background-color: material-color('blue-grey', '600');
+    }
   }
 }
 
 .chat-title-bar__heading {
   @include flex-column(center, center);
   @include flex-grow(1);
+  bottom: 0;
+  height: 100%;
+  left: 0;
   max-width: 100%;
   min-width: 10rem;
+  padding: 0 3.5rem;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
 
   span {
     @include ellipsize;

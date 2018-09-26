@@ -13,7 +13,7 @@ class TitleBar extends React.Component {
   /* Lifecycle */
 
   render = () => {
-    const { avatar, className, id, subtitle, title } = this.props;
+    const { avatar, className, id, subtitle, title, label } = this.props;
     const { onInfo, onReturn } = this.props;
     return (
       <AppContext.Consumer>
@@ -29,7 +29,7 @@ class TitleBar extends React.Component {
           >
             {this.getBackButton(onReturn, id)}
             {this.getHeading(title, subtitle)}
-            {this.getInfoButton(avatar, title, onInfo, id)}
+            {this.getInfoButton(avatar, title, onInfo, id, label)}
           </div>
         )}
       </AppContext.Consumer>
@@ -38,21 +38,24 @@ class TitleBar extends React.Component {
 
   /* Subviews */
 
-  getBackButton = (onReturn, id) => onReturn ? (
+  getBackButton = (onReturn, id) => (
     <button
       className={cx(
         'react-chat__title-bar-button',
         style['chat-title-bar__back-button']
       )}
-      onClick={onReturn.bind(null, id)}
+      onClick={onReturn && onReturn.bind(null, id)}
+      disabled={!onReturn}
     >
-      <LazyImage
-        label='back'
-        loader='icon'
-        placeholder='back'
-      />
+      {onReturn && (
+        <LazyImage
+          label='back'
+          loader='icon'
+          placeholder='back'
+        />
+      )}
     </button>
-  ) : null;
+  );
 
   getHeading = (title, subtitle) => (
     <div className={cx(
@@ -76,17 +79,17 @@ class TitleBar extends React.Component {
     </div>
   );
 
-  getInfoButton = (avatar, title, onInfo, id) => onInfo ? (
+  getInfoButton = (avatar, title, onInfo, id, label) => (
     <Avatar
       className={cx(
         'react-chat__title-bar-avatar',
         style['chat-title-bar__avatar-button']
       )}
-      name={title}
-      onClick={onInfo.bind(null, id)}
+      name={label || title}
+      onClick={onInfo && onInfo.bind(null, id)}
       source={avatar}
     />
-  ) : null;
+  );
 
   /* Accessors */
 
@@ -98,6 +101,7 @@ TitleBar.propTypes = {
   avatar: PropTypes.string,
   className: PropTypes.string,
   id: PropTypes.string.isRequired,
+  label: PropTypes.string,
   onInfo: PropTypes.func,
   onReturn: PropTypes.func,
   subtitle: PropTypes.string,
@@ -107,6 +111,7 @@ TitleBar.propTypes = {
 TitleBar.defaultProps = {
   avatar: null,
   className: null,
+  label: null,
   onInfo: null,
   onReturn: null,
   subtitle: null,
