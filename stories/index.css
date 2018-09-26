@@ -128,6 +128,10 @@ body {
   padding: 0;
 }
 
+.storybook__segment--full-height {
+  height: 100%;
+}
+
 .storybook__segment--row {
   -moz-flex-direction: row;
   -webkit-flex-direction: row;
@@ -238,6 +242,17 @@ body {
 .story-chat-room__preview {
   -webkit-overflow-scrolling: touch;
   height: 30rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  width: 100%;
+}
+
+/* Story Chapter: Chat List */
+
+.story-chat-list__preview {
+  -webkit-overflow-scrolling: touch;
+  height: 20rem;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 0;
