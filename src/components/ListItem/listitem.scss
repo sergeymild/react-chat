@@ -7,9 +7,10 @@
 
 .chat-list-item {
   @include flex-column(flex-start, flex-start);
+  border-top: 1px solid material-color('grey', '100');
   box-sizing: border-box;
   font-size: 1rem;
-  max-width: 30rem;
+  min-height: 4.7rem;
   width: 100%;
 
   * {
@@ -93,6 +94,7 @@
   @include unselectable;
   color: material-color('grey', '500');
   font-size: .9rem;
+  height: 1.2rem;
   pointer-events: none;
   width: 100%;
 }
@@ -103,13 +105,14 @@
   color: material-color('grey', '500');
   font-size: .9rem;
   pointer-events: none;
+  white-space: nowrap;
 }
 
 .chat-list-item__chevron {
   @include align-self(center);
   @include unselectable;
+  @include flex-shrink(0);
   color: material-color('grey', '600');
-  margin: .3rem;
   min-width: 1.6rem;
   padding-top: .3rem;
   pointer-events: none;
@@ -123,22 +126,23 @@
 
 .chat-list-item__menu {
   @include flex-row(center, space-evenly);
-  padding: .5rem;
   width: 100%;
 }
 
 .chat-list-item__action {
   @include flex-grow(1);
   color: material-color('grey', '500');
+  padding: .2rem;
   text-align: center;
 
   &:hover {
+    background-color: material-color('grey', '200');
     color: material-color('grey', '600');
   }
 
   img,
   svg {
-    @include square(1.4rem !important);
+    @include square(1.2rem !important);
   }
 }
 
@@ -170,22 +174,27 @@
 
 .chat-list-item__status {
   svg {
-    @include square(.8rem !important);
+    @include square(1rem !important);
   }
 }
 
 .chat-list-item__status--new {
   color: material-color('blue', '500');
+  padding-right: .1rem;
+
+  svg {
+    @include square(.8rem !important);
+  }
 }
 
 .chat-list-item__status--archive {
-
+  color: material-color('grey', '500');
 }
 
 .chat-list-item__status--pin {
-
+  color: material-color('red', '400');
 }
 
 .chat-list-item__status--star {
-
+  color: material-color('yellow', '800');
 }
