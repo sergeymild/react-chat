@@ -20,7 +20,19 @@
   @include smooth-scroll;
   margin: 0 0 -1rem;
   min-height: 100%;
-  padding: 0 .5rem 1rem;
+  padding: 0 0 1rem;
+}
+
+.chat-room__body--background {
+  @include filter(blur(.5rem));
+  background-color: material-color('grey', '300');
+  opacity: .2;
+  overflow: hidden !important;
+  pointer-events: none;
+
+  * {
+    pointer-events: none !important;
+  }
 }
 
 .chat-room__input-group-container {
@@ -30,4 +42,31 @@
   left: 0;
   pointer-events: none;
   z-index: 5;
+}
+
+.chat-room__message {
+  padding-left: .5rem;
+  padding-right: .5rem;
+}
+
+.chat-room__message--highlighted {
+  @include animation(highlight 5s ease-in);
+}
+
+@include keyframes(highlight) {
+  0% {
+    background-color: transparent;
+  }
+
+  25% {
+    background-color: material-color('amber', '50');
+  }
+
+  75% {
+    background-color: material-color('amber', '50');
+  }
+
+  100% {
+    background-color: transparent;
+  }
 }

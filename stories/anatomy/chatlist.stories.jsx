@@ -110,6 +110,8 @@ class ChatListPage extends React.Component {
       filter: '',
       isLoading: false,
       layout: 'staggered',
+      liveSearch: false,
+      searchResults: [],
       sizing: 'desktop',
       theme: 'light'
     };
@@ -129,7 +131,8 @@ class ChatListPage extends React.Component {
   };
 
   render = () => {
-    const { isLoading, ...context } = this.state;
+    const { searchResults, liveSearch, isLoading, ...context } = this.state;
+    const searchDescriptors = searchResults.map(this.parseSearchResult);
     return (
       <div className='storybook__segment storybook__segment--row storybook__segment--full'>
         <div className='storybook__segment storybook__segment--column'>
@@ -197,6 +200,20 @@ class ChatListPage extends React.Component {
               >
                 <span>Toggle Load State</span>
               </button>
+              <br/>
+              <span>
+                {'Live Search: '}
+                <code>{liveSearch.toString()}</code>
+              </span>
+              <br/>
+              <button
+                className='storybook__button'
+                onClick={() => this.setState({
+                  liveSearch: !liveSearch
+                })}
+              >
+                <span>Toggle Search Mode</span>
+              </button>
             </div>
           </div>
           <div className='storybook__container'>
@@ -205,7 +222,7 @@ class ChatListPage extends React.Component {
             </span>
             <span className='storybook__text'>
               The following frame is an example of the chat list within a container that has been set to
-              <code>width: 100%;</code> and <code>height: 30rem;</code>. Do try to resize your browser to
+              <code>width: 100%;</code> and <code>height: 20rem;</code>. Do try to resize your browser to
               test the responses to changes in height and width. Note that chat list items have a max width constraint
               to prevent sparse grouping of view elements, hence it would be better to deploy chat list as a side pane
               for desktop screens.
@@ -217,15 +234,17 @@ class ChatListPage extends React.Component {
             <ChatList
               isLoading={isLoading}
               layout={context.layout}
+              liveSearch={liveSearch}
               menuActions={menuActionsStub}
               onAvatar={action('Avatar Clicked')}
-              onFilter={this.updateFilter}
+              onSearch={this.updateFilter}
               onInfo={action('Info Clicked')}
               onItem={action('Item Clicked')}
               onMenu={action('Context Triggered')}
               onRefresh={this.updateRooms}
               placeholder={null}
               rooms={roomsStub}
+              searchResults={searchDescriptors}
               sizing={context.sizing}
               theme={context.theme}
               title='Chats'
@@ -241,8 +260,12 @@ class ChatListPage extends React.Component {
 
   updateFilter = (nextInput) => {
     action('Filter Changed')(nextInput);
+    const searchResults = nextInput && nextInput.length ? roomsStub.filter(
+      (room) => room.name.toLowerCase().includes(nextInput.toLowerCase())
+    ) : [];
     this.setState({
-      filter: nextInput
+      filter: nextInput,
+      searchResults
     });
   };
 
@@ -250,6 +273,13 @@ class ChatListPage extends React.Component {
     // TODO: Mock refresh logic...
     action('Rooms Changed')();
   };
+
+  parseSearchResult = (result) => ({
+    description: result.description,
+    id: result.id,
+    timeStamp: result.timeStamp,
+    name: result.name
+  });
 
 }
 

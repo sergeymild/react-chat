@@ -8,6 +8,7 @@ import IntroductionPage from './overview/introduction.stories.jsx';
 import AvatarPage from './anatomy/avatar.stories.jsx';
 import ImagePage from './anatomy/image.stories.jsx';
 import ListItemPage from './anatomy/listitem.stories.jsx';
+import SearchBarPage from './anatomy/searchbar.stories.jsx';
 import TitleBarPage from './anatomy/titlebar.stories.jsx';
 
 import ChatListPage from './anatomy/chatlist.stories.jsx';
@@ -42,7 +43,8 @@ storiesOf('Anatomy/Shared', module)
   .add('Avatar', () => <AvatarPage />)
   .add('Image', () => <ImagePage />)
   .add('Title Bar', () => <TitleBarPage />)
-  .add('List Item', () => <ListItemPage />);
+  .add('List Item', () => <ListItemPage />)
+  .add('Search Bar', () => <SearchBarPage />);
 
 storiesOf('Examples', module)
   .add('Sizing', () => <SizingPage />)

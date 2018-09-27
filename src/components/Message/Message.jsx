@@ -22,6 +22,7 @@ class Message extends React.Component {
       },
       shouldDisplayMenu: false
     };
+    this.self = React.createRef();
   }
 
   render = () => {
@@ -32,21 +33,24 @@ class Message extends React.Component {
     return (
       <AppContext.Consumer>
         {(context) => (
-          <div className={cx(
-            'react-chat__message',
-            `react-chat__message--${context.theme}`,
-            className,
-            position && style[`chat-message--${position}`],
-            style['chat-message'],
-            style[`chat-message--${context.theme}`],
-            !sender
-              ? style['chat-message--center']
-              : context.layout === 'aligned'
-                ? style['chat-message--full']
-                : userId === sender.id
-                  ? style['chat-message--right']
-                  : style['chat-message--left']
-          )}>
+          <div
+            className={cx(
+              'react-chat__message',
+              `react-chat__message--${context.theme}`,
+              className,
+              position && style[`chat-message--${position}`],
+              style['chat-message'],
+              style[`chat-message--${context.theme}`],
+              !sender
+                ? style['chat-message--center']
+                : context.layout === 'aligned'
+                  ? style['chat-message--full']
+                  : userId === sender.id
+                    ? style['chat-message--right']
+                    : style['chat-message--left']
+            )}
+            ref={this.self}
+          >
             {haveOwnership && sender && !hideAvatar && this.getAvatar(context)}
             {this.getContent(
               context,
@@ -78,6 +82,21 @@ class Message extends React.Component {
       });
     }
     onHoldContent(messageId, event);
+  };
+
+  scrollIntoView = (params) => {
+    const element = this.self;
+    if (element && element.current) {
+      element.current.scrollIntoView(params);
+    }
+  };
+
+  highlight = () => {
+    const element = this.self;
+    if (element && element.current) {
+      element.current.style.animationName = 'highlight';
+      element.current.style.animationDuration = '1s';
+    }
   };
 
   /* Subviews */

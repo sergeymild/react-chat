@@ -5,6 +5,7 @@ import cx from 'classnames/dedupe';
 import AppProvider from '../App/Context.jsx';
 import InputGroup from '../InputGroup/InputGroup.jsx';
 import Message from '../Message/Message.jsx';
+import SearchBar from '../SearchBar/SearchBar.jsx';
 import TitleBar from '../TitleBar/TitleBar.jsx';
 
 import style from './chatroom.scss';
@@ -16,12 +17,19 @@ class ChatRoom extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      highlightId: null,
+      isSearchActive: false,
       isRefreshing: false
     };
   }
 
+  componentWillUnmount = () => {
+    this.onClearHighlight && clearTimeout(this.onClearHighlight);
+  };
+
   render = () => {
     const { className, layout, sizing, theme } = this.props;
+    const { isSearchActive } = this.state;
     const stylingContext = { layout, sizing, theme };
     const messages = this.getMessages();
     const dividers = this.getDividers();
@@ -39,13 +47,16 @@ class ChatRoom extends React.Component {
           )}
         >
           {this.getTitleBar()}
-          {this.getSearchBar()}
-          <div className={cx(
-            'react-chat__room-body',
-            `react-chat__room-body--${theme}`,
-            style['chat-room__body']
-          )}>
-            {elements}
+          <div className={cx(style['chat-room__body-wrapper'])}>
+            {this.getSearchBar()}
+            <div className={cx(
+              'react-chat__room-body',
+              `react-chat__room-body--${theme}`,
+              style['chat-room__body'],
+              isSearchActive && style['chat-room__body--background']
+            )}>
+              {elements}
+            </div>
           </div>
           {this.getInputGroup()}
         </div>
@@ -74,11 +85,20 @@ class ChatRoom extends React.Component {
   };
 
   getSearchBar = () => {
-    const { onFilter } = this.props;
-
-    // TODO: Implement search bar with results pane
-
-    return null;
+    const { liveSearch, onSearch, onResult, searchHint, searchPlaceholder, searchResults } = this.props;
+    return onSearch ? (
+      <SearchBar
+        className={cx(style['chat-room__search-bar'])}
+        hint={searchHint}
+        liveSearch={liveSearch}
+        onEnter={this.enterSearch}
+        onExit={this.exitSearch}
+        onSearch={onSearch}
+        onSelect={onResult || this.highlightItem}
+        placeholder={searchPlaceholder}
+        results={searchResults}
+      />
+    ) : null;
   };
 
   getDividers = () => {
@@ -142,9 +162,14 @@ class ChatRoom extends React.Component {
 
   getMessage = (message, sender = null, position = null) => {
     const { menuActions, hideAvatar, onAvatar, onMenu, onContent, userId } = this.props;
+    const { highlightId } = this.state;
     const { messageId, type, ...content } = message;
     return (
       <Message
+        className={cx(
+          style['chat-room__message'],
+          messageId === highlightId && style['chat-room__message--highlighted']
+        )}
         content={content}
         hideAvatar={hideAvatar}
         key={messageId}
@@ -154,6 +179,7 @@ class ChatRoom extends React.Component {
         onTouchAvatar={onAvatar}
         onTouchContent={onContent}
         position={position}
+        ref={(element) => this[`message${messageId}`] = element}
         sender={sender}
         type={type}
         userId={userId}
@@ -185,6 +211,30 @@ class ChatRoom extends React.Component {
 
     return null;
   };
+
+  /* Events */
+
+  highlightItem = (id) => {
+    const element = this[`message${id}`];
+    if (element) {
+      element.scrollIntoView({block: 'start'});
+      this.setState({
+        highlightId: id
+      }, () => this.onClearHighlight = setTimeout(this.clearHighlight, 5000));
+    }
+  };
+
+  clearHighlight = () => this.setState({
+    highlightId: null
+  });
+
+  enterSearch = () => this.setState({
+    isSearchActive: true
+  });
+
+  exitSearch = () => this.setState({
+    isSearchActive: false
+  });
 
 }
 
@@ -234,6 +284,7 @@ ChatRoom.propTypes = {
     'aligned',
     'staggered'
   ]),
+  liveSearch: PropTypes.bool,
   menuActions: PropTypes.arrayOf(PropTypes.shape({
     action: PropTypes.func.isRequired,
     icon: PropTypes.string,
@@ -288,16 +339,26 @@ ChatRoom.propTypes = {
   onAttach: PropTypes.func,
   onAvatar: PropTypes.func,
   onContent: PropTypes.func,
-  onFilter: PropTypes.func,
   onInfo: PropTypes.func,
   onInput: PropTypes.func,
   onMenu: PropTypes.func,
   onRefresh: PropTypes.func,
+  onResult: PropTypes.func,
   onReturn: PropTypes.func,
+  onSearch: PropTypes.func,
   onSend: PropTypes.func,
   roomAvatar: PropTypes.string,
   roomId: PropTypes.string.isRequired,
   roomName: PropTypes.string,
+  searchHint: PropTypes.string,
+  searchPlaceholder: PropTypes.element,
+  searchResults: PropTypes.arrayOf(PropTypes.shape({
+    avatar: PropTypes.string,
+    description: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    timeStamp: PropTypes.string
+  })),
   sizing: PropTypes.oneOf([
     'desktop',
     'mobile',
@@ -326,19 +387,24 @@ ChatRoom.defaultProps = {
   inputData: null,
   inputHint: null,
   layout: 'staggered',
+  liveSearch: false,
   menuActions: null,
   onAttach: null,
   onAvatar: null,
   onContent: null,
-  onFilter: null,
   onInfo: null,
   onInput: null,
   onMenu: null,
   onRefresh: null,
+  onResult: null,
   onReturn: null,
+  onSearch: null,
   onSend: null,
   roomAvatar: null,
   roomName: 'Messages',
+  searchHint: 'Search',
+  searchPlaceholder: null,
+  searchResults: [],
   sizing: 'desktop',
   theme: 'light'
 };
