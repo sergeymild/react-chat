@@ -34,6 +34,23 @@
 
 .message-content {
   padding: .3rem .6rem;
+
+  a {
+    background-color: material-color('grey', '200');
+    border: 1px solid material-color('grey', '300');
+    border-radius: .5rem;
+    color: material-color('grey', '800');
+    font-family: 'Lucida Console', Monaco, monospace;
+    font-size: .8rem;
+    font-weight: 600;
+    padding: .2rem .4rem;
+    pointer-events: auto;
+    text-decoration: none;
+
+    &:hover {
+      background-color: material-color('grey', '50');
+    }
+  }
 }
 
 .message-content--event {

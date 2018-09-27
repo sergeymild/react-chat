@@ -158,8 +158,6 @@ const loaderDictionary = {
         <rect x='70' y='14' rx='0' ry='0' width='80' height='8' />
         <rect x='70' y='30' rx='0' ry='0' width='2000' height='8' />
         <rect x='70' y='46' rx='0' ry='0' width='2000' height='8' />
-        {/* <circle cx='265' cy='35' r='5' />
-        <rect x='220' y='14' rx='0' ry='0' width='50' height='8' /> */}
       </React.Fragment>
     ),
     size: {

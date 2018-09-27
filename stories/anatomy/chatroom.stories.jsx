@@ -114,7 +114,7 @@ const messagesStub = [
     isDelivered: true,
     messageId: '003',
     senderId: '2',
-    text: 'I free 6pm. Ai mai?',
+    text: 'I free 6pm. Ai mai? https://www.ameenmakanhouse.com/',
     timeStamp: '2018-09-23T13:03:28Z',
     type: 'text'
   },
@@ -207,8 +207,10 @@ class ChatRoomPage extends React.Component {
     this.state = {
       filter: '',
       input: '',
+      liveSearch: false,
       layout: 'staggered',
       offset: 0,
+      searchResults: [],
       sizing: 'desktop',
       theme: 'light'
     };
@@ -228,7 +230,8 @@ class ChatRoomPage extends React.Component {
   };
 
   render = () => {
-    const { input, ...context } = this.state;
+    const { input, searchResults, liveSearch, ...context } = this.state;
+    const searchDescriptors = searchResults.map(this.parseSearchResult);
     return (
       <div className='storybook__segment storybook__segment--row storybook__segment--full'>
         <div className='storybook__segment storybook__segment--column'>
@@ -286,6 +289,20 @@ class ChatRoomPage extends React.Component {
               >
                 <span>Toggle Theme</span>
               </button>
+              <br/>
+              <span>
+                {'Live Search: '}
+                <code>{liveSearch.toString()}</code>
+              </span>
+              <br/>
+              <button
+                className='storybook__button'
+                onClick={() => this.setState({
+                  liveSearch: !liveSearch
+                })}
+              >
+                <span>Toggle Search Mode</span>
+              </button>
             </div>
           </div>
           <div className='storybook__container'>
@@ -333,12 +350,13 @@ class ChatRoomPage extends React.Component {
               inputHint='Type here...'
               inputValue={input}
               layout={context.layout}
+              liveSearch={liveSearch}
               menuActions={menuActionsStub}
               messages={messagesStub}
               onAttach={action('Attach Clicked')}
               onAvatar={action('Avatar Clicked')}
               onContent={action('Content Clicked')}
-              onFilter={this.updateFilter}
+              onSearch={this.updateFilter}
               onInfo={action('Info Clicked')}
               onInput={this.updateInput}
               onMenu={action('Context Triggered')}
@@ -347,6 +365,7 @@ class ChatRoomPage extends React.Component {
               onSend={this.sendMessage}
               roomId='123'
               roomName='Avengers Assemble'
+              searchResults={searchDescriptors}
               sizing={context.sizing}
               theme={context.theme}
               userId='1'
@@ -362,8 +381,13 @@ class ChatRoomPage extends React.Component {
 
   updateFilter = (nextInput) => {
     action('Filter Changed')(nextInput);
+    const searchResults = nextInput && nextInput.length ? messagesStub.filter(
+      (message) => message.type === 'text'
+      && message.text.toLowerCase().includes(nextInput.toLowerCase())
+    ) : [];
     this.setState({
-      filter: nextInput
+      filter: nextInput,
+      searchResults
     });
   };
 
@@ -385,6 +409,13 @@ class ChatRoomPage extends React.Component {
       input: ''
     });
   };
+
+  parseSearchResult = (result) => ({
+    description: result.text,
+    id: result.messageId,
+    timeStamp: result.timeStamp,
+    name: usersStub[result.senderId].name
+  });
 
 }
 
