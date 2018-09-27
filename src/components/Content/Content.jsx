@@ -1,3 +1,6 @@
+// CREDIT: Web URL Regex (regex-weburl.js by dperini)
+// GITHUB GIST: https://gist.github.com/dperini/729294
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/dedupe';
@@ -6,7 +9,9 @@ import LazyImage from '../LazyImage/LazyImage.jsx';
 
 import style from './content.scss';
 
-class Content extends React.Component {
+// TODO: Create media preview and downloader views
+
+class Content extends React.PureComponent {
 
   /* Lifecycle */
 
@@ -53,39 +58,6 @@ class Content extends React.Component {
     );
   };
 
-  /* Callbacks */
-
-  onContext = (action, messageId) => (event) => {
-    if (event && event.cancelable && !event.type.match(/^(touchmove|scroll)$/)) {
-      event.preventDefault();
-    }
-    action(messageId, event, event.target);
-    return false;
-  };
-
-  setHoldAction = (action, messageId) => action && ((event) => {
-    if (event) {
-      event.persist();
-    }
-    this.onHoldTimer = setTimeout(() => {
-      this.setState({
-        didLongPress: true
-      });
-      action(messageId, event, event.target);
-    }, 700);
-  });
-
-  unsetHoldAction = (event) => {
-    const { didLongPress } = this.state;
-    if (didLongPress && event && event.cancelable && !event.type.match(/^(touchmove|scroll)$/)) {
-      event.preventDefault();
-    }
-    this.setState({
-      didLongPress: false
-    });
-    this.onHoldTimer && clearTimeout(this.onHoldTimer);
-  };
-
   /* Layouts */
 
   getDynamicContent = () => {
@@ -97,16 +69,16 @@ class Content extends React.Component {
       <div
         className={cx(
           'react-chat__message-content--dynamic',
+          style['message-content'],
           style[`message-content--${position}`],
           style[`message-content--${type}`],
-          style[position !== 'full' && `message-content--${variant}`],
-          style['message-content']
+          style[position !== 'full' && `message-content--${variant}`]
         )}
-        onContextMenu={isDesktop ? this.onContext(onHold, messageId) : null}
-        onTouchStart={this.setHoldAction(onHold, messageId)}
-        onTouchMove={this.unsetHoldAction}
-        onTouchEnd={this.unsetHoldAction}
         onClick={onPress}
+        onContextMenu={isDesktop ? this.onContext(onHold, messageId) : null}
+        onTouchEnd={this.unsetHoldAction}
+        onTouchMove={this.unsetHoldAction}
+        onTouchStart={this.setHoldAction(onHold, messageId)}
       >
         {this.getName(senderName)}
         {this.getMedia(data)}
@@ -126,11 +98,11 @@ class Content extends React.Component {
           style['message-content--event'],
           style['message-content']
         )}
-        onContextMenu={isDesktop ? this.onContext(onHold, messageId) : null}
-        onTouchStart={this.setHoldAction(onHold, messageId)}
-        onTouchMove={this.unsetHoldAction}
-        onTouchEnd={this.unsetHoldAction}
         onClick={onPress}
+        onContextMenu={isDesktop ? this.onContext(onHold, messageId) : null}
+        onTouchEnd={this.unsetHoldAction}
+        onTouchMove={this.unsetHoldAction}
+        onTouchStart={this.setHoldAction(onHold, messageId)}
       >
         {eventContent}
         {this.getText(text)}
@@ -182,8 +154,6 @@ class Content extends React.Component {
       pureLoading
     />
   );
-
-  // TODO: Create media preview and downloader views
 
   getMedia = (data) => {
     if (!data) {
@@ -242,8 +212,8 @@ class Content extends React.Component {
       {isRead && (
         <LazyImage
           className={cx(
-            style['message-content__receipt'],
-            style['message-content__receipt--read']
+            style['message-content__receipt--read'],
+            style['message-content__receipt']
           )}
           label='receipt--read'
           loader='icon'
@@ -253,8 +223,8 @@ class Content extends React.Component {
       {isDelivered && (
         <LazyImage
           className={cx(
-            style['message-content__receipt'],
-            style['message-content__receipt--delivered']
+            style['message-content__receipt--delivered'],
+            style['message-content__receipt']
           )}
           label='receipt--delivered'
           loader='icon'
@@ -328,6 +298,39 @@ class Content extends React.Component {
         {timestamp}
       </div>
     );
+  };
+
+  /* Event Handlers */
+
+  onContext = (action, messageId) => (event) => {
+    if (event && event.cancelable && !event.type.match(/^(touchmove|scroll)$/)) {
+      event.preventDefault();
+    }
+    action(messageId, event, event.target);
+    return false;
+  };
+
+  setHoldAction = (action, messageId) => action && ((event) => {
+    if (event) {
+      event.persist();
+    }
+    this.onHoldTimer = setTimeout(() => {
+      this.setState({
+        didLongPress: true
+      });
+      action(messageId, event, event.target);
+    }, 600);
+  });
+
+  unsetHoldAction = (event) => {
+    const { didLongPress } = this.state;
+    if (didLongPress && event && event.cancelable && !event.type.match(/^(touchmove|scroll)$/)) {
+      event.preventDefault();
+    }
+    this.setState({
+      didLongPress: false
+    });
+    this.onHoldTimer && clearTimeout(this.onHoldTimer);
   };
 
 }

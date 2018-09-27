@@ -1,7 +1,7 @@
-// sass-lint:disable no-important
-
 @import '../App/colors';
 @import '../App/mixins';
+
+// Generics
 
 .chat-avatar {
   background-color: transparent;
@@ -29,16 +29,16 @@
   }
 }
 
-.chat-avatar--hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
 .chat-avatar--circle {
   img {
     border-radius: 50%;
     padding: .3rem;
   }
+}
+
+.chat-avatar--hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .chat-avatar--square {
@@ -48,21 +48,11 @@
   }
 }
 
+// Components
+
 .chat-avatar__image {
-  height: 4rem !important;
-  width: 4rem !important;
-}
-
-.chat-avatar__link {
-  color: material-color('blue-grey', '300');
-
-  &:hover {
-    color: material-color('blue-grey', '500');
-  }
-
-  &:active {
-    color: material-color('blue-grey', '600');
-  }
+  height: 4rem !important; // sass-lint:disable-line no-important
+  width: 4rem !important; // sass-lint:disable-line no-important
 }
 
 .chat-avatar__initials {
@@ -78,4 +68,16 @@
   text-align: center;
   top: 50%;
   z-index: 1;
+}
+
+.chat-avatar__link {
+  color: material-color('blue-grey', '300');
+
+  &:hover {
+    color: material-color('blue-grey', '500');
+  }
+
+  &:active {
+    color: material-color('blue-grey', '600');
+  }
 }

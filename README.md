@@ -1,14 +1,40 @@
+# React Chat
+
 [![Build Status](https://travis-ci.com/hliejun/react-chat.svg?branch=master)](https://travis-ci.com/hliejun/react-chat)
 
-## Welcome to GitHub Pages
+React Chat is an extensible set of presentational chat components for mobile-first ReactJS web applications.
+It facilitates simple messaging interactions on-the-go.
+React Chat is presently in `beta` and is not meant to be a viable substitute to delicate native chat frameworks.
 
-You can use the [editor on GitHub](https://github.com/hliejun/react-chat/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## Intro
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Brief description of contents, documentation, demo and webpage links.
 
-### Markdown
+## Getting Started
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Installation instructions and dependencies.
+
+## Usage
+
+Importing and usage by components.
+
+## Development
+
+Code Design, Linters, Storybook, RollUp, AppContext.
+
+## TODOs
+
+Summary of upcoming TODOs.
+
+## Credits and Licenses
+
+Links to resources, credits and links to licenses and usage.
+
+## Support
+
+Issues and contact.
+
+<!--
 
 ```markdown
 Syntax highlighted code block
@@ -36,4 +62,4 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 
 ### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out. -->

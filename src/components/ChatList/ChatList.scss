@@ -1,7 +1,7 @@
-// sass-lint:disable no-important no-color-literals
-
 @import '../App/colors';
 @import '../App/mixins';
+
+// Generics
 
 .chat-list {
   @include silent-touch;
@@ -15,6 +15,8 @@
   }
 }
 
+// Rooms and Item
+
 .chat-list__rooms {
   @include smooth-scroll;
   min-height: 100%;
@@ -24,20 +26,19 @@
   @include filter(blur(.5rem));
   background-color: material-color('grey', '300');
   opacity: .2;
-  overflow: hidden !important;
+  overflow: hidden !important; // sass-lint:disable-line no-important
   pointer-events: none;
 
   * {
-    pointer-events: none !important;
+    pointer-events: none !important; // sass-lint:disable-line no-important
   }
 }
 
-.chat-list__room-loader {
-  margin: 0 auto;
-  margin-left: 0;
-  overflow-x: hidden;
-  width: calc(100% - 1rem);
+.chat-list__room-item--highlighted {
+  @include animation(highlight 5s ease-in);
 }
+
+// Loaders and Placeholders
 
 .chat-list__placeholder {
   @include flex-column(center, center);
@@ -51,17 +52,22 @@
   }
 }
 
-.chat-list__placeholder-title {
-  font-weight: 500;
-}
-
 .chat-list__placeholder-subtitle {
   font-size: .9rem;
 }
 
-.chat-list__room-item--highlighted {
-  @include animation(highlight 5s ease-in);
+.chat-list__placeholder-title {
+  font-weight: 500;
 }
+
+.chat-list__room-loader {
+  margin: 0 auto;
+  margin-left: 0;
+  overflow-x: hidden;
+  width: calc(100% - 1rem);
+}
+
+// Animation Keyframes
 
 @include keyframes(highlight) {
   0% {

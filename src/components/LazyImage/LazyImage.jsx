@@ -30,7 +30,9 @@ class LazyImage extends React.Component {
 
   componentWillUnmount = () => {
     this.stopLoading();
-    window.removeEventListener('load', this.onPageLoad);
+    if (window) {
+      window.removeEventListener('load', this.onPageLoad);
+    }
   };
 
   shouldComponentUpdate = (nextProps) => {
@@ -111,7 +113,7 @@ class LazyImage extends React.Component {
     return getInlineSvg(loader, classNames);
   };
 
-  /* Load Events */
+  /* Load Event Handlers */
 
   onPageLoad = () => {
     const { source } = this.props;

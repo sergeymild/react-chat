@@ -10,6 +10,8 @@ import TitleBar from '../TitleBar/TitleBar.jsx';
 
 import style from './chatlist.scss';
 
+// TODO: Add refresh view
+
 class ChatList extends React.Component {
 
   /* Lifecycle */
@@ -25,7 +27,8 @@ class ChatList extends React.Component {
   }
 
   componentWillUnmount = () => {
-    this.onClearHighlight && clearTimeout(this.onClearHighlight);
+    this.clearHighlightTimer && clearTimeout(this.clearHighlightTimer);
+    this.clearHighlightTimer = null;
   };
 
   render = () => {
@@ -54,7 +57,6 @@ class ChatList extends React.Component {
 
   /* Subviews */
 
-  // TODO: Allow children buttons on title bar
   getTitleBar = () => {
     const { hideTitleBar, title, subtitle, user, onInfo } = this.props;
     if (hideTitleBar || (!user && !title)) {
@@ -190,16 +192,7 @@ class ChatList extends React.Component {
     );
   };
 
-  getRefresh = () => {
-    const { onRefresh } = this.props;
-    const { isRefreshing } = this.state;
-
-    // TODO: Add refresh view
-
-    return null;
-  };
-
-  /* Events */
+  /* Event Handlers */
 
   highlightItem = (id) => {
     const element = this[`room${id}`];
@@ -207,7 +200,7 @@ class ChatList extends React.Component {
       element.scrollIntoView({block: 'end'});
       this.setState({
         highlightId: id
-      }, () => this.onClearHighlight = setTimeout(this.clearHighlight, 5000));
+      }, () => this.clearHighlightTimer = setTimeout(this.clearHighlight, 5000));
     }
   };
 
@@ -308,8 +301,8 @@ ChatList.defaultProps = {
   hideChevron: false,
   hideTitleBar: false,
   isLoading: false,
-  liveSearch: false,
   layout: 'staggered',
+  liveSearch: false,
   menuActions: null,
   onAvatar: null,
   onInfo: null,

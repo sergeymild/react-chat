@@ -54,8 +54,8 @@ class Avatar extends React.Component {
             onLoad={this.hideInitialsOverlay}
             onSuccess={this.hideInitialsOverlay}
             placeholder={shape}
-            source={source}
             pureLoading={isLoading}
+            source={source}
           />
         </a>
         {initialsOverlay}
@@ -79,7 +79,17 @@ class Avatar extends React.Component {
     </span>;
   };
 
-  /* Auxillary Functions */
+  /* Event Handlers */
+
+  hideInitialsOverlay = () => this.setState({
+    showInitialsOverlay: false
+  });
+
+  showInitialsOverlay = () => this.setState({
+    showInitialsOverlay: true
+  });
+
+  /* Accessory Functions */
 
   getInitials = (name) => {
     if (!name) {
@@ -92,14 +102,6 @@ class Avatar extends React.Component {
     const initials = names.map((name) => name.substring(0, 1));
     return initials.join('').toUpperCase();
   };
-
-  hideInitialsOverlay = () => this.setState({
-    showInitialsOverlay: false
-  });
-
-  showInitialsOverlay = () => this.setState({
-    showInitialsOverlay: true
-  });
 
 }
 

@@ -10,6 +10,9 @@ import TitleBar from '../TitleBar/TitleBar.jsx';
 
 import style from './chatroom.scss';
 
+// TODO: Implement divider
+// TODO: Implement refresh
+
 class ChatRoom extends React.Component {
 
   /* Lifecycle */
@@ -18,13 +21,14 @@ class ChatRoom extends React.Component {
     super(props);
     this.state = {
       highlightId: null,
-      isSearchActive: false,
-      isRefreshing: false
+      isRefreshing: false,
+      isSearchActive: false
     };
   }
 
   componentWillUnmount = () => {
-    this.onClearHighlight && clearTimeout(this.onClearHighlight);
+    this.clearHighlightTimer && clearTimeout(this.clearHighlightTimer);
+    this.clearHighlightTimer = null;
   };
 
   render = () => {
@@ -52,8 +56,8 @@ class ChatRoom extends React.Component {
             <div className={cx(
               'react-chat__room-body',
               `react-chat__room-body--${theme}`,
-              style['chat-room__body'],
-              isSearchActive && style['chat-room__body--background']
+              isSearchActive && style['chat-room__body--background'],
+              style['chat-room__body']
             )}>
               {elements}
             </div>
@@ -125,12 +129,7 @@ class ChatRoom extends React.Component {
     return dividers;
   };
 
-  getDivider = (date) => {
-
-    // TODO: Implement dividers
-
-    return null;
-  };
+  getDivider = () => null;
 
   getMessages = () => {
     const { messages, users } = this.props;
@@ -167,8 +166,8 @@ class ChatRoom extends React.Component {
     return (
       <Message
         className={cx(
-          style['chat-room__message'],
-          messageId === highlightId && style['chat-room__message--highlighted']
+          messageId === highlightId && style['chat-room__message--highlighted'],
+          style['chat-room__message']
         )}
         content={content}
         hideAvatar={hideAvatar}
@@ -203,16 +202,9 @@ class ChatRoom extends React.Component {
     );
   };
 
-  getRefresh = () => {
-    const { onRefresh } = this.props;
-    const { isRefreshing } = this.state;
+  getRefresh = () => null;
 
-    // TODO: Implement refresh
-
-    return null;
-  };
-
-  /* Events */
+  /* Event Handlers */
 
   highlightItem = (id) => {
     const element = this[`message${id}`];
@@ -220,7 +212,7 @@ class ChatRoom extends React.Component {
       element.scrollIntoView({block: 'start'});
       this.setState({
         highlightId: id
-      }, () => this.onClearHighlight = setTimeout(this.clearHighlight, 5000));
+      }, () => this.clearHighlightTimer = setTimeout(this.clearHighlight, 5000));
     }
   };
 

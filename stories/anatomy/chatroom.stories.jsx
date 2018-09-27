@@ -5,6 +5,8 @@ import { action } from '@storybook/addon-actions';
 import { throttle } from '../utils/helper.js';
 import ChatRoom from '../../src/components/ChatRoom/ChatRoom.jsx';
 
+// TODO: Mock refresh logic
+
 const attachOptionsStub = [
   {
     action: action('Audio Clicked'),
@@ -154,33 +156,27 @@ const messagesStub = [
 const usersStub = {
   '1': {
     id: '1',
-    name: 'Tony Stark',
-    avatar: 'https://vignette.wikia.nocookie.net/marvelmovies/images/8/87/AoU_Tony_Stark_portal.png/revision/latest?cb=20150427084736'
+    name: 'Tony Stark'
   },
   '2': {
     id: '2',
-    name: 'Steve Rogers',
-    avatar: 'https://pbs.twimg.com/profile_images/653610207675875329/RawYE4cD_400x400.jpg'
+    name: 'Steve Rogers'
   },
   '3': {
     id: '3',
-    name: 'Thor',
-    avatar: 'https://66.media.tumblr.com/4574a8f843cb0061bfbb3d875a0abfb5/tumblr_oyakwsJopd1tctq75o1_r2_540.png'
+    name: 'Thor'
   },
   '4': {
     id: '4',
-    name: 'Natasha Romanoff',
-    avatar: 'https://i.pinimg.com/originals/73/c8/89/73c88918d25f25c93e2f856e6a805eb7.jpg'
+    name: 'Natasha Romanoff'
   },
   '5': {
     id: '5',
-    name: 'Bruce Banner',
-    avatar: 'https://i.redd.it/n4d28b6xggi11.png'
+    name: 'Bruce Banner'
   },
   '6': {
     id: '6',
-    name: 'Nick Fury',
-    avatar: 'https://images.indianexpress.com/2018/07/samuel-l-jackson-759.jpg'
+    name: 'Nick Fury'
   }
 };
 
@@ -344,7 +340,7 @@ class ChatRoomPage extends React.Component {
           </div>
         </div>
         <div className='storybook__segment storybook__segment--column storybook__scroll-column story-chat-room__preview'>
-          <div className='storybook__container storybook__segment--full'>
+          <div className='storybook__container storybook__segment--full storybook__segment--inherit'>
             <ChatRoom
               attachOptions={attachOptionsStub}
               inputHint='Type here...'
@@ -399,7 +395,6 @@ class ChatRoomPage extends React.Component {
   };
 
   updateMessages = () => {
-    // TODO: Mock refresh logic...
     action('Messages Changed')();
   };
 

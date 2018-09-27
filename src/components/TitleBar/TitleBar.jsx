@@ -8,6 +8,8 @@ import LazyImage from '../LazyImage/LazyImage.jsx';
 
 import style from './titlebar.scss';
 
+// TODO: Allow children buttons
+
 class TitleBar extends React.Component {
 
   /* Lifecycle */
@@ -91,7 +93,7 @@ class TitleBar extends React.Component {
     />
   );
 
-  /* Accessors */
+  /* Ref Accessors */
 
   getHeight = () => this.self && this.self.getBoundingClientRect ? this.self.getBoundingClientRect().height : 0;
 

@@ -1,3 +1,6 @@
+// CREDIT: Jhey Tompkins on Throttling and Debouncing in Javascript (codeburst.io)
+// WEB: https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf
+
 /* Helper Functions */
 
 const throttle = (limit, func) => {

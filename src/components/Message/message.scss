@@ -1,7 +1,7 @@
-// sass-lint:disable no-important
-
 @import '../App/colors';
 @import '../App/mixins';
+
+// Generics
 
 .chat-message {
   @include flex-row(flex-start, flex-start);
@@ -16,12 +16,12 @@
   }
 }
 
-.chat-message--center {
-  @include justify-content(center);
-}
-
 .chat-message--bottom {
   margin-bottom: .4rem;
+}
+
+.chat-message--center {
+  @include justify-content(center);
 }
 
 .chat-message--full {
@@ -30,7 +30,7 @@
 
     img,
     svg {
-      @include square(3rem !important);
+      @include square(3rem !important); // sass-lint:disable-line no-important
     }
 
     span {
@@ -57,6 +57,8 @@
   margin-top: .4rem;
 }
 
+// Components
+
 .chat-message__avatar {
   margin-bottom: 0;
   margin-top: 0;
@@ -65,7 +67,7 @@
 
   img,
   svg {
-    @include square(3.5rem !important);
+    @include square(3.5rem !important); // sass-lint:disable-line no-important
   }
 
   span {
@@ -76,6 +78,6 @@
 
 .chat-message__content--float {
   > div {
-    @include box-shadow(0 4px 8px 0 rgba(0, 0, 0, .2));
+    @include box-shadow(0 4px 8px 0 rgba($black, .2));
   }
 }

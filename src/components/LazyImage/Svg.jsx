@@ -1,3 +1,9 @@
+// CREDIT: Polymer SVG Icons (iron-icons by polymerelements) and (react-icons by dmfrancisco)
+// WEB: https://www.webcomponents.org/element/@polymer/iron-icons
+// REPO: https://github.com/PolymerElements/iron-icons
+// LICENSE (polymerelements): https://spdx.org/licenses/BSD-3-Clause
+// LICENSE (dmfrancisco): https://github.com/dmfrancisco/react-icons/blob/gh-pages/LICENSE 
+
 import React from 'react';
 
 const getAnimatedGradient = (primary, secondary, id) => {
