@@ -20,6 +20,7 @@ class ListItem extends React.Component {
       touchInitiated: false,
       touchMoved: false
     };
+    this.self = React.createRef();
   }
 
   componentDidMount = () => {
@@ -54,6 +55,7 @@ class ListItem extends React.Component {
               className,
               style['chat-list-item']
             )}
+            ref={this.self}
           >
             <div className={cx(style['chat-list-item__row'])}>
               {this.getAvatar(context)}
@@ -336,6 +338,20 @@ class ListItem extends React.Component {
       this.setState({
         isMenuOpen: false
       });
+    }
+  };
+
+  scrollIntoView = (params) => {
+    const element = this.self;
+    if (element && element.current) {
+      element.current.scrollIntoView(params);
+    }
+  };
+
+  highlight = () => {
+    const element = this.self;
+    if (element && element.current) {
+      element.current.focus();
     }
   };
 

@@ -5,6 +5,7 @@ import cx from 'classnames/dedupe';
 import AppProvider from '../App/Context.jsx';
 import LazyImage from '../LazyImage/LazyImage.jsx';
 import ListItem from '../ListItem/ListItem.jsx';
+import SearchBar from '../SearchBar/SearchBar.jsx';
 import TitleBar from '../TitleBar/TitleBar.jsx';
 
 import style from './chatlist.scss';
@@ -16,10 +17,16 @@ class ChatList extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      isRefreshing: false
+      highlightId: null,
+      isRefreshing: false,
+      isSearchActive: false
     };
     this.self = React.createRef();
   }
+
+  componentWillUnmount = () => {
+    this.onClearHighlight && clearTimeout(this.onClearHighlight);
+  };
 
   render = () => {
     const { className, layout, sizing, theme } = this.props;
@@ -36,8 +43,10 @@ class ChatList extends React.Component {
           ref={this.self}
         >
           {this.getTitleBar()}
-          {this.getSearchBar()}
-          {this.getRooms()}
+          <div className={cx(style['chat-list__body'])}>
+            {this.getSearchBar()}
+            {this.getRooms()}
+          </div>
         </div>
       </AppProvider>
     );
@@ -67,15 +76,25 @@ class ChatList extends React.Component {
   };
 
   getSearchBar= () => {
-    const { onFilter } = this.props;
-
-    // TODO: Add search view
-
-    return null;
+    const { liveSearch, onSearch, onResult, searchHint, searchPlaceholder, searchResults } = this.props;
+    return onSearch ? (
+      <SearchBar
+        className={cx(style['chat-list__search-bar'])}
+        hint={searchHint}
+        liveSearch={liveSearch}
+        onEnter={this.enterSearch}
+        onExit={this.exitSearch}
+        onSearch={onSearch}
+        onSelect={onResult || this.highlightItem}
+        placeholder={searchPlaceholder}
+        results={searchResults}
+      />
+    ) : null;
   };
 
   getRooms = () => {
     const { isLoading, rooms } = this.props;
+    const { isSearchActive } = this.state;
     if (isLoading) {
       return this.getLoader();
     }
@@ -84,7 +103,10 @@ class ChatList extends React.Component {
     }
     const items = rooms.map(this.getRoom);
     return (
-      <div className={cx(style['chat-list__rooms'])}>
+      <div className={cx(
+        style['chat-list__rooms'],
+        isSearchActive && style['chat-list__rooms--background']
+      )}>
         {items}
       </div>
     );
@@ -92,11 +114,15 @@ class ChatList extends React.Component {
 
   getRoom = (room) => {
     const { hideAvatar, hideChevron, menuActions, onAvatar, onItem, onMenu } = this.props;
+    const { highlightId } = this.state;
     const { avatar, description, id, name, status, subtitle, timeStamp } = room;
     return (
       <ListItem
         avatar={avatar}
-        className={cx(style['chat-list__room-item'])}
+        className={cx(
+          style['chat-list__room-item'],
+          id === highlightId && style['chat-list__room-item--highlighted']
+        )}
         contextOptions={menuActions}
         description={description}
         hideAvatar={hideAvatar}
@@ -107,6 +133,7 @@ class ChatList extends React.Component {
         onAvatar={onAvatar.bind(null, id)}
         onContext={onMenu.bind(null, id)}
         onItem={onItem.bind(null, id)}
+        ref={(element) => this[`room${id}`] = element}
         status={status}
         subtitle={subtitle}
         timeStamp={timeStamp}
@@ -172,6 +199,30 @@ class ChatList extends React.Component {
     return null;
   };
 
+  /* Events */
+
+  highlightItem = (id) => {
+    const element = this[`room${id}`];
+    if (element) {
+      element.scrollIntoView({block: 'end'});
+      this.setState({
+        highlightId: id
+      }, () => this.onClearHighlight = setTimeout(this.clearHighlight, 5000));
+    }
+  };
+
+  clearHighlight = () => this.setState({
+    highlightId: null
+  });
+
+  enterSearch = () => this.setState({
+    isSearchActive: true
+  });
+
+  exitSearch = () => this.setState({
+    isSearchActive: false
+  });
+
 }
 
 ChatList.propTypes = {
@@ -184,6 +235,7 @@ ChatList.propTypes = {
     'aligned',
     'staggered'
   ]),
+  liveSearch: PropTypes.bool,
   menuActions: PropTypes.arrayOf(PropTypes.shape({
     action: PropTypes.func.isRequired,
     icon: PropTypes.string,
@@ -198,11 +250,12 @@ ChatList.propTypes = {
     ]).isRequired
   })),
   onAvatar: PropTypes.func,
-  onFilter: PropTypes.func,
   onInfo: PropTypes.func,
   onItem: PropTypes.func,
   onMenu: PropTypes.func,
   onRefresh: PropTypes.func,
+  onResult: PropTypes.func,
+  onSearch: PropTypes.func,
   placeholder: PropTypes.element,
   rooms: PropTypes.arrayOf(PropTypes.shape({
     avatar: PropTypes.string,
@@ -218,6 +271,15 @@ ChatList.propTypes = {
     subtitle: PropTypes.string,
     timeStamp: PropTypes.string
   })).isRequired,
+  searchHint: PropTypes.string,
+  searchPlaceholder: PropTypes.element,
+  searchResults: PropTypes.arrayOf(PropTypes.shape({
+    avatar: PropTypes.string,
+    description: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    timeStamp: PropTypes.string
+  })),
   sizing: PropTypes.oneOf([
     'desktop',
     'mobile',
@@ -246,15 +308,20 @@ ChatList.defaultProps = {
   hideChevron: false,
   hideTitleBar: false,
   isLoading: false,
+  liveSearch: false,
   layout: 'staggered',
   menuActions: null,
   onAvatar: null,
-  onFilter: null,
   onInfo: null,
   onItem: null,
   onMenu: null,
   onRefresh: null,
+  onResult: null,
+  onSearch: null,
   placeholder: null,
+  searchHint: 'Search',
+  searchPlaceholder: null,
+  searchResults: [],
   sizing: 'desktop',
   subtitle: null,
   theme: 'light',

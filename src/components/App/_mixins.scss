@@ -176,6 +176,11 @@
   -webkit-font-smoothing: $strategy;
 }
 
+@mixin filter($method) {
+  -webkit-filter: $method;
+  filter: $method;
+}
+
 @mixin hyphenate {
   -moz-hyphens: auto;
   -webkit-hyphens: auto;

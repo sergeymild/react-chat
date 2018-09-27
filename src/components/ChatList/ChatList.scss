@@ -1,3 +1,5 @@
+// sass-lint:disable no-important no-color-literals
+
 @import '../App/colors';
 @import '../App/mixins';
 
@@ -18,9 +20,63 @@
   min-height: 100%;
 }
 
+.chat-list__rooms--background {
+  @include filter(blur(.5rem));
+  background-color: material-color('grey', '300');
+  opacity: .2;
+  overflow: hidden !important;
+  pointer-events: none;
+
+  * {
+    pointer-events: none !important;
+  }
+}
+
 .chat-list__room-loader {
   margin: 0 auto;
   margin-left: 0;
   overflow-x: hidden;
   width: calc(100% - 1rem);
+}
+
+.chat-list__placeholder {
+  @include flex-column(center, center);
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+
+  * {
+    display: block;
+    width: 100%;
+  }
+}
+
+.chat-list__placeholder-title {
+  font-weight: 500;
+}
+
+.chat-list__placeholder-subtitle {
+  font-size: .9rem;
+}
+
+.chat-list__room-item--highlighted {
+  @include animation(highlight 5s ease-in);
+}
+
+@include keyframes(highlight) {
+  0% {
+    background-color: transparent;
+  }
+
+  25% {
+    background-color: material-color('amber', '50');
+  }
+
+  75% {
+    background-color: material-color('amber', '50');
+  }
+
+  100% {
+    background-color: transparent;
+  }
 }
