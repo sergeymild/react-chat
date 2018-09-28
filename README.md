@@ -473,6 +473,7 @@ __Features__
 - [ ] Themes and abstract colors usage
 
 __Performance__
+- [ ] Recycle views
 - [ ] Reduce bundle size with UglifyJS
 - [ ] Split bundles for selective import
 - [ ] Switch to PureComponent(s)
