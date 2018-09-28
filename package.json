@@ -1,5 +1,5 @@
 {
-  "name": "react-chatter",
+  "name": "@hliejun/react-chat",
   "version": "0.0.1-alpha.1",
   "description": "Presentational chat components for ReactJS",
   "main": "build/reactchat.js",
@@ -20,7 +20,7 @@
   "license": "MIT",
   "private": false,
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "dependencies": {
     "dompurify": "^1.0.8",
