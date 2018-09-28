@@ -15,5 +15,4 @@ _config.yml
 .sass-lint.yml
 .sasslintrc.json
 .travis.yml
-*.md
 rollup.config.babel.js
