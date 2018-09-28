@@ -92,9 +92,9 @@ Name                 | Type                             | Description
 `hideChevron`        | `bool`                           | Flag to opt out from showing chevron indicator as affordance to segueing
 `hideTitleBar`       | `bool`                           | Flag to opt out from showing the `TitleBar`
 `isLoading`          | `bool`                           | Flag to display loading animations while the `ChatList` is not readily populated
-`layout`             | *see [AppContext](#AppContext)*  | Styling enumeration to match `ChatRoom` layout
+`layout`             | *see [AppContext](#appcontext)*  | Styling enumeration to match `ChatRoom` layout
 `liveSearch`         | `bool`                           | Flag to indicate the intended search behaviour
-`menuActions`        | *see [Actions](#Actions)*        | Action handlers and metadata to populate chat `ListItem` menu
+`menuActions`        | *see [Actions](#actions)*        | Action handlers and metadata to populate chat `ListItem` menu
 `onAvatar`           | `func`                           | Handler for interaction with the `Avatar` in a `ListItem`
 `onInfo`             | `func`                           | Handler for interaction with the identity `Avatar` in `TitleBar`
 `onItem`             | `func`                           | Handler for selecting a `ListItem` of a specific room
@@ -103,15 +103,15 @@ Name                 | Type                             | Description
 `onResult`           | `func`                           | Handler for selecting a search `ListItem` in the search results pane
 `onSearch`           | `func`                           | Handler for search or filter logic to fetch or reload `searchResults`
 `Placeholder`        | `React element`                  | Component to fill the body when `rooms` is empty
-`rooms`              | *see [Rooms](#Rooms)*            | Collection of objects specifying the metadata of a room
+`rooms`              | *see [Rooms](#rooms)*            | Collection of objects specifying the metadata of a room
 `searchHint`         | `string`                         | Placeholder for empty search field
 `searchPlaceholder`  | `React element`                  | Placeholder for empty search results body
-`searchResults`      | *see [Search](#Search)*          | Collection of objects describing the outcome of `onSearch`
-`sizing`             | *see [AppContext](#AppContext)*  | Device and sizing enumeration for layout responsiveness
+`searchResults`      | *see [Search](#search)*          | Collection of objects describing the outcome of `onSearch`
+`sizing`             | *see [AppContext](#appcontext)*  | Device and sizing enumeration for layout responsiveness
 `subtitle`           | `string`                         | Subtitle to display on `TitleBar`
-`theme`              | *see [AppContext](#AppContext)*  | Theme enumeration for styling constituent components
+`theme`              | *see [AppContext](#appcontext)*  | Theme enumeration for styling constituent components
 `title`              | `string`                         | Title to display on `TitleBar`
-`user`               | *see [Users](#Users)*            | Object containing metadata of a user or a user profile
+`user`               | *see [Users](#users)*            | Object containing metadata of a user or a user profile
 
 ### `ChatRoom`
 
@@ -172,16 +172,16 @@ The following table indicates the `props` that ChatRoom accepts.
 
 Name                 | Type                             | Description
 ---                  | ---                              | ---
-`attachOptions`      | *see [Media](#Media)*            | Action handlers for media attachments
+`attachOptions`      | *see [Media](#media)*            | Action handlers for media attachments
 `className`          | `string`                         | Style classes passed down from container component
 `hideAvatar`         | `bool`                           | Flag to opt out from showing `Avatar` in `Message` item
-`inputData`          | *see [Media](#Media)*            | Object describing attached media due for posting
+`inputData`          | *see [Media](#media)*            | Object describing attached media due for posting
 `inputHint`          | `string`                         | Placeholder for input field
 `inputValue`         | `string`                         | HTML-formatted string for rendering into input field
-`layout`             | *see [AppContext](#AppContext)*  | Styling enumeration describing layout of messages
+`layout`             | *see [AppContext](#appcontext)*  | Styling enumeration describing layout of messages
 `liveSearch`         | `bool`                           | Flag to indicate the intended search behaviour
-`menuActions`        | *see [Actions](#Actions)*        | Action handlers and metadata to populate chat `Message` menu
-`messages`           | *see [Messages](#Messages)*      | Collection of objects representing `Message` content
+`menuActions`        | *see [Actions](#actions)*        | Action handlers and metadata to populate chat `Message` menu
+`messages`           | *see [Messages](#messages)*      | Collection of objects representing `Message` content
 `onAttach`           | `func`                           | Handler for attaching media to input
 `onAvatar`           | `func`                           | Handler for interaction with the `Avatar` in a `Message`
 `onContent`          | `func`                           | Handler for selecting a message `Content`
@@ -198,12 +198,12 @@ Name                 | Type                             | Description
 `roomName`           | `string`                         | Name or title of the chat room
 `searchHint`         | `string`                         | Placeholder for empty search field
 `searchPlaceholder`  | `React element`                  | Placeholder for empty search results body
-`searchResults`      | *see [Search](#Search)*           | Collection of objects describing the outcome of `onSearch`
-`sizing`             | *see [AppContext](#AppContext)*  | Device and sizing enumeration for layout responsiveness
+`searchResults`      | *see [Search](#search)*           | Collection of objects describing the outcome of `onSearch`
+`sizing`             | *see [AppContext](#appcontext)*  | Device and sizing enumeration for layout responsiveness
 `subtitle`           | `string`                         | Subtitle to display on `TitleBar`
-`theme`              | *see [AppContext](#AppContext)*  | Theme enumeration for styling constituent components
+`theme`              | *see [AppContext](#appcontext)*  | Theme enumeration for styling constituent components
 `userId`             | `string`                         | Unique identifier of the current user
-`users`              | *see [Users](#Users)*            | Indexed collection of objects containing metadata of all users involved in the chat room
+`users`              | *see [Users](#users)*            | Indexed collection of objects containing metadata of all users involved in the chat room
 
 ### Actions
 
