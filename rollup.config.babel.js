@@ -19,6 +19,7 @@ const config = {
   output: [
     {
       moduleName: 'ReactChat',
+      name: 'ReactChat',
       globals: {
         'classnames': 'cx',
         'dompurify': 'DOMPurify',
@@ -32,6 +33,7 @@ const config = {
     },
     {
       moduleName: 'ReactChat',
+      name: 'ReactChat',
       globals: {
         'classnames': 'cx',
         'dompurify': 'DOMPurify',
