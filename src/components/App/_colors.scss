@@ -1,3 +1,9 @@
+// CREDIT: SASS Material Colors Palette (sass-material-colors by minusfive)
+// LICENSE: https://github.com/minusfive/sass-material-colors/blob/master/LICENSE.md
+
+$black: #000;
+$white: #fff;
+
 @function material-color($color-name, $color-variant: '500') {
   $color: map-get(map-get($material-colors, $color-name), $color-variant);
   @if $color {

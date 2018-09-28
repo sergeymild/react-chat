@@ -1,5 +1,3 @@
-// Positioning and Animation
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/dedupe';
@@ -24,18 +22,20 @@ class Menu extends React.Component {
   componentDidMount = () => {
     if (document) {
       document.addEventListener('click', this.checkTouchOutsideMenu);
-      document.addEventListener('touchstart', this.resetTouch);
-      document.addEventListener('touchmove', this.invalidateTouch);
+      document.addEventListener('mousedown', this.checkTouchOutsideMenu);
       document.addEventListener('touchend', this.checkTouchOutsideMenu);
+      document.addEventListener('touchmove', this.invalidateTouch);
+      document.addEventListener('touchstart', this.resetTouch);
     }
   };
 
   componentWillUnmount = () => {
     if (document) {
       document.removeEventListener('click', this.checkTouchOutsideMenu);
-      document.removeEventListener('touchstart', this.resetTouch);
-      document.removeEventListener('touchmove', this.invalidateTouch);
+      document.removeEventListener('mousedown', this.checkTouchOutsideMenu);
       document.removeEventListener('touchend', this.checkTouchOutsideMenu);
+      document.removeEventListener('touchmove', this.invalidateTouch);
+      document.removeEventListener('touchstart', this.resetTouch);
     }
   };
 
@@ -88,36 +88,6 @@ class Menu extends React.Component {
     );
   };
 
-  /* Event Callback */
-
-  resetTouch = () => this.setState({
-    touchInitiated: true,
-    touchMoved: false
-  });
-
-  invalidateTouch = () => this.setState({
-    touchMoved: true
-  });
-
-  checkTouchOutsideMenu = (event) => {
-    const { onDismiss } = this.props;
-    const { touchInitiated, touchMoved } = this.state;
-    if ((event.type === 'click' || (touchInitiated && !touchMoved))
-        && this.actionMenu
-        && this.actionMenu.current
-        && !this.actionMenu.current.contains(event.target)) {
-      if (event.type === 'touchend' && event.cancelable) {
-        event.preventDefault();
-      }
-      this.setState({
-        touchInitiated: false
-      });
-      onDismiss && onDismiss();
-      return true;
-    }
-    return false;
-  };
-
   /* Subviews */
 
   getActions = (actions) => {
@@ -151,6 +121,39 @@ class Menu extends React.Component {
         </label>
       </div>
     ));
+  };
+
+  /* Event Handlers */
+
+  resetTouch = () => this.setState({
+    touchInitiated: true,
+    touchMoved: false
+  });
+
+  invalidateTouch = () => this.setState({
+    touchMoved: true
+  });
+
+  checkTouchOutsideMenu = (event) => {
+    const { onDismiss } = this.props;
+    const { touchInitiated, touchMoved } = this.state;
+    const isClick = event.type === 'click';
+    const isRightClick = event.type === 'mousedown' && (event.which === 3 || event.button === 2);
+    const isStaticTouch = touchInitiated && !touchMoved;
+    if ((isClick || isRightClick || isStaticTouch)
+        && this.actionMenu
+        && this.actionMenu.current
+        && !this.actionMenu.current.contains(event.target)) {
+      if (event.type === 'touchend' && event.cancelable) {
+        event.preventDefault();
+      }
+      this.setState({
+        touchInitiated: false
+      });
+      onDismiss && onDismiss();
+      return true;
+    }
+    return false;
   };
 
 }

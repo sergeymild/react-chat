@@ -1,7 +1,7 @@
-// sass-lint:disable no-important
-
 @import '../App/colors';
 @import '../App/mixins';
+
+// Generics
 
 .chat-title-bar {
   @include flex-row(center, space-between);
@@ -22,6 +22,8 @@
   }
 }
 
+// Buttons
+
 .chat-title-bar__avatar-button {
   float: right;
   margin: 0 0 0 .1rem;
@@ -30,7 +32,7 @@
 
   img,
   svg {
-    @include square(3rem !important);
+    @include square(3rem !important); // sass-lint:disable-line no-important
   }
 
   span {
@@ -39,7 +41,7 @@
 }
 
 .chat-title-bar__back-button {
-  @include square(2rem !important);
+  @include square(2rem !important); // sass-lint:disable-line no-important
   background-color: transparent;
   border: 0;
   border-radius: 50%;
@@ -50,7 +52,7 @@
   padding: 0;
 
   svg {
-    @include square(1.5rem !important);
+    @include square(1.5rem !important); // sass-lint:disable-line no-important
     color: material-color('grey', '50');
   }
 
@@ -64,6 +66,8 @@
     }
   }
 }
+
+// Text Content
 
 .chat-title-bar__heading {
   @include flex-column(center, center);

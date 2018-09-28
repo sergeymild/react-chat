@@ -10,6 +10,8 @@ import TitleBar from '../TitleBar/TitleBar.jsx';
 
 import style from './chatlist.scss';
 
+// TODO: Add refresh view
+
 class ChatList extends React.Component {
 
   /* Lifecycle */
@@ -25,7 +27,8 @@ class ChatList extends React.Component {
   }
 
   componentWillUnmount = () => {
-    this.onClearHighlight && clearTimeout(this.onClearHighlight);
+    this.clearHighlightTimer && clearTimeout(this.clearHighlightTimer);
+    this.clearHighlightTimer = null;
   };
 
   render = () => {
@@ -54,19 +57,17 @@ class ChatList extends React.Component {
 
   /* Subviews */
 
-  // TODO: Allow children buttons on title bar
   getTitleBar = () => {
     const { hideTitleBar, title, subtitle, user, onInfo } = this.props;
     if (hideTitleBar || (!user && !title)) {
       return null;
     }
-    const { avatar, id, name } = user;
     return (
       <TitleBar
-        avatar={avatar}
+        avatar={user && user.avatar}
         className={style['chat-list__title-bar']}
-        id={id}
-        label={name}
+        id={user && user.id}
+        label={user && user.name}
         onInfo={onInfo}
         ref={(element) => this.titleBar = element}
         subtitle={subtitle}
@@ -130,9 +131,9 @@ class ChatList extends React.Component {
         itemId={id}
         key={id}
         label={name}
-        onAvatar={onAvatar.bind(null, id)}
-        onContext={onMenu.bind(null, id)}
-        onItem={onItem.bind(null, id)}
+        onAvatar={onAvatar && onAvatar.bind(null, id)}
+        onContext={onMenu && onMenu.bind(null, id)}
+        onItem={onItem && onItem.bind(null, id)}
         ref={(element) => this[`room${id}`] = element}
         status={status}
         subtitle={subtitle}
@@ -190,16 +191,7 @@ class ChatList extends React.Component {
     );
   };
 
-  getRefresh = () => {
-    const { onRefresh } = this.props;
-    const { isRefreshing } = this.state;
-
-    // TODO: Add refresh view
-
-    return null;
-  };
-
-  /* Events */
+  /* Event Handlers */
 
   highlightItem = (id) => {
     const element = this[`room${id}`];
@@ -207,7 +199,7 @@ class ChatList extends React.Component {
       element.scrollIntoView({block: 'end'});
       this.setState({
         highlightId: id
-      }, () => this.onClearHighlight = setTimeout(this.clearHighlight, 5000));
+      }, () => this.clearHighlightTimer = setTimeout(this.clearHighlight, 5000));
     }
   };
 
@@ -308,8 +300,8 @@ ChatList.defaultProps = {
   hideChevron: false,
   hideTitleBar: false,
   isLoading: false,
-  liveSearch: false,
   layout: 'staggered',
+  liveSearch: false,
   menuActions: null,
   onAvatar: null,
   onInfo: null,

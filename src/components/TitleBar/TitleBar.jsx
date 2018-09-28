@@ -8,6 +8,8 @@ import LazyImage from '../LazyImage/LazyImage.jsx';
 
 import style from './titlebar.scss';
 
+// TODO: Allow children buttons
+
 class TitleBar extends React.Component {
 
   /* Lifecycle */
@@ -91,7 +93,7 @@ class TitleBar extends React.Component {
     />
   );
 
-  /* Accessors */
+  /* Ref Accessors */
 
   getHeight = () => this.self && this.self.getBoundingClientRect ? this.self.getBoundingClientRect().height : 0;
 
@@ -100,7 +102,7 @@ class TitleBar extends React.Component {
 TitleBar.propTypes = {
   avatar: PropTypes.string,
   className: PropTypes.string,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   label: PropTypes.string,
   onInfo: PropTypes.func,
   onReturn: PropTypes.func,
@@ -111,6 +113,7 @@ TitleBar.propTypes = {
 TitleBar.defaultProps = {
   avatar: null,
   className: null,
+  id: null,
   label: null,
   onInfo: null,
   onReturn: null,
