@@ -190,7 +190,7 @@ class Message extends React.Component {
         shouldDisplayMenu: true
       });
     }
-    onHoldContent(messageId, event);
+    onHoldContent && onHoldContent(messageId, event);
   };
 
   /* Ref Accessors */

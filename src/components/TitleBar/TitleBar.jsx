@@ -102,7 +102,7 @@ class TitleBar extends React.Component {
 TitleBar.propTypes = {
   avatar: PropTypes.string,
   className: PropTypes.string,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   label: PropTypes.string,
   onInfo: PropTypes.func,
   onReturn: PropTypes.func,
@@ -113,6 +113,7 @@ TitleBar.propTypes = {
 TitleBar.defaultProps = {
   avatar: null,
   className: null,
+  id: null,
   label: null,
   onInfo: null,
   onReturn: null,

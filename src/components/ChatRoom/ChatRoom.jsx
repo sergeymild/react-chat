@@ -72,7 +72,7 @@ class ChatRoom extends React.Component {
 
   getTitleBar = () => {
     const { onReturn, onInfo } = this.props;
-    const { roomAvatar, roomId, roomName } = this.props;
+    const { roomAvatar, roomId, roomName, subtitle } = this.props;
     const { users } = this.props;
     const usersCount = Object.keys(users).length;
     return (
@@ -82,7 +82,11 @@ class ChatRoom extends React.Component {
         onInfo={onInfo}
         onReturn={onReturn}
         ref={(element) => this.titleBar = element}
-        subtitle={usersCount > 2 ? `${usersCount} members` : null}
+        subtitle={subtitle
+          ? subtitle
+          : usersCount > 2 
+            ? `${usersCount} members`
+            : null}
         title={roomName}
       />
     );
@@ -188,6 +192,9 @@ class ChatRoom extends React.Component {
 
   getInputGroup = () => {
     const { attachOptions, inputHint, inputData, inputValue, onAttach, onInput, onSend } = this.props;
+    if (!onInput || !onSend) {
+      return null;
+    }
     return (
       <InputGroup
         attachOptions={attachOptions}
@@ -356,6 +363,7 @@ ChatRoom.propTypes = {
     'mobile',
     'tablet'
   ]),
+  subtitle: PropTypes.string,
   theme: PropTypes.oneOf([
     'dark',
     'light'
@@ -398,6 +406,7 @@ ChatRoom.defaultProps = {
   searchPlaceholder: null,
   searchResults: [],
   sizing: 'desktop',
+  subtitle: null,
   theme: 'light'
 };
 

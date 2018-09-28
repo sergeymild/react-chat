@@ -62,13 +62,12 @@ class ChatList extends React.Component {
     if (hideTitleBar || (!user && !title)) {
       return null;
     }
-    const { avatar, id, name } = user;
     return (
       <TitleBar
-        avatar={avatar}
+        avatar={user && user.avatar}
         className={style['chat-list__title-bar']}
-        id={id}
-        label={name}
+        id={user && user.id}
+        label={user && user.name}
         onInfo={onInfo}
         ref={(element) => this.titleBar = element}
         subtitle={subtitle}
@@ -132,9 +131,9 @@ class ChatList extends React.Component {
         itemId={id}
         key={id}
         label={name}
-        onAvatar={onAvatar.bind(null, id)}
-        onContext={onMenu.bind(null, id)}
-        onItem={onItem.bind(null, id)}
+        onAvatar={onAvatar && onAvatar.bind(null, id)}
+        onContext={onMenu && onMenu.bind(null, id)}
+        onItem={onItem && onItem.bind(null, id)}
         ref={(element) => this[`room${id}`] = element}
         status={status}
         subtitle={subtitle}
