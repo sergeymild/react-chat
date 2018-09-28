@@ -5,6 +5,7 @@
 /node_modules/
 /src/
 /stories/
+/storybook-static/
 /test/
 
 _config.yml
@@ -14,5 +15,7 @@ _config.yml
 .npmignore
 .sass-lint.yml
 .sasslintrc.json
+.size-snapshot.json
 .travis.yml
 rollup.config.babel.js
+stats.html
