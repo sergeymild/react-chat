@@ -21,18 +21,20 @@ Besides this [README](https://hliejun.github.io/react-chat/), you may find docum
 
 React Chat requires at least `React 16.3.0` as a peer dependency.
 
-
 To install using `npm`:
 
 ```
-npm install react-chatter
+npm install @hliejun/react-chat
 ```
 
 To install using `yarn`:
 
 ```
-yarn add react-chatter
+yarn add @hliejun/react-chat
 ```
+
+To opt-in to alpha versions, please explicitly state the version. <br>
+For the current version (as of 28 Sep 2018), replace `react-chat` with `react-chat@0.0.1-alpha.1`.
 
 ## Usage
 
@@ -49,7 +51,7 @@ React Chat comprises of:
 For instance, you can invoke `ChatList` with the following:
 
 ```jsx
-import { ChatList } from 'react-chatter';
+import { ChatList } from '@hliejun/react-chat';
 
 class MyContainer extends React.Component {
 
@@ -118,7 +120,7 @@ Name                 | Type                             | Description
 You can use `ChatRoom` this way:
 
 ```jsx
-import { ChatRoom } from 'react-chatter';
+import { ChatRoom } from '@hliejun/react-chat';
 
 class MyContainer extends React.Component {
 
