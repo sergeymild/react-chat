@@ -34,7 +34,7 @@ yarn add @hliejun/react-chat
 ```
 
 To opt-in to alpha versions, please explicitly state the version. <br>
-For the current version (as of 28 Sep 2018), replace `react-chat` with `react-chat@0.0.1-alpha.3`.
+For the current version (as of 28 Sep 2018), replace `react-chat` with `react-chat@0.0.1-alpha.5`.
 
 ## Usage
 
