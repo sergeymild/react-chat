@@ -1,6 +1,6 @@
 {
   "name": "@hliejun/react-chat",
-  "version": "0.0.1-alpha.2",
+  "version": "0.0.1-alpha.3",
   "description": "Presentational chat components for ReactJS",
   "main": "build/reactchat.js",
   "module": "build/reactchat.module.js",
