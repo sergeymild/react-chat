@@ -5,6 +5,8 @@ import { action } from '@storybook/addon-actions';
 import { throttle } from '../utils/helper.js';
 import ChatList from '../../src/components/ChatList/ChatList.jsx';
 
+// TODO: Mock refresh logic
+
 const menuActionsStub = [
   {
     action: action('Archive Clicked'),
@@ -270,7 +272,6 @@ class ChatListPage extends React.Component {
   };
 
   updateRooms = () => {
-    // TODO: Mock refresh logic...
     action('Rooms Changed')();
   };
 

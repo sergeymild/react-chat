@@ -27,18 +27,18 @@ class InputGroup extends React.Component {
   componentDidMount = () => {
     if (document) {
       document.addEventListener('mousedown', this.checkTouchOutsideMenu);
-      document.addEventListener('touchstart', this.resetTouch);
-      document.addEventListener('touchmove', this.invalidateTouch);
       document.addEventListener('touchend', this.checkTouchOutsideMenu);
+      document.addEventListener('touchmove', this.invalidateTouch);
+      document.addEventListener('touchstart', this.resetTouch);
     }
   };
 
   componentWillUnmount = () => {
     if (document) {
       document.removeEventListener('mousedown', this.checkTouchOutsideMenu);
-      document.removeEventListener('touchstart', this.resetTouch);
-      document.removeEventListener('touchmove', this.invalidateTouch);
       document.removeEventListener('touchend', this.checkTouchOutsideMenu);
+      document.removeEventListener('touchmove', this.invalidateTouch);
+      document.removeEventListener('touchstart', this.resetTouch);
     }
   };
 
@@ -81,7 +81,7 @@ class InputGroup extends React.Component {
     );
   };
 
-  /* Main Fragments */
+  /* Main Layouts */
 
   getActionRow = (context) => {
     const { layout, sizing } = context;
@@ -89,10 +89,10 @@ class InputGroup extends React.Component {
     const hasSendButton = isAlignedLayout && sizing !== 'desktop';
     return (
       <div className={cx(
-        'react-chat__input-group-row',
         'react-chat__input-group-row--action',
-        style['chat-input-group__row'],
-        style['chat-input-group__row--action']
+        'react-chat__input-group-row',
+        style['chat-input-group__row--action'],
+        style['chat-input-group__row']
       )}>
         {isAlignedLayout && this.getActionSet(context)}
         {hasSendButton && this.getSendButton(context)}
@@ -130,10 +130,10 @@ class InputGroup extends React.Component {
     const hasSendButton = isStaggeredLayout || sizing === 'desktop';
     return (
       <div className={cx(
-        'react-chat__input-group-row',
         'react-chat__input-group-row--textarea',
-        style['chat-input-group__row'],
-        style['chat-input-group__row--textarea']
+        'react-chat__input-group-row',
+        style['chat-input-group__row--textarea'],
+        style['chat-input-group__row']
       )}>
         {isStaggeredLayout && this.getAttachButton(context)}
         {this.getInputField(context)}
@@ -321,8 +321,6 @@ class InputGroup extends React.Component {
     return null;
   };
 
-  getHeight = () => this.self && this.self.getBoundingClientRect ? this.self.getBoundingClientRect().height : 0;
-
   isSubmittableAsText = (input) => {
     if (!input || typeof input !== 'string' || input.trim() === '') {
       return false;
@@ -434,6 +432,10 @@ class InputGroup extends React.Component {
     this.setState({ input });
     return onChange(input);
   };
+
+  /* Ref Accessors */
+
+  getHeight = () => this.self && this.self.getBoundingClientRect ? this.self.getBoundingClientRect().height : 0;
 
 }
 

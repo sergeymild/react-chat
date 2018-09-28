@@ -25,6 +25,8 @@ import ThemingPage from './examples/theming.stories.jsx';
 
 import './index.css';
 
+// TODO: Refactor all stories
+
 storiesOf('Overview', module)
   .add('Introduction', () => <IntroductionPage />)
   .add('How To Use', () => <InstructionsPage />);

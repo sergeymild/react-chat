@@ -1,3 +1,5 @@
+/* TODO: Refactor CSS and get SCSS working for stories */
+
 /* Storybook Generics */
 
 * {
@@ -126,6 +128,10 @@ body {
 .storybook__segment--full {
   margin: 0;
   padding: 0;
+}
+
+.storybook__segment--inherit {
+  height: inherit;
 }
 
 .storybook__segment--full-height {

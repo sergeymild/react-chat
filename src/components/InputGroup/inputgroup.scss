@@ -1,4 +1,4 @@
-// sass-lint:disable no-important no-color-literals no-vendor-prefixes
+// sass-lint:disable no-important
 
 @import '../App/colors';
 @import '../App/mixins';
@@ -58,7 +58,7 @@
   }
 
   &.chat-input-group--desktop {
-    background-color: #fff;
+    background-color: $white;
   }
 
   &:not(.chat-input-group--desktop) {
@@ -72,7 +72,7 @@
 }
 
 .chat-input-group--aligned {
-  background-color: #fff;
+  background-color: $white;
   border-top: 1px solid material-color('grey', '300');
 }
 
@@ -181,8 +181,8 @@
 // Modal
 
 .chat-input-group__modal {
-  @include box-shadow(0 4px 8px 0 rgba(0, 0, 0, .2));
-  background-color: #fff;
+  @include box-shadow(0 4px 8px 0 rgba($black, .2));
+  background-color: $white;
   border-radius: .5rem;
   bottom: 4.5rem;
   box-sizing: block;
@@ -220,29 +220,27 @@
 
 // Text Input
 
+.chat-input-group__textarea {
+  min-height: 1.5rem;
+  outline: none;
+  overflow-y: hidden;
+  width: 100%;
+}
+
 .chat-input-group__textarea-container {
   @include flex-grow(1);
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
+  @include smooth-scroll;
   max-height: 10rem;
   max-width: 100%;
   outline: none;
-  overflow: -moz-scrollbars-none;
   overflow-x: hidden;
-  overflow-y: scroll;
   padding: .5rem 1rem;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
   [contenteditable='true'] {
-    &:empty {
-      &::before {
-        color: material-color('grey', '400');
-        content: attr(placeholder);
-        display: block;
-      }
+    &:empty::before { // sass-lint:disable-line force-pseudo-nesting
+      color: material-color('grey', '400');
+      content: attr(placeholder);
+      display: block;
     }
   }
 }
@@ -251,11 +249,4 @@
   background-color: transparent;
   border-radius: 0;
   max-height: 20rem !important;
-}
-
-.chat-input-group__textarea {
-  min-height: 1.5rem;
-  outline: none;
-  overflow-y: hidden;
-  width: 100%;
 }

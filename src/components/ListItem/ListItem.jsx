@@ -26,18 +26,20 @@ class ListItem extends React.Component {
   componentDidMount = () => {
     if (document) {
       document.addEventListener('click', this.checkTouch);
-      document.addEventListener('touchstart', this.beginTouch);
-      document.addEventListener('touchmove', this.endTouch);
+      document.addEventListener('mousedown', this.checkTouch);
       document.addEventListener('touchend', this.checkTouch);
+      document.addEventListener('touchmove', this.endTouch);
+      document.addEventListener('touchstart', this.beginTouch);
     }
   };
 
   componentWillUnmount = () => {
     if (document) {
       document.removeEventListener('click', this.checkTouch);
-      document.removeEventListener('touchstart', this.beginTouch);
-      document.removeEventListener('touchmove', this.endTouch);
+      document.removeEventListener('mousedown', this.checkTouch);
       document.removeEventListener('touchend', this.checkTouch);
+      document.removeEventListener('touchmove', this.endTouch);
+      document.removeEventListener('touchstart', this.beginTouch);
     }
     this.endLongPress();
     this.longPressTimer = null;
@@ -103,11 +105,11 @@ class ListItem extends React.Component {
           `react-chat__list-item-content--${theme}`,
           style['chat-list-item__content']
         )}
-        onContextMenu={context.sizing === 'desktop' ? this.beginRightClick(this.showMenu, itemId) : null}
-        onTouchStart={this.beginLongPress(this.showMenu, itemId)}
-        onTouchMove={this.endLongPress}
-        onTouchEnd={this.endLongPress}
         onClick={(event) => !isMenuOpen && onItem(itemId, event)}
+        onContextMenu={context.sizing === 'desktop' ? this.beginRightClick(this.showMenu, itemId) : null}
+        onTouchEnd={this.endLongPress}
+        onTouchMove={this.endLongPress}
+        onTouchStart={this.beginLongPress(this.showMenu, itemId)}
       >
         <div className={cx(style['chat-list-item__column'])}>
           <div className={cx(style['chat-list-item__row'])}>
@@ -271,7 +273,7 @@ class ListItem extends React.Component {
     />
   );
 
-  /* Events */
+  /* Event Handlers */
 
   beginTouch = () => this.setState({
     touchInitiated: true,
@@ -284,7 +286,10 @@ class ListItem extends React.Component {
 
   checkTouch = (event) => {
     const { touchInitiated, touchMoved } = this.state;
-    if (event.type === 'click' || (touchInitiated && !touchMoved)) {
+    const isClick = event.type === 'click';
+    const isRightClick = event.type === 'mousedown' && (event.which === 3 || event.button === 2);
+    const isStaticTouch = touchInitiated && !touchMoved;
+    if (isClick || isRightClick || isStaticTouch) {
       this.setState({
         touchInitiated: false
       });
@@ -301,7 +306,7 @@ class ListItem extends React.Component {
         touchInitiated: false
       });
       action(id, event, event.target);
-    }, 700);
+    }, 600);
   });
 
   endLongPress = (event) => {
@@ -341,17 +346,12 @@ class ListItem extends React.Component {
     }
   };
 
+  /* Ref Accessors */
+  
   scrollIntoView = (params) => {
     const element = this.self;
     if (element && element.current) {
       element.current.scrollIntoView(params);
-    }
-  };
-
-  highlight = () => {
-    const element = this.self;
-    if (element && element.current) {
-      element.current.focus();
     }
   };
 
@@ -386,9 +386,9 @@ ListItem.propTypes = {
   onItem: PropTypes.func,
   status: PropTypes.oneOf([
     'archive',
+    'new',
     'pin',
-    'star',
-    'new'
+    'star'
   ]),
   subtitle: PropTypes.string,
   timeStamp: PropTypes.string.isRequired,

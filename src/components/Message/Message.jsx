@@ -62,43 +62,6 @@ class Message extends React.Component {
     );
   };
 
-  /* Event */
-
-  dismissActionMenu = () => this.setState({
-    shouldDisplayMenu: false
-  });
-
-  holdAction = (menuActions, onHoldContent) => (messageId, event, target) => {
-    if (event && target && menuActions && Object.keys(menuActions).length > 0) {
-      const rect = target.getBoundingClientRect();
-      const relativeX = (event.clientX || event.touches[0].clientX) - rect.left;
-      const relativeY = (event.clientY || event.touches[0].clientY) - rect.top;
-      if (navigator && 'vibrate' in navigator) {
-        navigator.vibrate(20);
-      }
-      this.setState({
-        menuPosition: { relativeX, relativeY },
-        shouldDisplayMenu: true
-      });
-    }
-    onHoldContent(messageId, event);
-  };
-
-  scrollIntoView = (params) => {
-    const element = this.self;
-    if (element && element.current) {
-      element.current.scrollIntoView(params);
-    }
-  };
-
-  highlight = () => {
-    const element = this.self;
-    if (element && element.current) {
-      element.current.style.animationName = 'highlight';
-      element.current.style.animationDuration = '1s';
-    }
-  };
-
   /* Subviews */
 
   getAvatar = (context) => {
@@ -124,12 +87,12 @@ class Message extends React.Component {
           `react-chat__message-avatar--${theme}`,
           style['chat-message__avatar']
         )}
+        hidden={!shouldShowAvatar}
         isLoading={isLoading}
         name={sender.name || ''}
         onClick={action}
         shape={layout === 'staggered' ? 'circle' : 'square'}
         source={source}
-        hidden={!shouldShowAvatar}
       />
     );
   };
@@ -206,6 +169,37 @@ class Message extends React.Component {
         type={menuType}
         userId={userId} />
     );
+  };
+
+  /* Event Handlers */
+
+  dismissActionMenu = () => this.setState({
+    shouldDisplayMenu: false
+  });
+
+  holdAction = (menuActions, onHoldContent) => (messageId, event, target) => {
+    if (event && target && menuActions && Object.keys(menuActions).length > 0) {
+      const rect = target.getBoundingClientRect();
+      const relativeX = (event.clientX || event.touches[0].clientX) - rect.left;
+      const relativeY = (event.clientY || event.touches[0].clientY) - rect.top;
+      if (navigator && 'vibrate' in navigator) {
+        navigator.vibrate(20);
+      }
+      this.setState({
+        menuPosition: { relativeX, relativeY },
+        shouldDisplayMenu: true
+      });
+    }
+    onHoldContent && onHoldContent(messageId, event);
+  };
+
+  /* Ref Accessors */
+
+  scrollIntoView = (params) => {
+    const element = this.self;
+    if (element && element.current) {
+      element.current.scrollIntoView(params);
+    }
   };
 
 }

@@ -1,11 +1,11 @@
-// sass-lint:disable no-important no-color-literals
-
 @import '../App/colors';
 @import '../App/mixins';
 
+// Generics
+
 .chat-filter {
   @include sticky;
-  background-color: #fff;
+  background-color: $white;
   box-sizing: border-box;
   font-size: 1rem;
   left: 0;
@@ -21,13 +21,15 @@
   }
 
   &:not(.chat-filter--inactive) {
-    @include box-shadow(0 4px 8px 0 rgba(0, 0, 0, .2));
+    @include box-shadow(0 4px 8px 0 rgba($black, .2));
   }
 
   &.chat-filter--inactive {
     background-color: material-color('blue-grey', '400');
   }
 }
+
+// Input Bar
 
 .chat-filter__input-bar {
   @include flex-row(center, space-between);
@@ -42,7 +44,7 @@
   width: calc(100% - 1rem);
 
   &:not(.chat-filter__input-bar--inactive) {
-    background-color: #fff;
+    background-color: $white;
     z-index: 5;
   }
 }
@@ -52,14 +54,16 @@
   padding: .2rem;
 }
 
+.chat-filter__input-bar--inactive {
+  background-color: rgba(material-color('grey', '100'), .9); // sass-lint:disable-line no-color-literals
+}
+
 .chat-filter__input-bar--staggered {
   border-radius: 2rem;
   padding: .2rem .4rem;
 }
 
-.chat-filter__input-bar--inactive {
-  background-color: rgba(material-color('grey', '100'), .9);
-}
+// Input Bar Elements
 
 .chat-filter__input {
   @include flex-grow(1);
@@ -87,28 +91,24 @@
 
 .chat-filter__input-button--action {
   svg {
-    @include square(1.2rem !important);
+    @include square(1.2rem !important); // sass-lint:disable-line no-important
   }
 }
 
 .chat-filter__input-button--dismiss {
   svg {
-    @include square(1.5rem !important);
+    @include square(1.5rem !important); // sass-lint:disable-line no-important
   }
 }
 
+// Results Pane
+
 .chat-filter__results-pane {
   @include smooth-scroll;
-  background-color: #fff;
+  background-color: $white;
   max-height: calc(100% - 3.3rem);
   min-height: calc(100% - 3.3rem);
   pointer-events: auto;
-  width: 100%;
-}
-
-.chat-filter__results-list {
-  @include smooth-scroll;
-  min-height: 100%;
   width: 100%;
 }
 
@@ -125,10 +125,18 @@
   }
 }
 
+.chat-filter__results-placeholder-subtitle {
+  font-size: .9rem;
+}
+
 .chat-filter__results-placeholder-title {
   font-weight: 500;
 }
 
-.chat-filter__results-placeholder-subtitle {
-  font-size: .9rem;
+// Results List
+
+.chat-filter__results-list {
+  @include smooth-scroll;
+  min-height: 100%;
+  width: 100%;
 }

@@ -1,6 +1,3 @@
-// Preview Pane -> onClick returns id (used by ChatList and ChatRoom to scroll to message refed by id)
-// (results pane to show sender name (or 'you'), avatar, messages, time only, with sticky headers to show date only)
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/dedupe';
@@ -10,6 +7,8 @@ import LazyImage from '../LazyImage/LazyImage.jsx';
 import ListItem from '../ListItem/ListItem.jsx';
 
 import style from './searchbar.scss';
+
+// TODO: Implement dividers
 
 class SearchBar extends React.Component {
 
@@ -30,9 +29,9 @@ class SearchBar extends React.Component {
       <AppContext.Consumer>
         {(context) => (
           <div className={cx(
-            className,
             'react-chat__filter',
             `react-chat__filter--${context.theme}`,
+            className,
             style['chat-filter'],
             style[`chat-filter--${status}`]
           )}>
@@ -96,8 +95,8 @@ class SearchBar extends React.Component {
         className={cx(
           'react-chat__filter-input-button',
           `react-chat__filter-input-button--${theme}`,
-          style['chat-filter__input-button'],
-          style['chat-filter__input-button--action']
+          style['chat-filter__input-button--action'],
+          style['chat-filter__input-button']
         )}
         onClick={action}
       >
@@ -117,8 +116,8 @@ class SearchBar extends React.Component {
         className={cx(
           'react-chat__filter-input-button',
           `react-chat__filter-input-button--${theme}`,
-          style['chat-filter__input-button'],
-          style['chat-filter__input-button--dismiss']
+          style['chat-filter__input-button--dismiss'],
+          style['chat-filter__input-button']
         )}
         onClick={this.dismissSearch}
       >
@@ -177,15 +176,15 @@ class SearchBar extends React.Component {
     const date = new Date(timeStamp);
     const element = (
       <ListItem
+        avatar={avatar}
         className={cx(
           'react-chat__filter-results-item',
           `react-chat__filter-results-item--${theme}`,
           style['chat-filter__results-item'],
           style[`chat-filter__results-item--${layout}`]
         )}
-        avatar={avatar}
-        hideChevron
         description={description}
+        hideChevron
         itemId={id}
         key={id}
         label={name}
@@ -217,19 +216,11 @@ class SearchBar extends React.Component {
     );
   };
 
-  getDividers = (context) => {
-    const { results } = this.props;
-    // TODO: Implement dividers
-    return [];
-  };
+  getDividers = () => [];
 
-  getDivider = (result) => {
-    // TODO: Implement dividers
-    // Return {date, element}
-    return null;
-  };
+  getDivider = () => null;
 
-  /* Events */
+  /* Event Handlers */
 
   focusSearch = (event) => {
     const { onEnter } = this.props;
