@@ -5,5 +5,5 @@ import './components/App/_light.scss';
 
 // Components Export
 
-export * from './components/ChatList/ChatList.jsx';
-export * from './components/ChatRoom/ChatRoom.jsx';
+export {default as ChatList} from './components/ChatList/ChatList.jsx';
+export {default as ChatRoom} from './components/ChatRoom/ChatRoom.jsx';
