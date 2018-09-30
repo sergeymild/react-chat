@@ -22,6 +22,12 @@
   }
 }
 
+.chat-list-item--selected {
+  &:not(:hover) {
+    background-color: material-color('grey', '200');
+  }
+}
+
 .chat-list-item__column {
   @include flex-column(flex-start, flex-start);
   width: 100%;
