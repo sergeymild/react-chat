@@ -167,7 +167,7 @@ class ListItem extends React.Component {
     if (baseDate.toDateString() === today.toDateString()) {
       let hours = date.getHours();
       let minutes = date.getMinutes();
-      const ampm = hours >= 12 ? 'AM' : 'PM';
+      const ampm = hours >= 12 ? 'PM' : 'AM';
       hours = hours % 12;
       hours = hours ? hours : 12;
       minutes = minutes < 10 ? `0${minutes}` : minutes;
@@ -347,7 +347,7 @@ class ListItem extends React.Component {
   };
 
   /* Ref Accessors */
-  
+
   scrollIntoView = (params) => {
     const element = this.self;
     if (element && element.current) {
