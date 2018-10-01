@@ -34,7 +34,7 @@ yarn add @hliejun/react-chat
 ```
 
 To opt-in to alpha versions, please explicitly state the version. <br>
-For the current version (as of 28 Sep 2018), replace `react-chat` with `react-chat@0.0.1-alpha.5`.
+Check on the latest version [here](https://www.npmjs.com/package/@hliejun/react-chat).
 
 ## Usage
 
@@ -107,6 +107,7 @@ Name                 | Type                             | Description
 `searchHint`         | `string`                         | Placeholder for empty search field
 `searchPlaceholder`  | `React element`                  | Placeholder for empty search results body
 `searchResults`      | *see [Search](#search)*          | Collection of objects describing the outcome of `onSearch`
+`selectedId`         | `string`                         | Unique identifier of the list item that is currently active
 `sizing`             | *see [AppContext](#appcontext)*  | Device and sizing enumeration for layout responsiveness
 `subtitle`           | `string`                         | Subtitle to display on `TitleBar`
 `theme`              | *see [AppContext](#appcontext)*  | Theme enumeration for styling constituent components
