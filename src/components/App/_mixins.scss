@@ -118,6 +118,13 @@
   box-shadow: 				$val;
 }
 
+@mixin break-wrap {
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
 @mixin ellipsize {
   overflow: hidden;
   text-overflow: ellipsis;

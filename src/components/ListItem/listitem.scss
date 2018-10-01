@@ -37,6 +37,7 @@
   @include flex-grow(1);
   @include flex-row(center, space-between);
   max-width: 100%;
+  min-height: 4rem;
   min-width: 10rem;
   padding: .3rem;
 
