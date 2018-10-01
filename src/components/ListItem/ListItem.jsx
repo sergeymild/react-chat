@@ -46,7 +46,7 @@ class ListItem extends React.Component {
   };
 
   render = () => {
-    const { className } = this.props;
+    const { className, isSelected } = this.props;
     return (
       <AppContext.Consumer>
         {(context) => (
@@ -55,6 +55,8 @@ class ListItem extends React.Component {
               'react-chat__list-item',
               `react-chat__list-item--${context.theme}`,
               className,
+              isSelected && 'react-chat__list-item--selected',
+              isSelected && style['chat-list-item--selected'],
               style['chat-list-item']
             )}
             ref={this.self}
@@ -167,7 +169,7 @@ class ListItem extends React.Component {
     if (baseDate.toDateString() === today.toDateString()) {
       let hours = date.getHours();
       let minutes = date.getMinutes();
-      const ampm = hours >= 12 ? 'AM' : 'PM';
+      const ampm = hours >= 12 ? 'PM' : 'AM';
       hours = hours % 12;
       hours = hours ? hours : 12;
       minutes = minutes < 10 ? `0${minutes}` : minutes;
@@ -347,7 +349,7 @@ class ListItem extends React.Component {
   };
 
   /* Ref Accessors */
-  
+
   scrollIntoView = (params) => {
     const element = this.self;
     if (element && element.current) {
@@ -379,6 +381,7 @@ ListItem.propTypes = {
   ]),
   hideAvatar: PropTypes.bool,
   hideChevron: PropTypes.bool,
+  isSelected: PropTypes.bool,
   itemId: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onAvatar: PropTypes.func,
@@ -403,6 +406,7 @@ ListItem.defaultProps = {
   description: null,
   hideAvatar: false,
   hideChevron: false,
+  isSelected: false,
   onAvatar: null,
   onContext: null,
   onItem: null,

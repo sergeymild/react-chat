@@ -81,3 +81,11 @@
     @include box-shadow(0 4px 8px 0 rgba($black, .2));
   }
 }
+
+.chat-message__content--normal {
+  pointer-events: auto !important; // sass-lint:disable-line no-important
+
+  * {
+    @include selectable(text !important); // sass-lint:disable-line no-important
+  }
+}

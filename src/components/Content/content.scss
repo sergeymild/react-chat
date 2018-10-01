@@ -174,7 +174,12 @@
 }
 
 .message-content__text {
+  @include break-wrap;
   pointer-events: none;
+
+  a {
+    display: inline-block;
+  }
 }
 
 .message-content__timestamp {

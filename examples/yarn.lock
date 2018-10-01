@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@hliejun/react-chat@0.0.1-alpha.5":
-  version "0.0.1-alpha.5"
-  resolved "https://registry.yarnpkg.com/@hliejun/react-chat/-/react-chat-0.0.1-alpha.5.tgz#5a37f8856fce639e37865a0ec54aa5173680fdae"
+"@hliejun/react-chat@0.0.1-alpha.7":
+  version "0.0.1-alpha.7"
+  resolved "https://registry.yarnpkg.com/@hliejun/react-chat/-/react-chat-0.0.1-alpha.7.tgz#dab6fec53e13cfd9d94ea6fe3a85629f80eff986"
   dependencies:
     dompurify "^1.0.8"
     prop-types "^15.6.2"

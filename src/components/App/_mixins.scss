@@ -118,6 +118,13 @@
   box-shadow: 				$val;
 }
 
+@mixin break-wrap {
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
 @mixin ellipsize {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -132,6 +139,13 @@
 @mixin invisible {
   opacity: 0;
   visibility: hidden;
+}
+
+@mixin selectable($type) {
+  -moz-user-select: $type;
+  -ms-user-select: $type;
+  -webkit-user-select: $type;
+  user-select: $type;
 }
 
 @mixin unselectable {
