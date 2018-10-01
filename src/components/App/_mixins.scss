@@ -141,6 +141,13 @@
   visibility: hidden;
 }
 
+@mixin selectable($type) {
+  -moz-user-select: $type;
+  -ms-user-select: $type;
+  -webkit-user-select: $type;
+  user-select: $type;
+}
+
 @mixin unselectable {
   -moz-user-select: none;
   -ms-user-select: none;

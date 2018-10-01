@@ -51,14 +51,18 @@ class ChatRoom extends React.Component {
           )}
         >
           {this.getTitleBar()}
-          <div className={cx(style['chat-room__body-wrapper'])}>
+          <div className={cx(
+            'react-chat__room-wrapper',
+            style['chat-room__body-wrapper']
+          )}>
             {this.getSearchBar()}
-            <div className={cx(
-              'react-chat__room-body',
-              `react-chat__room-body--${theme}`,
-              isSearchActive && style['chat-room__body--background'],
-              style['chat-room__body']
-            )}>
+            <div
+              className={cx(
+                'react-chat__room-body',
+                `react-chat__room-body--${theme}`,
+                isSearchActive && style['chat-room__body--background'],
+                style['chat-room__body']
+              )}>
               {elements}
             </div>
           </div>
@@ -84,7 +88,7 @@ class ChatRoom extends React.Component {
         ref={(element) => this.titleBar = element}
         subtitle={subtitle
           ? subtitle
-          : usersCount > 2 
+          : usersCount > 2
             ? `${usersCount} members`
             : null}
         title={roomName}

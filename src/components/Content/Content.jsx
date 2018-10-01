@@ -238,31 +238,41 @@ class Content extends React.PureComponent {
     if (!text) {
       return null;
     }
-    const urlRegex = new RegExp(
-      '((?:(?:https?|ftp)://)' +
-      '(?:\\S+(?::\\S*)?@)?' +
-      '(?:' +
-      '(?!(?:10|127)(?:\\.\\d{1,3}){3})' +
-      '(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})' +
-      '(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})' +
-      '(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])' +
-      '(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}' +
-      '(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))' +
-      '|' +
-      '(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)' +
-      '(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*' +
-      '(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' +
-      ')' +
-      '(?::\\d{2,5})?' +
-      '(?:[/?#](?:\\S*[^\\s!"\'()*,-.:;<>?\\[\\]_`{|}~]|))?)'
-      , 'gi'
-    );
-    const markedText = text.split(urlRegex);
+    const urlRegexString = '((?:(?:https?|ftp)://)' +
+    '(?:\\S+(?::\\S*)?@)?' +
+    '(?:' +
+    '(?!(?:10|127)(?:\\.\\d{1,3}){3})' +
+    '(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})' +
+    '(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})' +
+    '(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])' +
+    '(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}' +
+    '(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))' +
+    '|' +
+    '(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)' +
+    '(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*' +
+    '(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))' +
+    ')' +
+    '(?::\\d{2,5})?' +
+    '(?:[/?#](?:\\S*[^\\s!"\'()*,-.:;<>?\\[\\]_`{|}~]|))?)';
+    const emailRegexString = '([a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+))';
+    const emailRegex = new RegExp(emailRegexString, 'gi');
+    const combinedRegex = new RegExp(`${urlRegexString}|${emailRegexString}`, 'gi');
+    let markedText = text.split(combinedRegex);
+    markedText = markedText.filter((x) => x);
     for (let index = 1; index < markedText.length; index += 2) {
+      if (!markedText[index] || !markedText[index].length) {
+        markedText[index] = null;
+        continue;
+      }
+      const isEmail = markedText[index].match(emailRegex);
+      const modifier = isEmail ? 'email' : 'link';
+      const link = isEmail ? `mailto:${markedText[index]}` : markedText[index];
       markedText[index] = (
         <a
-          href={markedText[index]}
-          key={`link-${index}`}
+          href={link}
+          key={`${modifier}-${index}`}
+          rel='noopener noreferrer'
+          target='_blank'
         >
           {markedText[index]}
         </a>
@@ -303,11 +313,11 @@ class Content extends React.PureComponent {
   /* Event Handlers */
 
   onContext = (action, messageId) => (event) => {
-    if (event && event.cancelable && !event.type.match(/^(touchmove|scroll)$/)) {
+    if (action && event && event.cancelable && !event.type.match(/^(touchmove|scroll)$/)) {
       event.preventDefault();
     }
-    action(messageId, event, event.target);
-    return false;
+    action && action(messageId, event, event.target);
+    return !action;
   };
 
   setHoldAction = (action, messageId) => action && ((event) => {

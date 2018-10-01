@@ -109,10 +109,12 @@ class Message extends React.Component {
     const shouldHideName = (layout === 'staggered' && isSender) || !position || position.match(/^(middle|bottom)$/);
     const senderName = !shouldHideName ? name : null;
     const touchAction = onTouchContent ? (event) => !shouldDisplayMenu && onTouchContent(messageId, event) : null;
+    const hasContextBehavior = (menuActions && menuActions.length) || onHoldContent;
     return (
       <Content
         {...content}
         className={cx(
+          !hasContextBehavior && style['chat-message__content--normal'],
           'react-chat__message-content',
           `react-chat__message-content--${theme}`,
           shouldDisplayMenu && layout === 'staggered' && style['chat-message__content--float']
@@ -120,7 +122,7 @@ class Message extends React.Component {
         isDesktop={sizing === 'desktop'}
         isLoading={!isReady}
         messageId={messageId}
-        onHold={this.holdAction(menuActions, onHoldContent)}
+        onHold={hasContextBehavior ? this.holdAction(menuActions, onHoldContent) : null}
         onPress={touchAction}
         position={position}
         senderName={senderName}
