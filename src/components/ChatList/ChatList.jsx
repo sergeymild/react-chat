@@ -114,7 +114,7 @@ class ChatList extends React.Component {
   };
 
   getRoom = (room) => {
-    const { hideAvatar, hideChevron, menuActions, onAvatar, onItem, onMenu } = this.props;
+    const { hideAvatar, hideChevron, menuActions, onAvatar, onItem, onMenu, selectedId } = this.props;
     const { highlightId } = this.state;
     const { avatar, description, id, name, status, subtitle, timeStamp } = room;
     return (
@@ -128,6 +128,7 @@ class ChatList extends React.Component {
         description={description}
         hideAvatar={hideAvatar}
         hideChevron={hideChevron}
+        isSelected={selectedId && id === selectedId}
         itemId={id}
         key={id}
         label={name}
@@ -272,6 +273,7 @@ ChatList.propTypes = {
     name: PropTypes.string.isRequired,
     timeStamp: PropTypes.string
   })),
+  selectedId: PropTypes.string,
   sizing: PropTypes.oneOf([
     'desktop',
     'mobile',
@@ -314,6 +316,7 @@ ChatList.defaultProps = {
   searchHint: 'Search',
   searchPlaceholder: null,
   searchResults: [],
+  selectedId: null,
   sizing: 'desktop',
   subtitle: null,
   theme: 'light',

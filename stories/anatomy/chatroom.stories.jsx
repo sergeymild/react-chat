@@ -147,7 +147,7 @@ const messagesStub = [
   {
     messageId: '007',
     senderId: '3',
-    text: 'Maybe will join arnd 8 lor.',
+    text: 'Maybe will join arnd 8 lor. Email me lol thor@gmail.com',
     timeStamp: '2018-09-23T13:13:04Z',
     type: 'text'
   },

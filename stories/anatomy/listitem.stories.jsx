@@ -112,7 +112,7 @@ class ListItemPage extends React.Component {
             List item can be used to display chat groups and rooms in a chat list.
           </span>
           <div className='storybook__segment storybook__segment--row'>
-            <ListItem {...chatListItemStub} />
+            <ListItem {...chatListItemStub} isSelected />
           </div>
         </div>
         <div className='storybook__container storybook__container--unselectable'>

@@ -72,10 +72,12 @@ class Menu extends React.Component {
     default:
       break;
     }
+    const isSingleAction = actions && actions.length && actions.length === 1;
     return (
       <div
         className={cx(
           'react-chat__menu',
+          isSingleAction && style['chat-menu--single'],
           className,
           style['chat-menu'],
           style[`chat-menu--${type}`]
@@ -98,6 +100,7 @@ class Menu extends React.Component {
       <div
         className={cx(
           'react-chat__menu-item',
+          actions.length === 1 && style['chat-menu-item--single'],
           style['chat-menu-item']
         )}
         key={item.type}
