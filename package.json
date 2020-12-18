@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "dompurify": "^1.0.8",
+    "dompurify": "^2.0.17",
     "prop-types": "^15.6.2"
   },
   "devDependencies": {
