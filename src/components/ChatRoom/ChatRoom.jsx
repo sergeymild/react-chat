@@ -39,6 +39,7 @@ class ChatRoom extends React.Component {
     const dividers = this.getDividers();
     const content = messages.concat(dividers);
     content.sort((first, second) => first.date - second.date);
+    console.log(content)
     const elements = content.map((item) => item.element);
     return (
       <AppProvider {...stylingContext}>
@@ -122,7 +123,7 @@ class ChatRoom extends React.Component {
       if (!date) {
         return;
       }
-      const dateString = [date.getDate(), date.getMonth() + 1, date.getFullYear].join('-');
+      const dateString = [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('-');
       dates.add(dateString);
     });
     dates.forEach((value) => {
